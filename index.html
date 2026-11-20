@@ -10,7 +10,7 @@
 <title>QuadreFIB — Planifica la teva carrera a la FIB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Caveat:wght@500;700&display=swap">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='22 40 156 124' width='156' height='124'%3E%3Cg fill='%23ff7a93'%3E %3Cellipse cx='36' cy='72' rx='8' ry='20' transform='rotate(-38 36 72)'/%3E %3Cellipse cx='28' cy='96' rx='8' ry='20' transform='rotate(-82 28 96)'/%3E %3Cellipse cx='36' cy='120' rx='8' ry='19' transform='rotate(-128 36 120)'/%3E %3Cellipse cx='164' cy='72' rx='8' ry='20' transform='rotate(38 164 72)'/%3E %3Cellipse cx='172' cy='96' rx='8' ry='20' transform='rotate(82 172 96)'/%3E %3Cellipse cx='164' cy='120' rx='8' ry='19' transform='rotate(128 164 120)'/%3E %3C/g%3E %3Cellipse cx='100' cy='100' rx='62' ry='52' fill='%23ffc9d6'/%3E %3Ccircle cx='78' cy='100' r='8' fill='%2323233a'/%3E%3Ccircle cx='122' cy='100' r='8' fill='%2323233a'/%3E %3Cpath d='M90 120 Q100 130 110 120' fill='none' stroke='%2323233a' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
 <style>
 /* ==========================================================================
@@ -77,7 +77,33 @@
   --gap-5: 2.5rem;
   --gap-6: 4rem;
   --gutter: clamp(16px, 5vw, 32px);
-  --nav-h: 65px; /* 64px de contingut + 1px de vora inferior del header */
+  --nav-h: 65px; /* 63px de contingut + 2px de vora inferior (tinta) del header */
+
+  /* ---- Design v2 «El quadern de la FIB» (clar = paper de llibreta, tinta fosca) ---- */
+  --ink: #23233a;           /* tinta/contorn (=ull d'Axo). 14:1 sobre paper */
+  --ink-soft: #4a4a6e;      /* tinta suau, text secundari sobre paper/post-its (7.4:1 sobre paper) */
+  --hl: #fbe97a;            /* subratllador; text damunt = --hl-ink (12:1) */
+  --hl-ink: #23233a;
+  --paper: #fdfdfb;         /* full de llibreta */
+  --paper-2: #eef0f8;       /* full alternatiu (blau-gris) */
+  --paper-line: #c9d1ee;    /* ratlles / quadrícula (decoratiu) */
+  --paper-margin: #e8607a;  /* marge vermell (decoratiu) */
+  --note-yellow: #fff2a8;   /* post-its: text --ink >= 11:1 */
+  --note-pink: #ffd1e0;
+  --note-mint: #c9f2dc;
+  --note-lilac: #dcd8ff;
+  --tape: rgb(255 190 60 / .55);  /* washi semitransparent */
+  --stroke: 2px;
+  --hard-shadow: 4px 4px 0 var(--ink);
+  --hard-shadow-s: 2px 2px 0 var(--ink);
+  --font-hand: "Caveat", "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+  --rot-1: -.8deg;
+  --rot-2: 1deg;
+  --rot-3: -1.5deg;
+  --sticker-edge: #ffffff;  /* vora die-cut de les pegatines */
+  --polaroid: #fffefb;      /* marc polaroid (paper fotogràfic, igual en fosc) */
+  --polaroid-ink: #23233a;
+  --grain-opacity: .025;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -106,15 +132,42 @@
 
     --shadow-1: 0 1px 2px rgb(0 0 0 / .35), 0 4px 14px rgb(0 0 0 / .25);
     --shadow-2: 0 2px 4px rgb(0 0 0 / .35), 0 18px 48px -10px rgb(0 0 0 / .6);
+
+    /* «quadern de nit»: paper blau-nit, tinta clara, marcador que brilla */
+    --ink: #ececf9;           /* 13.7:1 sobre paper */
+    --ink-soft: #b4b4d8;      /* 8:1 sobre paper */
+    --hl: #e0c95c;
+    --hl-ink: #1a1a2e;        /* 10:1 sobre hl */
+    --paper: #1a1a36;
+    --paper-2: #212147;
+    --paper-line: #2d2d5a;
+    --paper-margin: #c4566f;
+    --note-yellow: #4c4318;   /* post-its de nit: text --ink >= 8:1 */
+    --note-pink: #55233f;
+    --note-mint: #1f4d3b;
+    --note-lilac: #3b3680;
+    --tape: rgb(255 214 90 / .34);
+    --hard-shadow: 4px 4px 0 #4a4a96;   /* ombra dura indigo (la tinta és clara) */
+    --hard-shadow-s: 2px 2px 0 #4a4a96;
+    --sticker-edge: #f4f3ff;
+    --grain-opacity: .035;
   }
 }
 
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 12px); }
+html {
+  -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 12px);
+  scrollbar-color: var(--ink-soft) var(--paper-2);
+}
 body {
   margin: 0;
-  background: var(--bg);
+  background-color: var(--bg);
+  /* paper quadriculat molt tènue a tota la pàgina */
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--paper-line) 16%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--paper-line) 16%, transparent) 1px, transparent 1px);
+  background-size: 32px 32px;
   color: var(--fg);
   font-family: var(--font-body);
   font-size: var(--step-0);
@@ -125,6 +178,14 @@ body {
   font-variant-ligatures: none;
   overflow-x: clip;
 }
+/* gra de paper estàtic (feTurbulence), opacitat via --grain-opacity */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: 900; pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .55 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+::selection { background: var(--hl); color: var(--hl-ink); }
 h1, h2, h3, h4, p, ul, ol, figure, blockquote { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
 h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.1; letter-spacing: -.02em; text-wrap: balance; }
@@ -143,9 +204,10 @@ button { cursor: pointer; }
 }
 .skip-link {
   position: fixed; left: var(--gutter); top: -100px; z-index: 1000;
-  padding: .7rem 1.1rem; border-radius: var(--radius-m);
+  padding: .7rem 1.1rem; border-radius: var(--radius-s);
   background: var(--accent); color: var(--accent-ink);
-  font-weight: 600; text-decoration: none; box-shadow: var(--shadow-2);
+  border: var(--stroke) solid var(--ink); box-shadow: var(--hard-shadow);
+  font-weight: 600; text-decoration: none;
   transition: top .15s ease;
 }
 .skip-link:focus, .skip-link:focus-visible { top: 12px; outline-offset: 2px; }
@@ -158,30 +220,44 @@ button { cursor: pointer; }
   font-family: var(--font-mono); font-size: var(--step--1); font-weight: 600;
   letter-spacing: .12em; text-transform: uppercase; color: var(--accent-text);
 }
-.h2 { font-size: var(--step-4); font-weight: 700; }
+.h2 { font-size: var(--step-4); font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
 .lead { font-size: var(--step-1); color: var(--fg-muted); max-width: 60ch; line-height: 1.55; }
 
-/* ---------- Buttons ---------- */
+/* ---------- Buttons: contorn de tinta + ombra dura ---------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
   min-height: 48px; padding: .7rem 1.4rem;
-  border: 1.5px solid transparent; border-radius: var(--radius-m);
-  font-weight: 600; font-size: var(--step-0); line-height: 1.2; text-decoration: none;
-  transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease, border-color .15s ease;
+  border: 1.5px solid var(--ink); border-radius: var(--radius-s);
+  font-weight: 700; font-size: var(--step-0); line-height: 1.2; text-decoration: none;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: transform .12s ease, box-shadow .12s ease, background-color .15s ease;
 }
-.btn-primary { background: var(--accent); color: var(--accent-ink); box-shadow: var(--shadow-1); }
-.btn-primary:hover { background: color-mix(in srgb, var(--accent) 86%, var(--fg)); transform: translateY(-1px); box-shadow: var(--shadow-2); }
-.btn-primary:active { transform: translateY(0); }
-.btn-ghost { background: transparent; color: var(--fg); border-color: var(--border); }
-.btn-ghost:hover { background: var(--surface-2); border-color: var(--accent); }
+.btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
+.btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-ghost { background: var(--paper); color: var(--ink); }
+@media (prefers-color-scheme: dark) {
+  .btn { box-shadow: 3px 3px 0 #4a4a96; }
+  .btn:hover { box-shadow: 4px 4px 0 #4a4a96; }
+  .btn:active { box-shadow: 1px 1px 0 #4a4a96; }
+}
 
-/* ---------- Card / chip / badge ---------- */
+/* ---------- Card (plana, SENSE padding) / ink-card (contorn + ombra dura) / chip ---------- */
 .card {
   background: var(--surface); border: 1px solid var(--border);
   border-radius: var(--radius-l); box-shadow: var(--shadow-1);
   transition: transform .2s ease, box-shadow .2s ease;
 }
 @media (hover: hover) { .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); } }
+
+.ink-card {
+  background: var(--paper); color: var(--fg);
+  border: var(--stroke) solid var(--ink); border-radius: var(--radius-m);
+  box-shadow: var(--hard-shadow);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+@media (hover: hover) { .ink-card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); } }
+@media (hover: hover) and (prefers-color-scheme: dark) { .ink-card:hover { box-shadow: 6px 6px 0 #4a4a96; } }
 
 .chip {
   display: inline-flex; align-items: center; gap: .35rem;
@@ -201,17 +277,38 @@ button { cursor: pointer; }
 }
 .sample-badge::before { content: ""; width: .45rem; height: .45rem; border-radius: 50%; background: var(--coral); }
 
-/* ---------- Bafarada d'Axo (cua a l'esquerra per defecte; .bubble--down = cua avall) ---------- */
+/* ==========================================================================
+   Bafarada d'Axo
+   - Per defecte (= .bubble--left): cua a l'ESQUERRA (Axo a l'esquerra).
+   - .bubble--right: cua a la DRETA (Axo a la dreta de la bafarada).
+   - .bubble--down: cua avall.
+   - Alçada de la cua: variable --tail-top (distància des de dalt) o, per defecte, 18px des de baix.
+   - .axo-says: fila flex Axo + bafarada amb la cua a la BOCA d'Axo (boca ≈ 62 % de l'alçada
+     de l'svg de l'sprite de cos sencer): la bafarada es centra a (--axo-size * .62).
+   ========================================================================== */
 .bubble {
   position: relative; min-width: 0;
-  padding: .8rem 1.1rem; border-radius: var(--radius-l);
-  background: var(--surface); color: var(--fg);
-  border: 1.5px solid var(--border); box-shadow: var(--shadow-1);
+  padding: .8rem 1.1rem; border-radius: var(--radius-m);
+  background: var(--paper); color: var(--fg);
+  border: var(--stroke) solid var(--ink); box-shadow: var(--hard-shadow-s);
   font-size: var(--step-0); font-weight: 500; line-height: 1.4;
 }
-.bubble::before, .bubble::after { content: ""; position: absolute; width: 14px; height: 14px; transform: rotate(45deg); }
-.bubble::before { left: -8px; bottom: 18px; background: var(--surface); border-left: 1.5px solid var(--border); border-bottom: 1.5px solid var(--border); }
-.bubble--down::before { left: 28px; bottom: -8px; border-left: 0; border-top: 0; border-right: 1.5px solid var(--border); border-bottom: 1.5px solid var(--border); }
+.bubble::before { content: ""; position: absolute; width: 14px; height: 14px; transform: rotate(45deg); background: var(--paper); }
+.bubble::before, .bubble--left::before {
+  left: -9px; right: auto; bottom: var(--tail-bottom, 18px); top: var(--tail-top, auto);
+  border-left: var(--stroke) solid var(--ink); border-bottom: var(--stroke) solid var(--ink); border-top: 0; border-right: 0;
+}
+.bubble--right::before {
+  right: -9px; left: auto; bottom: var(--tail-bottom, 18px); top: var(--tail-top, auto);
+  border-right: var(--stroke) solid var(--ink); border-top: var(--stroke) solid var(--ink); border-left: 0; border-bottom: 0;
+}
+.bubble--down::before {
+  left: 28px; right: auto; top: auto; bottom: -9px;
+  border-right: var(--stroke) solid var(--ink); border-bottom: var(--stroke) solid var(--ink); border-left: 0; border-top: 0;
+}
+.axo-says { display: flex; align-items: flex-start; gap: var(--gap-3); --tail-top: calc(50% - 7px); }
+.axo-says > .bubble { margin-top: calc(var(--axo-size, 96px) * .62); translate: 0 -50%; }
+.axo-says--right { flex-direction: row-reverse; }
 
 /* ---------- Axo ---------- */
 .axo { display: block; width: var(--axo-size, 96px); height: auto; flex: none; overflow: visible; }
@@ -228,51 +325,244 @@ button { cursor: pointer; }
   transition-delay: var(--reveal-delay, 0ms);
 }
 
+/* ==========================================================================
+   KIT «QUADERN»  (documentat a TOOLKIT.md)
+   Totes les rotacions usen la propietat individual `rotate:` (no `transform`)
+   perquè no xoquin amb .reveal (que usa transform). Defineix --r per canviar l'angle.
+   ========================================================================== */
+
+/* ---- Subratllador irregular (.hl): posar-lo a 1-3 paraules ---- */
+.hl { position: relative; display: inline-block; isolation: isolate; padding-inline: .14em; color: var(--hl-ink); }
+.hl::before {
+  content: ""; position: absolute; z-index: -1; inset: .06em -.04em -.02em; background: var(--hl);
+  rotate: -.5deg; transform-origin: left center;
+  clip-path: polygon(0 18%, 20% 12%, 45% 15%, 70% 10%, 100% 16%, 100% 84%, 75% 90%, 50% 86%, 25% 92%, 0 86%);
+}
+.hl--pink, .hl--mint, .hl--lilac { color: var(--ink); }
+.hl--pink::before { background: var(--note-pink); }
+.hl--mint::before { background: var(--note-mint); }
+.hl--lilac::before { background: var(--note-lilac); }
+.is-armed .hl::before { transform: scaleX(0); }
+.is-armed.is-in .hl::before { transform: scaleX(1); transition: transform .6s cubic-bezier(.3, .7, .2, 1) .35s; }
+
+/* ---- Subratllat ondulat / garabat (.squiggle = .underline-wavy) i cercle de boli (.circled) ---- */
+.squiggle, .underline-wavy {
+  text-decoration: underline wavy var(--squiggle, var(--coral)) .09em;
+  text-underline-offset: .22em; text-decoration-skip-ink: none;
+}
+.circled { position: relative; display: inline-block; isolation: isolate; padding-inline: .2em; }
+.circled::after {
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  inset: -.14em -.06em -.1em; border: .07em solid var(--circle, var(--coral));
+  border-radius: 55% 45% 60% 40% / 52% 62% 38% 48%; rotate: -1.5deg;
+}
+.is-armed .circled::after { clip-path: inset(0 100% 0 0); }
+.is-armed.is-in .circled::after { clip-path: inset(-10% -10% -10% -10%); transition: clip-path .7s ease .6s; }
+
+/* ---- Nota a mà (.note): 3-6 paraules, decorativa ---- */
+.note {
+  display: inline-block; font-family: var(--font-hand); font-weight: 700;
+  font-size: clamp(1.25rem, 1.1rem + .6vw, 1.6rem); line-height: 1.05;
+  color: var(--ink); rotate: var(--r, var(--rot-2)); white-space: nowrap;
+}
+.note--accent { color: var(--accent-text); }
+.note--pink { color: var(--pink); }
+.note--coral { color: var(--coral); }
+
+/* ---- Post-it (.sticky) amb cantonada doblegada ---- */
+.sticky {
+  --n: var(--note-yellow);
+  position: relative; display: block; padding: 1rem 1.1rem 1.3rem; max-width: 100%;
+  color: var(--ink); font-family: var(--font-hand); font-weight: 700; font-size: 1.3rem; line-height: 1.1;
+  background: linear-gradient(315deg, transparent 18px, var(--n) 18px);
+  filter: drop-shadow(2px 4px 4px rgb(30 30 70 / .25));
+  rotate: var(--r, var(--rot-1)); transition: rotate .2s ease, translate .2s ease;
+}
+.sticky::after {
+  content: ""; position: absolute; right: 0; bottom: 0; width: 18px; height: 18px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--n) 78%, #000) 50%, transparent 50%);
+}
+.sticky--yellow { --n: var(--note-yellow); }
+.sticky--pink { --n: var(--note-pink); }
+.sticky--mint { --n: var(--note-mint); }
+.sticky--lilac { --n: var(--note-lilac); }
+@media (hover: hover) { .sticky:hover { rotate: calc(var(--r, var(--rot-1)) * -.5); translate: 0 -3px; } }
+@media (prefers-color-scheme: dark) { .sticky { filter: drop-shadow(2px 4px 4px rgb(0 0 0 / .5)); } }
+.sticky.is-armed.is-in { animation: a-stick .55s cubic-bezier(.3, 1.6, .5, 1) both; animation-delay: var(--reveal-delay, 0ms); }
+@keyframes a-stick { 0% { translate: 0 -8px; rotate: calc(var(--r, var(--rot-1)) + 3deg); } 100% { translate: 0 0; rotate: var(--r, var(--rot-1)); } }
+
+/* ---- Cinta washi (.tape): posar dins un pare position:relative ---- */
+.tape {
+  position: absolute; top: -13px; left: 50%; width: 92px; height: 26px; margin-left: -46px; z-index: 2;
+  background: repeating-linear-gradient(45deg, var(--tape) 0 7px, color-mix(in srgb, var(--tape) 55%, transparent) 7px 14px);
+  clip-path: polygon(0 0, 100% 0, 98% 22%, 100% 46%, 97% 72%, 100% 100%, 0 100%, 2% 76%, 0 50%, 3% 24%);
+  rotate: var(--r, -1.5deg); pointer-events: none;
+}
+.tape--dots { background: radial-gradient(circle, color-mix(in srgb, var(--ink) 35%, transparent) 1.5px, transparent 2px) 0 0 / 9px 9px, var(--tape); }
+.tape--pink { --tape: rgb(255 130 170 / .55); }
+@media (prefers-color-scheme: dark) { .tape--pink { --tape: rgb(255 140 180 / .34); } }
+
+/* ---- Segell (.stamp): majúscules, doble vora, color via --stamp ---- */
+.stamp {
+  --stamp: var(--pink);
+  display: inline-block; padding: .2em .7em; color: var(--stamp);
+  font-family: var(--font-mono); font-weight: 700; font-size: var(--step--1); letter-spacing: .14em; text-transform: uppercase; line-height: 1.3;
+  border: 3px double var(--stamp); border-radius: 6px; rotate: var(--r, var(--rot-3)); white-space: nowrap;
+}
+.stamp--accent { --stamp: var(--accent-text); }
+.stamp--ok { --stamp: var(--ok); }
+.stamp--coral { --stamp: var(--coral); }
+.stamp--warn { --stamp: var(--warn); }
+
+/* ---- Pegatina die-cut (.sticker): vora blanca gruixuda; text curt ---- */
+.sticker {
+  --s: var(--accent); --s-ink: var(--accent-ink);
+  display: inline-flex; align-items: center; justify-content: center; text-align: center; flex: none;
+  width: var(--sticker-size, 76px); aspect-ratio: 1; padding: .3rem;
+  background: var(--s); color: var(--s-ink); border: 5px solid var(--sticker-edge); border-radius: 50%;
+  font-family: var(--font-display); font-weight: 800; font-size: .95rem; line-height: 1; letter-spacing: -.01em;
+  box-shadow: 0 3px 8px rgb(20 20 60 / .3); rotate: var(--r, var(--rot-1));
+  transition: rotate .2s ease, scale .2s ease;
+}
+.sticker--pink { --s: var(--pink); }
+.sticker--coral { --s: var(--coral); }
+.sticker--ok { --s: var(--ok); --s-ink: var(--paper); }
+.sticker--hl { --s: var(--hl); --s-ink: var(--hl-ink); }
+.sticker--rect { aspect-ratio: auto; width: auto; border-radius: 14px; padding: .55rem .9rem; }
+@media (hover: hover) { .sticker:hover { rotate: calc(var(--r, var(--rot-1)) * -1.6); scale: 1.06; } }
+
+/* ---- Polaroid (.polaroid > .polaroid-img + figcaption) ---- */
+.polaroid {
+  display: block; padding: .65rem .65rem 0; background: var(--polaroid); color: var(--polaroid-ink);
+  box-shadow: 0 2px 3px rgb(20 20 60 / .2), 0 10px 22px -8px rgb(20 20 60 / .4);
+  rotate: var(--r, var(--rot-1)); transition: rotate .2s ease, translate .2s ease;
+}
+.polaroid-img { display: block; aspect-ratio: 1; background: var(--paper-2); overflow: hidden; border: 1px solid rgb(0 0 0 / .08); }
+.polaroid figcaption { padding: .5rem .25rem .7rem; text-align: center; font-family: var(--font-hand); font-weight: 700; font-size: 1.3rem; line-height: 1.1; }
+@media (hover: hover) { .polaroid:hover { rotate: calc(var(--r, var(--rot-1)) * -.5); translate: 0 -3px; } }
+
+/* ---- Paper de llibreta: .paper (+ --ruled | --grid), .paper-2, .spiral ---- */
+.paper { position: relative; background-color: var(--paper); color: var(--fg); }
+.paper-2 { position: relative; background-color: var(--paper-2); color: var(--fg); }
+.paper--ruled {
+  --lh: 1.9rem;
+  background-image:
+    linear-gradient(90deg, transparent calc(2.6rem - 1px), var(--paper-margin) calc(2.6rem - 1px) calc(2.6rem + 1px), transparent calc(2.6rem + 1px)),
+    repeating-linear-gradient(to bottom, transparent 0 calc(var(--lh) - 1px), var(--paper-line) calc(var(--lh) - 1px) var(--lh));
+  padding-left: 3.4rem;
+}
+.paper--grid {
+  background-image:
+    linear-gradient(to right, var(--paper-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--paper-line) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.spiral { position: relative; padding-left: max(2.6rem, var(--spiral-pad, 0px)); }
+.spiral::before {
+  content: ""; position: absolute; left: 9px; top: 14px; bottom: 14px; width: 16px; pointer-events: none;
+  background: radial-gradient(circle at 8px 11px, var(--bg) 0 4.5px, var(--ink) 5px 6.5px, transparent 7px) 0 0 / 16px 26px repeat-y;
+}
+
+/* ---- Vores esquinçades: .torn-top / .torn-bottom (canvien de paper entre seccions) ----
+   Fan margin negatiu de 12px perquè la secció veïna es vegi pel tall.
+   Compte: clip-path retalla també el que sobresurti de la secció. */
+.torn-top {
+  position: relative; z-index: 1; margin-top: -6px;
+  clip-path: polygon(0 4px, 2% 2px, 5% 5px, 8% 1px, 12% 4px, 15% 1px, 19% 4px, 23% 2px, 27% 5px, 31% 1px, 35% 4px, 38% 0, 42% 4px, 46% 2px, 50% 5px, 54% 1px, 58% 4px, 62% 1px, 66% 5px, 70% 2px, 74% 4px, 78% 1px, 82% 4px, 86% 2px, 90% 5px, 94% 1px, 97% 4px, 100% 2px, 100% 100%, 0 100%);
+}
+.torn-bottom {
+  position: relative; z-index: 2; margin-bottom: -6px;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 3px), 97% calc(100% - 5px), 94% calc(100% - 1px), 90% calc(100% - 4px), 86% calc(100% - 1px), 82% calc(100% - 4px), 78% calc(100% - 2px), 74% calc(100% - 5px), 70% calc(100% - 1px), 66% calc(100% - 4px), 62% calc(100% - 2px), 58% calc(100% - 5px), 54% calc(100% - 1px), 50% calc(100% - 4px), 46% calc(100% - 2px), 42% calc(100% - 5px), 38% calc(100% - 1px), 35% calc(100% - 4px), 31% calc(100% - 2px), 27% calc(100% - 5px), 23% calc(100% - 1px), 19% calc(100% - 4px), 15% calc(100% - 2px), 12% calc(100% - 5px), 8% calc(100% - 1px), 5% calc(100% - 4px), 2% calc(100% - 2px), 0 calc(100% - 4px));
+}
+
+/* ---- Marquee / ticker (.marquee > .marquee-track > .marquee-group ×2; el 2n és aria-hidden i el clona JS) ---- */
+.marquee { --marquee-dur: 45s; --marquee-gap: 1.6rem; overflow: hidden; display: flex; }
+.marquee-track { display: flex; flex: none; width: max-content; animation: a-marquee var(--marquee-dur) linear infinite; }
+.marquee-group { display: flex; align-items: center; flex: none; gap: var(--marquee-gap); padding-right: var(--marquee-gap); }
+.marquee-item { font-family: var(--font-mono); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; }
+.marquee-sep { --deco-w: 1.1rem; --deco-color: var(--hl); }
+.marquee:hover .marquee-track, .marquee:focus-within .marquee-track { animation-play-state: paused; }
+@keyframes a-marquee { to { transform: translateX(-50%); } }
+
+/* ---- Símbols decoratius: <svg class="deco deco--wave" aria-hidden="true"><use href="#a-deco-wave"/></svg> ---- */
+.deco {
+  display: inline-block; flex: none; width: var(--deco-w, 3rem); height: auto; overflow: visible;
+  color: var(--deco-color, var(--accent-text));
+  fill: none; stroke: currentColor; stroke-width: var(--deco-sw, 3); stroke-linecap: round; stroke-linejoin: round;
+  pointer-events: none;
+}
+.deco--wave { aspect-ratio: 120 / 16; }
+.deco--arrow-r, .deco--arrow-u { aspect-ratio: 100 / 60; }
+.deco--arrow-d { aspect-ratio: 60 / 100; }
+.deco--star, .deco--spiral, .deco--corner { aspect-ratio: 1; }
+.deco--strike { aspect-ratio: 100 / 30; }
+.deco--circle { aspect-ratio: 120 / 70; }
+.deco--check { aspect-ratio: 50 / 40; }
+.deco--qmark { aspect-ratio: 36 / 60; }
+.deco--exclam { aspect-ratio: 24 / 60; }
+.deco--bracket { aspect-ratio: 24 / 100; }
+.deco--pin { aspect-ratio: 40 / 52; }
+.deco--clip { aspect-ratio: 30 / 70; }
+.deco--flip { scale: -1 1; }
+.deco--accent { --deco-color: var(--accent-text); }
+.deco--coral { --deco-color: var(--coral); }
+.deco--pink { --deco-color: var(--pink); }
+.deco--ink { --deco-color: var(--ink); }
+.deco--hl { --deco-color: var(--hl); }
+/* «dibuixat» al entrar: el pare (o el mateix svg) amb .reveal -> .is-armed -> .is-in */
+.is-armed .deco--draw, .deco--draw.is-armed { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.is-armed.is-in .deco--draw, .deco--draw.is-armed.is-in { stroke-dashoffset: 0; transition: stroke-dashoffset .9s ease-out calc(var(--reveal-delay, 0ms) + .25s); }
+
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .reveal.is-armed { opacity: 1; transform: none; }
   .axo .eyes, .eyes { animation: none !important; }
+  .is-armed .hl::before { transform: none; }
+  .is-armed .circled::after { clip-path: none; }
+  .is-armed .deco--draw, .deco--draw.is-armed { stroke-dasharray: none; stroke-dashoffset: 0; }
+  .marquee { overflow: visible; }
+  .marquee-track { width: auto; flex-wrap: wrap; justify-content: center; }
+  .marquee-group[aria-hidden="true"] { display: none; }
 }
 
 /* ==========================================================================
-   a.css — navbar (nav-), hero (hero-), planner del hero (pl-)
+   a.css — navbar (nav-), hero (hero-), planner del hero (pl-), ticker (tick-)
    ========================================================================== */
 
-/* ---------- Navbar ---------- */
+/* ---------- Navbar: full de paper amb vora de tinta ---------- */
 .nav {
   position: fixed; inset: 0 0 auto 0; z-index: 50;
-  background: color-mix(in srgb, var(--bg) 86%, transparent);
-  -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4);
-  border-bottom: 1px solid transparent;
-  transition: box-shadow .2s ease, border-color .2s ease;
+  background: var(--paper);
+  transition: box-shadow .2s ease;
 }
-.nav.is-scrolled { border-bottom-color: var(--border); box-shadow: var(--shadow-1); }
-.nav-inner { display: flex; align-items: center; gap: var(--gap-3); height: calc(var(--nav-h) - 1px); }
+.nav.is-scrolled { box-shadow: 0 4px 0 color-mix(in srgb, var(--ink) 14%, transparent); }
+.nav-top { position: relative; height: var(--nav-h); border-bottom: var(--stroke) solid var(--ink); }
+.nav-inner { display: flex; align-items: center; gap: var(--gap-3); height: calc(var(--nav-h) - 2px); padding-bottom: 12px; }
 .nav-brand {
   display: inline-flex; align-items: center; gap: .5rem; min-height: 44px; margin-right: auto;
   color: var(--fg); text-decoration: none;
-  font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; line-height: 1; letter-spacing: -.02em;
+  font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; line-height: 1; letter-spacing: -.03em;
 }
 .nav-brand-text { display: block; }
-/* icono ≈ 1,6× la altura de versal (cap ≈ .7em = 15px): 30×24px; -1px = centro óptico de las versales */
+/* icona ≈ 1,6× l'alçada de versal (cap ≈ .7em = 15px): 30×24px; -1px = centre òptic de les versals */
 .nav-logo { --axo-size: 30px; transform: translateY(-1px); }
 .nav-links, .nav-cta { display: none; }
 .nav-links a {
   display: inline-flex; align-items: center; min-height: 44px; padding-inline: .9rem;
-  color: var(--fg-muted); font-weight: 500; text-decoration: none; border-radius: var(--radius-s);
-  transition: color .15s ease, background-color .15s ease;
+  color: var(--fg); font-weight: 600; text-decoration: none; border-radius: var(--radius-s);
 }
-.nav-links a:hover { color: var(--fg); background: var(--surface-2); }
+.nav-links a:hover { color: var(--hl-ink); background: linear-gradient(transparent 52%, var(--hl) 52% 88%, transparent 88%); }
 .nav-cta { min-height: 44px; padding-block: .5rem; }
 
 .nav-toggle {
   display: inline-flex; align-items: center; justify-content: center;
   width: 44px; height: 44px; padding: 0;
-  background: transparent; border: 1.5px solid var(--border); border-radius: var(--radius-m); color: var(--fg);
+  background: var(--paper); border: var(--stroke) solid var(--ink); border-radius: var(--radius-s); color: var(--ink);
+  box-shadow: var(--hard-shadow-s);
 }
-.nav-toggle:hover { background: var(--surface-2); }
+.nav-toggle:active { translate: 1px 1px; box-shadow: none; }
 .nav-toggle-bars, .nav-toggle-bars::before, .nav-toggle-bars::after {
   display: block; width: 18px; height: 2px; border-radius: 2px; background: currentColor;
   transition: transform .2s ease, opacity .2s ease;
@@ -285,13 +575,27 @@ button { cursor: pointer; }
 .nav-toggle[aria-expanded="true"] .nav-toggle-bars::before { top: 0; transform: rotate(45deg); }
 .nav-toggle[aria-expanded="true"] .nav-toggle-bars::after { top: 0; transform: rotate(-45deg); }
 
-.nav-menu { background: var(--surface); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-2); padding-block: var(--gap-3) var(--gap-4); }
+.nav-menu { background: var(--paper); border-bottom: var(--stroke) solid var(--ink); padding-block: var(--gap-3) var(--gap-4); }
 .nav-menu .wrap { display: grid; gap: var(--gap-3); }
 .nav-menu-links { display: grid; }
 .nav-menu-links a {
-  display: flex; align-items: center; min-height: 48px; color: var(--fg); font-weight: 600;
-  font-size: var(--step-1); text-decoration: none; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; min-height: 48px; color: var(--fg); font-weight: 700;
+  font-size: var(--step-1); text-decoration: none; border-bottom: 1.5px dashed var(--paper-line);
 }
+
+/* Barra de progrés de scroll (decorativa). --p (0..1) la posa a.js al .nav.
+   Les peces es posen sobre la vora de tinta; no canvien l'alçada de 65px. */
+.nav-progress { position: absolute; left: 0; right: 0; bottom: -2px; height: 4px; pointer-events: none; }
+.nav-progress-bar { position: absolute; inset: 0; background: var(--accent); transform-origin: left center; transform: scaleX(var(--p, 0)); }
+.nav-progress-axo {
+  position: absolute; bottom: 100%; width: 18px; left: calc((100% - 46px) * var(--p, 0));
+  rotate: 7deg; transform-origin: 50% 100%;
+}
+.nav-progress-axo .axo { --axo-size: 18px; }
+.nav.is-moving .nav-progress-axo { animation: a-walk .32s ease-in-out infinite; }
+@keyframes a-walk { 0%, 100% { translate: 0 0; rotate: 4deg; } 50% { translate: 0 -2px; rotate: 10deg; } }
+.nav-progress-cap { position: absolute; right: 6px; bottom: 100%; width: 17px; height: auto; fill: none; stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.nav-progress-cap circle { fill: var(--ink); stroke: none; }
 
 @media (min-width: 900px) {
   .nav-links { display: flex; gap: var(--gap-1); }
@@ -301,87 +605,112 @@ button { cursor: pointer; }
   .nav-inner { justify-content: space-between; }
   .nav-links { margin-inline: auto; }
 }
-
-/* ---------- Hero ---------- */
-.hero {
-  position: relative; overflow: hidden;
-  padding-top: calc(var(--nav-h) + clamp(2rem, 5vw, 4.5rem));
-  padding-bottom: clamp(3rem, 7vw, 6rem);
-  /* quadrícula tènue: «quadre» */
-  background-image:
-    linear-gradient(to right, color-mix(in srgb, var(--accent) 9%, transparent) 1px, transparent 1px),
-    linear-gradient(to bottom, color-mix(in srgb, var(--accent) 9%, transparent) 1px, transparent 1px);
-  background-size: 44px 44px;
-  background-position: center top;
-  -webkit-mask-image: none;
+@media (prefers-reduced-motion: reduce) {
+  .nav-progress-axo, .nav-progress-cap { display: none; }
 }
-.hero::before, .hero::after { content: ""; position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
-.hero::before { width: 420px; height: 420px; right: -160px; top: 40px; background: radial-gradient(closest-side, color-mix(in srgb, var(--pink) 28%, transparent), transparent); }
-.hero::after { width: 360px; height: 360px; left: -170px; bottom: -60px; background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 24%, transparent), transparent); }
-.hero-grid { position: relative; z-index: 1; display: grid; gap: var(--gap-5); align-items: center; }
-.hero-copy { display: grid; gap: var(--gap-3); justify-items: start; min-width: 0; }
-.hero-title { font-size: var(--step-5); font-weight: 800; letter-spacing: -.035em; line-height: 1.02; max-width: 16ch; overflow-wrap: break-word; }
-.hero-sub { max-width: 52ch; }
-.hero-ctas { display: flex; flex-wrap: wrap; gap: var(--gap-3); margin-top: var(--gap-2); }
 
-.hero-visual { display: grid; gap: var(--gap-3); min-width: 0; }
-.hero-axo { display: flex; align-items: flex-end; gap: var(--gap-3); padding-inline: var(--gap-2); }
-.hero-axo-img { --axo-size: 104px; transform-origin: 50% 90%; animation: hero-sway 5s ease-in-out infinite; }
-.hero-bubble { margin-bottom: 1.6rem; max-width: 26ch; }
+/* ---------- Hero: quadre de llibreta ---------- */
+.hero {
+  position: relative; overflow-x: clip;
+  padding-top: calc(var(--nav-h) + clamp(2.5rem, 5vw, 4.5rem));
+  padding-bottom: clamp(4.5rem, 8vw, 7rem);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(to right, var(--paper-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--paper-line) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: -1px -1px;
+}
+.hero-grid { position: relative; z-index: 1; display: grid; gap: var(--gap-6); align-items: center; }
+.hero-copy { position: relative; display: grid; gap: var(--gap-4); justify-items: start; min-width: 0; }
+.hero-eyebrow { --r: -2deg; }
+.hero-eyebrow .stamp { --r: -1deg; background: var(--paper); }
+.hero-title {
+  font-size: clamp(2.7rem, 1.5rem + 5.6vw, 5.2rem); font-weight: 800;
+  letter-spacing: -.045em; line-height: .98; max-width: 12em; overflow-wrap: break-word;
+}
+.hero-sub { margin-top: .7rem; max-width: 50ch; font-size: var(--step-1); color: var(--ink-soft); }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: var(--gap-3) var(--gap-4); margin-top: var(--gap-2); }
+
+.hero-visual { position: relative; display: grid; gap: var(--gap-4); min-width: 0; }
+.hero-st { position: absolute; z-index: 4; --sticker-size: 62px; font-size: .78rem; }
+.hero-st1 { top: -30px; right: 6px; --r: 1.5deg; }
+.hero-st2 { top: -30px; left: 4px; --r: -10deg; font-size: .72rem; }
+.hero-st3 { bottom: -30px; right: 14px; --r: -1.5deg; font-size: 1rem; }
+
+.hero-bottom { display: grid; gap: var(--gap-4); margin-top: var(--gap-3); }
+.hero-axo { padding-inline: var(--gap-2); }
+.hero-axo-img { --axo-size: 112px; transform-origin: 50% 90%; animation: hero-sway 5s ease-in-out infinite; }
+.hero-bubble { max-width: 24ch; }
+.hero-tip { justify-self: end; width: min(240px, 100%); margin-right: 8px; --r: 1deg; }
 @keyframes hero-sway { 0%, 100% { transform: rotate(-2.5deg); } 50% { transform: rotate(2.5deg) translateY(-3px); } }
 
 @media (min-width: 900px) {
-  .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--gap-6); }
-  .hero-axo { margin-top: -2.2rem; justify-content: flex-end; }
-  .hero-axo-img { --axo-size: 120px; }
+  .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--gap-5); }
+  .hero-st { --sticker-size: 72px; }
+  .hero-bottom { grid-template-columns: auto minmax(0, 1fr); align-items: end; gap: var(--gap-3); }
+  .hero-axo-img { --axo-size: 124px; }
+  .hero-tip { margin-right: 0; width: min(210px, 100%); }
 }
 
-/* ---------- Planner (maqueta) ---------- */
+/* ---------- Planner (maqueta com a full de llibreta) ---------- */
 .pl {
   --pl-pad: 6px; --pl-gap: 6px;
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-l);
-  box-shadow: var(--shadow-2); padding: var(--gap-3); display: grid; gap: var(--gap-3); min-width: 0;
+  padding: var(--gap-3); min-width: 0; display: grid; gap: var(--gap-3);
+  border: var(--stroke) solid var(--ink); border-radius: var(--radius-m); box-shadow: var(--hard-shadow);
 }
-.pl-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--gap-2); }
-.pl-title { font-family: var(--font-display); font-weight: 700; font-size: var(--step-1); letter-spacing: -.01em; }
+.pl.spiral::before { display: none; }
+.pl-tape { top: -14px; margin-left: 0; }
+.pl-tape--l { left: 24%; --r: -1.5deg; }
+.pl-tape--r { left: auto; right: 24%; --r: 1.5deg; }
+.pl-head { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: var(--gap-2); padding-top: .35rem; }
+.pl-title { font-family: var(--font-hand); font-weight: 700; font-size: 1.75rem; line-height: 1; letter-spacing: .01em; color: var(--ink); }
+.pl-hint { display: flex; flex-direction: column; align-items: flex-end; gap: 0; margin-right: .75rem; }
+.pl-hint-note { --r: 1.5deg; }
+.pl-hint-arrow { --deco-w: 1.2rem; margin-right: 1.4rem; rotate: -4deg; }
 .pl-board { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--pl-gap); }
-.pl-col { display: flex; flex-direction: column; gap: var(--pl-pad); padding: var(--pl-pad); background: var(--surface-2); border-radius: var(--radius-m); min-width: 0; }
+.pl-col {
+  display: flex; flex-direction: column; gap: var(--pl-pad); padding: var(--pl-pad); min-width: 0;
+  background-color: var(--paper-2);
+  background-image: repeating-linear-gradient(to bottom, transparent 0 21px, var(--paper-line) 21px 22px);
+  border: 1.5px solid var(--ink); border-radius: 4px;
+}
+.pl-col:nth-child(1) { rotate: -.3deg; z-index: 2; } /* per sobre: la targeta arrossegada surt de la seva columna */
+.pl-col:nth-child(2) { rotate: .2deg; }
+.pl-col:nth-child(3) { rotate: -.2deg; }
 .pl-colhead { display: flex; flex-direction: column; gap: 2px; padding: 2px 2px 4px; }
-.pl-q { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; line-height: 1; }
-.pl-per { font-size: .6rem; color: var(--fg-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.pl-sum { font-family: var(--font-mono); font-size: .66rem; font-weight: 600; color: var(--fg-muted); }
-.pl-sum--warn { color: var(--warn); }
-.pl-sum--warn::before { content: "\25B2\00a0"; font-size: .55rem; vertical-align: 1px; }
+.pl-q { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; line-height: 1; letter-spacing: -.02em; }
+.pl-per { font-size: .6rem; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pl-sum { font-family: var(--font-mono); font-size: .66rem; font-weight: 700; color: var(--ink-soft); }
 
 .pl-card, .pl-slot { min-height: 66px; border-radius: var(--radius-s); }
 .pl-card {
   --tc: var(--accent-text);
   position: relative; display: flex; flex-direction: column; gap: 1px; min-width: 0;
-  padding: 7px 7px 6px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow-1);
+  padding: 7px 7px 6px; background: var(--paper); border: 1.5px solid var(--ink-soft); box-shadow: 1px 2px 0 var(--ink-soft);
 }
 .pl-card--tr { --tc: var(--accent-text); }
 .pl-card--ob { --tc: var(--pink); }
 .pl-card--cm { --tc: var(--coral); }
 .pl-card--pr { --tc: var(--ok); }
 .pl-row { display: flex; align-items: baseline; justify-content: space-between; gap: 4px; min-width: 0; }
-.pl-code { font-family: var(--font-mono); font-weight: 600; font-size: .72rem; color: var(--fg); }
-.pl-ects { font-family: var(--font-mono); font-size: .6rem; color: var(--fg-muted); white-space: nowrap; }
+.pl-code { font-family: var(--font-mono); font-weight: 700; font-size: .72rem; color: var(--ink); }
+.pl-ects { font-family: var(--font-mono); font-size: .6rem; color: var(--ink-soft); white-space: nowrap; }
 .pl-name { font-size: .68rem; line-height: 1.25; font-weight: 500; color: var(--fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.pl-type { display: flex; align-items: center; gap: 4px; font-size: .6rem; font-weight: 600; color: var(--tc); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pl-type { display: flex; align-items: center; gap: 4px; font-size: .6rem; font-weight: 700; color: var(--tc); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pl-type::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-.pl-more { padding: 2px; font-size: .62rem; color: var(--fg-muted); text-align: center; }
 
-.pl-slot { border: 1.5px dashed var(--accent); background: var(--accent-soft); opacity: 0; animation: pl-slot 8s ease-in-out infinite; }
+.pl-slot { border: 2px dashed var(--accent-text); background: color-mix(in srgb, var(--accent-soft) 70%, transparent); opacity: 0; animation: pl-slot 8s ease-in-out infinite; }
 
 .pl-card--drag { z-index: 3; animation: pl-drag 8s cubic-bezier(.5, 0, .2, 1) infinite; }
 .pl-cursor { position: absolute; right: -4px; bottom: -14px; opacity: 0; animation: pl-cursor 8s ease-in-out infinite; pointer-events: none; }
 
 @keyframes pl-drag {
-  0%, 14% { transform: none; box-shadow: var(--shadow-1); opacity: 1; }
-  22% { transform: scale(1.05) rotate(2.5deg); box-shadow: var(--shadow-2); }
-  52% { transform: translateX(calc(100% + 2 * var(--pl-pad) + var(--pl-gap))) scale(1.05) rotate(-1.5deg); box-shadow: var(--shadow-2); }
-  60%, 80% { transform: translateX(calc(100% + 2 * var(--pl-pad) + var(--pl-gap))); box-shadow: var(--shadow-1); opacity: 1; }
-  88% { transform: translateX(calc(100% + 2 * var(--pl-pad) + var(--pl-gap))); opacity: 0; }
+  0%, 14% { transform: none; box-shadow: 1px 2px 0 var(--ink-soft); opacity: 1; }
+  22% { transform: scale(1.06) rotate(3deg); box-shadow: var(--hard-shadow); }
+  52% { transform: translateX(calc(200% + 4 * var(--pl-pad) + 2 * var(--pl-gap))) scale(1.06) rotate(-2deg); box-shadow: var(--hard-shadow); }
+  60%, 80% { transform: translateX(calc(200% + 4 * var(--pl-pad) + 2 * var(--pl-gap))); box-shadow: 1px 2px 0 var(--ink-soft); opacity: 1; }
+  88% { transform: translateX(calc(200% + 4 * var(--pl-pad) + 2 * var(--pl-gap))); opacity: 0; }
   88.1% { transform: none; opacity: 0; }
   100% { transform: none; opacity: 1; }
 }
@@ -390,6 +719,8 @@ button { cursor: pointer; }
 
 @media (min-width: 640px) {
   .pl { --pl-pad: 10px; --pl-gap: 12px; padding: var(--gap-4); }
+  .pl.spiral { padding-left: 2.6rem; }
+  .pl.spiral::before { display: block; }
   .pl-card, .pl-slot { min-height: 78px; }
   .pl-card { padding: 9px 10px 8px; }
   .pl-code { font-size: .82rem; }
@@ -406,39 +737,106 @@ button { cursor: pointer; }
 }
 .pl--paused .pl-card--drag, .pl--paused .pl-slot, .pl--paused .pl-cursor { animation-play-state: paused; }
 
-/* ===== B: problema (prob-), funcionalitats 4.1 (car-), progrés (prog-) ===== */
-/* Només consumeix tokens globals; sense literals de color. */
+/* ---------- Ticker inclinat ---------- */
+.tick { position: relative; z-index: 2; overflow-x: clip; margin-top: -1.8rem; padding-block: 2rem; }
+.tick-strip {
+  position: relative; width: 104%; margin-left: -2%; rotate: -1deg;
+  background: var(--ink); color: var(--paper); padding-block: .5rem; box-shadow: var(--hard-shadow-s);
+}
+.tick::before { content: ""; position: absolute; z-index: -1; left: -3%; right: -3%; top: 2rem; bottom: 2rem; background: var(--hl); rotate: .6deg; }
+.tick .marquee-item { font-size: clamp(.9rem, .85rem + .35vw, 1.1rem); }
+.tick .marquee-sep { --deco-color: var(--hl); }
+@media (prefers-color-scheme: dark) { .tick .marquee-sep { --deco-color: var(--paper); } }
 
-/* ---------- PROBLEMA ---------- */
-.prob-head{display:grid;gap:var(--gap-4);align-items:center;margin-bottom:var(--gap-6)}
-.prob-head-text{min-width:0}
-.prob-mascot{display:flex;align-items:flex-end;gap:var(--gap-3);min-width:0}
-.prob-mascot .bubble{flex:1 1 auto;min-width:0;margin:0}
-.prob-axo{width:clamp(96px,28vw,140px);height:auto;flex:none}
-.prob-grid{list-style:none;margin:0 0 var(--gap-6);padding:0;display:grid;gap:var(--gap-4)}
-.prob-card{display:flex;flex-direction:column;gap:var(--gap-2);padding:var(--gap-5);min-width:0;transition:transform .25s ease,box-shadow .25s ease}
-.prob-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-2)}
-.prob-card h3{margin:0;font-family:var(--font-display);font-size:var(--step-1);line-height:1.2}
-.prob-card p{margin:0;color:var(--fg-muted);font-size:var(--step-0)}
-.prob-ico{width:48px;height:48px;padding:10px;box-sizing:content-box;border-radius:var(--radius-m);background:var(--accent-soft);color:var(--accent);margin-bottom:var(--gap-2)}
-.prob-ico{width:28px;height:28px}
-.prob-card-axo{display:flex;align-items:center;gap:var(--gap-2);margin-top:auto;padding-top:var(--gap-2)}
-.prob-axo-s{width:64px;height:auto;flex:none}
-.prob-note{font-size:var(--step--1);color:var(--fg-muted);font-style:italic}
+/* ==========================================================================
+   b.css — Design v2 «El quadern de la FIB»
+   problema (prob-): tauler de post-its i tires de paper -> full amb segell
+   carrera 4.1 (car-): disseny sobri (tarjetes planes)
+   progrés (prog-): butlletí de notes amb marcador, segells i pegatines
+   Només consumeix tokens i utilitats d'A (TOOLKIT.md). Rotacions amb `rotate:` (mai transform).
+   ========================================================================== */
 
-.prob-funnel{display:flex;flex-direction:column;align-items:center;min-width:0}
-.prob-chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:var(--gap-2)}
-.prob-chip{background:var(--surface);border:1px dashed var(--border);color:var(--fg);transform:rotate(-2deg);box-shadow:var(--shadow-1);animation:prob-float 6s ease-in-out infinite}
-.prob-chip:nth-child(even){transform:rotate(2.5deg);animation-delay:-2s}
-.prob-chip:nth-child(3n){transform:rotate(-4deg);animation-delay:-4s}
-@keyframes prob-float{50%{translate:0 -4px}}
-.prob-lines{display:block;width:100%;max-width:640px;height:64px;overflow:visible}
-.prob-lines path{fill:none;stroke:var(--accent);stroke-width:1.75;stroke-dasharray:5 6;opacity:.55;animation:prob-flow 1.6s linear infinite}
-@keyframes prob-flow{to{stroke-dashoffset:-22}}
-.prob-hub{display:flex;align-items:center;gap:var(--gap-3);padding:var(--gap-4) var(--gap-5);border:2px solid var(--accent);box-shadow:var(--shadow-2);max-width:100%}
-.prob-hub-axo{width:56px;height:auto;flex:none}
-.prob-hub-name{margin:0;font-family:var(--font-display);font-weight:800;font-size:var(--step-2);color:var(--accent)}
-.prob-hub-d{margin:0;color:var(--fg);font-size:var(--step-0);font-weight:500;max-width:34rem}
+.prob, .car, .prog, .car-ghost {
+  font-feature-settings: "locl" 0, "calt" 0, "liga" 0; font-variant-ligatures: none;
+}
+.prob, .car, .prog { overflow-x: clip; }
+
+/* patró compartit: ompliment «de marcador» amb vora irregular */
+.prog-fill {
+  display: block; height: 100%; width: var(--w);
+  background: repeating-linear-gradient(-6deg, var(--hl) 0 6px, color-mix(in srgb, var(--hl) 70%, transparent) 6px 8px);
+  clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 18%, calc(100% - 4px) 42%, 100% 66%, calc(100% - 6px) 100%, 0 100%);
+  transition: width 1s cubic-bezier(.2, .8, .2, 1);
+}
+
+/* ==========================================================================
+   PROBLEMA
+   ========================================================================== */
+.prob { padding-top: calc(clamp(3.5rem, 8vw, 6.5rem) + 14px); }
+.prob-head { display: grid; gap: var(--gap-5); align-items: center; margin-bottom: var(--gap-6); }
+.prob-head-text { min-width: 0; }
+.prob-head-text .h2 { margin: var(--gap-3) 0 var(--gap-3); max-width: 18ch; }
+.prob-head-text .h2 > span { display: inline; }
+.prob-head-text .h2 > .hl { display: inline-block; }
+.prob-mascot { justify-self: end; max-width: 100%; min-width: 0; }
+.prob-mascot .bubble { max-width: 22rem; }
+
+.prob-grid { list-style: none; margin: 0 0 var(--gap-6); padding: var(--gap-4) 0 var(--gap-5); display: grid; gap: var(--gap-6) var(--gap-5); }
+.prob-pit { padding: 1.7rem 1.3rem 1.5rem; display: flex; flex-direction: column; gap: .45rem; min-width: 0; }
+.prob-pit h3 { margin: 0; font-family: var(--font-display); font-size: var(--step-1); font-weight: 800; line-height: 1.15; letter-spacing: -.02em; }
+.prob-pit p { margin: 0; font-family: var(--font-body); font-weight: 500; font-size: 1rem; line-height: 1.45; }
+.prob-ico { width: 38px; height: 38px; color: var(--ink); }
+.prob-pin { position: absolute; top: -15px; left: 50%; translate: -50% 0; --deco-w: 1.6rem; z-index: 3; }
+.prob-ann { position: absolute; z-index: 3; pointer-events: none; }
+.prob-ann--1 { top: -1.9rem; right: .8rem; }
+.prob-ann--2 { bottom: -2rem; right: 1rem; }
+.prob-ann--3 { top: -1.9rem; right: .6rem; }
+.prob-card-axo { display: flex; align-items: center; gap: var(--gap-2); margin-top: auto; padding-top: var(--gap-2); }
+.prob-axo-s { --axo-size: 64px; }
+.prob-note { font-family: var(--font-hand); font-weight: 700; font-size: 1.3rem; line-height: 1.05; color: var(--ink); rotate: -1deg; }
+
+.prob-funnel { position: relative; display: flex; flex-direction: column; align-items: center; min-width: 0; }
+.prob-chips {
+  list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem 1rem;
+  filter: drop-shadow(2px 3px 0 color-mix(in srgb, var(--ink) 30%, transparent));
+}
+.prob-chip {
+  padding: .6rem 1.15rem; color: var(--ink); background: var(--paper); rotate: var(--r, -2deg);
+  font-family: var(--font-mono); font-weight: 700; font-size: var(--step--1); text-transform: uppercase; letter-spacing: .06em; white-space: nowrap;
+  clip-path: polygon(0 0, 100% 0, 98% 25%, 100% 50%, 97% 76%, 100% 100%, 0 100%, 2% 72%, 0 46%, 3% 20%);
+  animation: prob-float 6s ease-in-out infinite;
+}
+.prob-chip--yellow { background: var(--note-yellow); }
+.prob-chip--pink { background: var(--note-pink); }
+.prob-chip--mint { background: var(--note-mint); }
+.prob-chip:nth-child(even) { animation-delay: -2s; }
+.prob-chip:nth-child(3n) { animation-delay: -4s; }
+@keyframes prob-float { 50% { translate: 0 -4px; } }
+
+.prob-lines { display: block; width: 100%; max-width: 640px; height: 64px; overflow: visible; }
+.prob-lines path, .prob-lines-js path {
+  fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-dasharray: 1 8; stroke-linecap: round; opacity: .8;
+  animation: prob-flow 1.8s linear infinite;
+}
+@keyframes prob-flow { to { stroke-dashoffset: -18; } }
+.prob-funnel { isolation: isolate; }
+.prob-chips, .prob-hub { position: relative; z-index: 1; }
+.prob-lines-js { position: absolute; left: 0; top: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: visible; }
+.prob-lines-js circle { fill: var(--accent-text); stroke: var(--paper); stroke-width: 2; }
+.prob-funnel.is-js .prob-lines { display: none; }
+.prob-funnel.is-js .prob-hub { margin-top: 60px; }
+
+.prob-hub {
+  display: flex; align-items: center; gap: 1.1rem; width: min(100%, 44rem); rotate: var(--r, -1deg);
+  padding: 2.1rem 1.5rem 1.4rem; max-width: 100%;
+}
+.prob-hub:hover { transform: none; box-shadow: var(--hard-shadow); }
+.prob-stamp { position: absolute; top: -1.05rem; right: 1rem; background: var(--paper); z-index: 2; }
+.prob-hub-axo { --axo-size: 64px; flex: none; }
+.prob-hub-b { min-width: 0; }
+.prob-hub-name { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: var(--step-3); line-height: 1; letter-spacing: -.04em; color: var(--ink); }
+.prob-hub-wave { --deco-w: 6.5rem; display: block; margin: .15rem 0 .5rem; }
+.prob-hub-d { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: var(--step-0); line-height: 1.35; color: var(--ink); }
 
 /* ---------- FUNCIONALITATS / CARRERA ---------- */
 .car-head{max-width:46rem;margin-bottom:var(--gap-5)}
@@ -547,66 +945,6 @@ button { cursor: pointer; }
 .car-rm-n{flex:1 1 140px;min-width:0;font-weight:500}
 .car-rm-q{font-family:var(--font-mono);font-size:.75rem;padding:3px 8px;border-radius:999px;background:var(--accent-soft);color:var(--fg)}
 
-/* ---------- PROGRÉS ---------- */
-.prog-head{text-align:center;margin-bottom:var(--gap-5)}
-.prog-head .h2{margin-left:auto;margin-right:auto}
-.prog-dash{padding:var(--gap-5);display:grid;gap:var(--gap-5);max-width:960px;margin:0 auto;min-width:0}
-.prog-top{display:flex;flex-wrap:wrap;gap:var(--gap-3);align-items:center;justify-content:flex-end}
-.prog-mascot{display:flex;align-items:flex-end;gap:var(--gap-2);min-width:0}
-.prog-mascot .bubble{margin:0;min-width:0}
-.prog-axo{width:84px;height:auto;flex:none}
-.prog-main{display:grid;gap:var(--gap-2)}
-.prog-big{margin:0;font-family:var(--font-display);line-height:1}
-.prog-big b{font-size:var(--step-5);font-weight:800}
-.prog-of,.prog-big>span{font-size:var(--step-2);color:var(--fg-muted);font-weight:600}
-.prog-pct{margin:0;font-family:var(--font-mono);font-weight:600;color:var(--accent)}
-.prog-bar,.prog-track{height:14px;border-radius:999px;background:var(--surface-2);border:1px solid var(--border);overflow:hidden}
-.prog-track{height:10px}
-.prog-fill{display:block;height:100%;width:var(--w);background:var(--accent);border-radius:0 4px 4px 0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
-.prog-dash.is-armed:not(.is-in) .prog-fill{width:0}
-.prog-stats{list-style:none;margin:0;padding:0;display:grid;gap:var(--gap-3)}
-.prog-stat{display:flex;align-items:center;gap:var(--gap-3);padding:var(--gap-3) var(--gap-4);background:var(--surface-2);border-radius:var(--radius-m);min-width:0}
-.prog-stat b{font-family:var(--font-display);font-size:var(--step-3);line-height:1}
-.prog-stat .prog-stat-sm{font-size:var(--step-1)}
-.prog-stat span{color:var(--fg-muted);font-size:var(--step--1);min-width:0}
-.prog-stat-ico{width:24px;height:24px;color:var(--accent);flex:none}
-.prog-rows{list-style:none;margin:0;padding:0;display:grid;gap:var(--gap-3)}
-.prog-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px var(--gap-3);align-items:baseline}
-.prog-lbl{font-weight:600;min-width:0}
-.prog-val{font-family:var(--font-mono);font-size:var(--step--1);color:var(--fg-muted)}
-.prog-track{grid-column:1/-1}
-
-@media (prefers-reduced-motion:reduce){
-  .prob-chip,.prob-lines path,.car-card.is-pop{animation:none}
-  .prog-fill,.car-countbar>i{transition:none}
-  .prob-card,.car-card,.car-mod{transition:none}
-}
-
-/* ---------- Breakpoints ---------- */
-@media (min-width:640px){
-  .prob-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .car-mods{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .car-sc-opts{grid-template-columns:1fr 1fr}
-  .car-panel{grid-template-columns:1fr 1fr}
-  .prog-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .prog-rows{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--gap-4) var(--gap-6)}
-}
-@media (min-width:900px){
-  .prob-head{grid-template-columns:minmax(0,3fr) minmax(0,2fr)}
-  .car-block{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--gap-6)}
-  .car-sc-opts{grid-template-columns:1fr}
-  .car-tl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:var(--gap-5) 0 0;gap:var(--gap-3)}
-  .car-tl::before{left:0;right:0;top:calc(var(--gap-5) + 8px);bottom:auto;width:auto;height:2px}
-  .car-tl-i{padding-top:var(--gap-4)}
-  .car-tl-dot{left:0;top:-4px}
-  .car-tl-i{margin-top:0}
-  .car-tl-end{display:flex;flex-direction:column;align-items:flex-start}
-  .prog-dash{padding:var(--gap-6)}
-  .prog-main{grid-template-columns:auto 1fr auto;align-items:center;gap:var(--gap-5)}
-}
-@media (min-width:1200px){
-  .car-sc-opts{grid-template-columns:1fr 1fr}
-}
 
 /* pista de scroll horitzontal intern (planner) */
 @media all{
@@ -634,23 +972,102 @@ button { cursor: pointer; }
 .car-move[disabled]{opacity:.55;cursor:not-allowed}
 @media (prefers-reduced-motion:reduce){.car-ghost .car-card{rotate:none}}
 
-/* línies d'unió de l'embut (calculades per JS) */
-.prob-funnel{position:relative}
-.prob-chips,.prob-hub{position:relative;z-index:1}
-.prob-lines-js{position:absolute;left:0;top:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible}
-.prob-lines-js path{fill:none;stroke:var(--accent);stroke-width:1.75;stroke-dasharray:5 6;opacity:.6;animation:prob-flow 1.6s linear infinite}
-.prob-funnel.is-js .prob-lines{display:none}
-.prob-funnel.is-js .prob-hub{margin-top:56px}
-@media (prefers-reduced-motion:reduce){.prob-lines-js path{animation:none}}
+/* ==========================================================================
+   PROGRÉS: butlletí de notes
+   ========================================================================== */
+.prog { padding-top: calc(clamp(3.5rem, 8vw, 6.5rem) + 14px); }
+.prog-head { margin-bottom: var(--gap-4); }
+.prog-head .h2 { margin: var(--gap-3) 0 0; max-width: 16ch; }
+.prog-head .h2 > span { display: inline; }
+.prog-head .h2 > .hl { display: inline-block; }
+.prog-wrap { position: relative; margin-top: 7.5rem; }
+.prog-peek { position: absolute; right: .8rem; bottom: calc(100% - 16px); z-index: 0; max-width: calc(100% - 1rem); }
+.prog-peek .bubble { max-width: 15rem; }
+.prog-dash { position: relative; z-index: 1; padding: 0; overflow: hidden; }
+.prog-dash:hover { transform: none; box-shadow: var(--hard-shadow); }
+.prog-band { display: flex; align-items: center; justify-content: space-between; gap: var(--gap-3); padding: .55rem 1rem; background: var(--ink); color: var(--paper); }
+.prog-band-t { font-family: var(--font-mono); font-size: var(--step--1); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.prog-band-dots { display: inline-flex; gap: 5px; }
+.prog-band-dots i { width: 9px; height: 9px; border: 1.5px solid var(--paper); border-radius: 50%; }
+.prog-body { padding: var(--gap-5) var(--gap-4) var(--gap-5); display: grid; gap: var(--gap-5); }
+.prog-main { position: relative; display: grid; gap: var(--gap-3); }
+.prog-big { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: .1em .35em; font-family: var(--font-mono); line-height: .95; color: var(--ink); }
+.prog-big b { font-size: clamp(4.2rem, 14vw, 8.5rem); font-weight: 700; letter-spacing: -.06em; }
+.prog-of { font-size: clamp(1.6rem, 5vw, 2.8rem); color: var(--ink-soft); font-weight: 600; }
+.prog-big > span:last-child { font-size: clamp(1.1rem, 3vw, 1.6rem); font-weight: 700; color: var(--ink-soft); }
+.prog-stamp { position: absolute; top: 0; right: 0; font-size: clamp(1.2rem, 4vw, 1.9rem); background: var(--paper); letter-spacing: .06em; }
+.prog-bar { height: 28px; border: 2px solid var(--ink); border-radius: 6px; background: var(--paper-2); overflow: hidden; }
+.prog-note { position: relative; justify-self: end; margin-top: -.3rem; }
+.prog-dash.is-armed:not(.is-in) .prog-fill { width: 0; }
 
-/* l·l: sense lligadures ni alternates contextuals */
-.prob,.car,.prog{font-feature-settings:"calt" 0,"liga" 0;font-variant-ligatures:none}
+.prog-stats { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--gap-4); }
+.prog-stat { display: flex; align-items: center; gap: var(--gap-3); min-width: 0; }
+.prog-stat > span:last-child, .prog-stat > span:not(.sticker) { font-weight: 600; min-width: 0; color: var(--ink); }
+.prog-stat .sticker { --sticker-size: 68px; }
+.prog-stat .sticker b { font-family: var(--font-display); font-size: 2rem; font-weight: 800; }
+.prog-stat-tfg { gap: .5rem; max-width: 100%; }
+.prog-stat-tfg b { font-size: 1rem !important; line-height: 1.15; }
+.prog-flag { width: 24px; height: 24px; flex: none; }
 
-/* àrea tàctil de l'ansa >=44x44 sense engrandir la icona */
-.car-grip{position:relative}
-@media (pointer:coarse){
-  .car-grip::after{content:"";position:absolute;left:50%;top:50%;width:44px;height:44px;transform:translate(-50%,-50%)}
+.prog-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--gap-3); }
+.prog-row {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px var(--gap-3); align-items: baseline;
+  padding: .8rem 1rem; background: var(--paper-2); outline: 1.5px dashed var(--ink-soft); outline-offset: -5px; rotate: var(--r, 0deg);
 }
+.prog-lbl { font-weight: 700; min-width: 0; color: var(--ink); }
+.prog-row.is-full .prog-lbl::after { content: " ✓"; color: var(--ok); }
+.prog-val { font-family: var(--font-mono); font-weight: 700; font-size: var(--step--1); color: var(--ink-soft); }
+.prog-track { grid-column: 1 / -1; height: 12px; border: 1.5px solid var(--ink); border-radius: 4px; background: var(--paper); overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+}
+
+/* ---------- Breakpoints ---------- */
+@media (max-width: 639px) {
+  .prog-peek { right: .4rem; }
+  .prob-hub { flex-wrap: wrap; }
+  .prog-stamp { top: -1.6rem; }
+}
+@media (min-width: 640px) {
+  .prob-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .prog-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .prog-rows { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-4) var(--gap-5); }
+  .prog-body { padding: var(--gap-6) var(--gap-6) var(--gap-6); }
+}
+@media (min-width: 900px) {
+  .prob-head { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+  .prob-pit:nth-child(2) { margin-top: 1.8rem; }
+  .prog-wrap { margin-top: 6rem; }
+  .prog-peek { right: 3rem; }
+}
+@media (min-width: 1200px) {
+}
+
+/* 4.1: breakpoints (versió sobria) */
+@media (min-width:640px){
+  .car-mods{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .car-sc-opts{grid-template-columns:1fr 1fr}
+  .car-panel{grid-template-columns:1fr 1fr}
+}
+@media (min-width:900px){
+  .car-block{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--gap-6)}
+  .car-sc-opts{grid-template-columns:1fr}
+  .car-tl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:var(--gap-5) 0 0;gap:var(--gap-3)}
+  .car-tl::before{left:0;right:0;top:calc(var(--gap-5) + 8px);bottom:auto;width:auto;height:2px}
+  .car-tl-i{padding-top:var(--gap-4)}
+  .car-tl-dot{left:0;top:-4px}
+  .car-tl-i{margin-top:0}
+  .car-tl-end{display:flex;flex-direction:column;align-items:flex-start}
+}
+@media (min-width:1200px){
+  .car-sc-opts{grid-template-columns:1fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){ .car-mod,.car-card{transition:none} .car-card:hover{transform:none} }
+.car-grip{position:relative}
+@media (pointer:coarse){.car-grip::after{content:"";position:absolute;left:50%;top:50%;width:44px;height:44px;translate:-50% -50%}}
+.car-head .h2 { margin: var(--gap-2) 0 var(--gap-3); }
+.car-head .h2 > span { display: inline; }
+.car-head .h2 > .hl { display: inline-block; }
 
 /* ===== C: quadrimestre (qd-), assistent (ia-), mapa (map-) ===== */
 .qd-grid, .ia-grid, .map-grid { display: grid; gap: var(--gap-5); grid-template-columns: minmax(0, 1fr); align-items: start; }
@@ -755,9 +1172,6 @@ button { cursor: pointer; }
 .qd-range input[type="range"] { flex: 1; min-width: 0; height: 44px; accent-color: var(--accent); cursor: pointer; }
 .qd-val { min-width: 3.2ch; text-align: right; font: 700 var(--step-0) var(--font-mono); font-variant-numeric: tabular-nums; }
 .qd-result { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap-3); align-items: center; padding: var(--gap-3); border-radius: var(--radius-m); background: var(--surface-2); }
-.qd-axo-wrap { display: flex; flex-direction: column; align-items: flex-start; gap: var(--gap-2); min-width: 0; }
-.qd-axo { width: 100%; max-width: 120px; height: auto; display: block; }
-.qd-bubble { position: static; max-width: 100%; font-size: 12px; line-height: 1.3; }
 .qd-need-l { margin: 0; font-size: var(--step--1); color: var(--fg-muted); }
 .qd-need-n { margin: 0; font: 800 var(--step-4) var(--font-display); line-height: 1.05; font-variant-numeric: tabular-nums; }
 .qd-bar { height: 10px; border-radius: 999px; background: var(--border); overflow: hidden; margin: 6px 0; }
@@ -765,7 +1179,10 @@ button { cursor: pointer; }
 .qd-result[data-state="mid"] .qd-bar span { background: var(--accent); }
 .qd-result[data-state="high"] .qd-bar span, .qd-result[data-state="imp"] .qd-bar span { background: var(--bad); }
 .qd-msg { margin: 0; font-size: var(--step--1); }
-@media (min-width: 640px) { .qd-sliders { grid-template-columns: 1fr 1fr; } .qd-result { grid-template-columns: 170px minmax(0, 1fr); } }
+@media (min-width: 640px) { .qd-sliders { grid-template-columns: 1fr 1fr; } }
+.qd-says { align-items: flex-start; padding-bottom: var(--gap-2); }
+.qd-says .qd-axo { width: var(--axo-size); max-width: none; flex: none; }
+.qd-says > .bubble { font-size: var(--step--1); }
 
 /* --- IA chat --- */
 .ia-points { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--gap-2); }
@@ -940,57 +1357,83 @@ button { cursor: pointer; }
 @media (min-width: 1200px) { .map-sheet-top { grid-template-columns: minmax(0, 1fr) 220px; } }
 @media (prefers-reduced-motion: reduce) { .map-pt, .map-pt-drop, .map-photo, .qd-bar span, .qd-sw-sw::after, .qd-ev { transition: none; } }
 
-/* d.css — com funciona, per a qui, testimonis, FAQ, CTA, footer. Només var(--…) del contracte. */
+/* d.css — «El quadern»: com funciona, per a qui, testimonis, FAQ, CTA, footer. Només var(--…). */
 
-/* ---------- Com funciona ---------- */
-.how-steps{list-style:none;margin:var(--gap-5) 0 0;padding:0;display:grid;gap:var(--gap-5);counter-reset:none}
+.how, .who, .tes, .faq, .cta, .ft { overflow-x: clip; }
+.tes, .cta { padding-top: calc(clamp(3.5rem, 8vw, 6.5rem) + 12px); }
+.how .lead, .who .lead, .tes .lead, .faq .lead { margin-top: var(--gap-3); }
+.tes .eyebrow { margin-bottom: var(--gap-3); }
+.tes .h2, .cta .h2 { color: var(--ink); }
+
+/* ---------- Com funciona (sobri) ---------- */
+.how-steps{list-style:none;margin:var(--gap-5) 0 0;padding:0;display:grid;gap:var(--gap-5)}
 .how-step{position:relative;display:grid;gap:var(--gap-2);padding:var(--gap-4);min-width:0;justify-items:start}
 .how-num{display:grid;place-items:center;width:2.5rem;height:2.5rem;border-radius:50%;background:var(--accent);color:var(--accent-ink);font:700 var(--step-1)/1 var(--font-display)}
-.how-axo{width:96px;height:96px;margin-block:var(--gap-1)}
+.how-axo{--axo-size:96px;margin-block:var(--gap-1)}
 .how-h{margin:0;font:700 var(--step-1)/1.2 var(--font-display);color:var(--fg)}
 .how-d{margin:0;color:var(--fg-muted);font-size:var(--step-0)}
 .how-bubble{margin:var(--gap-2) 0 0}
-/* connector vertical (mòbil) */
 .how-step:not(:last-child)::after{content:"";position:absolute;left:calc(var(--gap-4) + 1.25rem - 1.5px);top:100%;height:var(--gap-5);width:3px;background:repeating-linear-gradient(to bottom,var(--accent) 0 6px,transparent 6px 12px);opacity:.6}
 @media (min-width:900px){
   .how-steps{grid-template-columns:repeat(3,minmax(0,1fr))}
-  /* connector horitzontal entre targetes */
   .how-step:not(:last-child)::after{left:100%;top:calc(var(--gap-4) + 1.25rem - 1.5px);height:3px;width:var(--gap-5);background:repeating-linear-gradient(to right,var(--accent) 0 6px,transparent 6px 12px)}
 }
 
-/* ---------- Per a qui ---------- */
+/* ---------- Per a qui (sobri) ---------- */
 .who-grid{list-style:none;margin:var(--gap-5) 0 0;padding:0;display:grid;gap:var(--gap-4)}
-.who-card{display:grid;gap:var(--gap-2);padding:var(--gap-4);min-width:0;align-content:start;transition:transform .2s ease,box-shadow .2s ease}
-.who-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-2)}
-.who-axo{width:88px;height:88px}
+.who-card{display:grid;gap:var(--gap-2);padding:var(--gap-4);min-width:0;align-content:start}
+.who-axo{--axo-size:88px}
 .who-h{margin:0;font:700 var(--step-1)/1.2 var(--font-display);color:var(--fg)}
 .who-d{margin:0;color:var(--fg-muted)}
 .who-gain{margin:var(--gap-1) 0 0;padding:var(--gap-2) var(--gap-3);background:var(--pink-soft);color:var(--fg);border-radius:var(--radius-s);font-weight:500}
 @media (min-width:640px){.who-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (min-width:900px){.who-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 
-/* ---------- Testimonis ---------- */
-.tes-warn{display:flex;flex-wrap:wrap;align-items:center;gap:var(--gap-2);margin:var(--gap-3) 0 0;color:var(--fg-muted);font-size:var(--step--1)}
-.tes-grid{display:grid;gap:var(--gap-4);margin-top:var(--gap-4)}
-.tes-card{position:relative;margin:0;padding:var(--gap-4);display:grid;gap:var(--gap-3);min-width:0;align-content:space-between;}
-.tes-q{margin:0}
-.tes-q p{margin:0;font-size:var(--step-0);color:var(--fg);font-style:italic}
-.tes-cap{display:flex;align-items:center;gap:var(--gap-2);color:var(--fg-muted);font-size:var(--step--1);min-width:0}
-.tes-av{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--pink-soft);color:var(--fg);border:1.5px solid var(--pink);font:700 var(--step--1)/1 var(--font-display)}
-.tes-who{min-width:0}
-@media (min-width:900px){.tes-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+/* ---------- Testimonis: post-its al tauler ---------- */
+.tes-warn {
+  display: inline-block; margin: var(--gap-4) 0 0; padding: .3rem .9rem .4rem; max-width: 100%;
+  font: 700 1.3rem/1.15 var(--font-hand); color: var(--ink); background: var(--paper);
+  border: 2px dashed var(--ink-soft); rotate: -1deg; position: relative; z-index: 2;
+}
+.tes-board {
+  position: relative; display: grid; gap: var(--gap-5); margin-top: -.6rem; padding: 2.75rem 1.25rem 2.25rem;
+  background-color: color-mix(in srgb, var(--coral) 16%, var(--paper-2));
+  background-image: radial-gradient(color-mix(in srgb, var(--ink) 16%, transparent) 1px, transparent 1.6px);
+  background-size: 11px 11px;
+  border: var(--stroke) solid var(--ink); border-radius: 8px; box-shadow: var(--hard-shadow);
+}
+.tes-note { min-width: 0; padding: 1.6rem 1.25rem 1.5rem; --n-w: 92%; width: var(--n-w); font-family: var(--font-body); font-weight: 500; }
+.tes-note:nth-child(even) { margin-left: auto; }
+.tes-pin { position: absolute; top: -18px; left: 50%; margin-left: -.85rem; --deco-w: 1.7rem; --deco-sw: 3.5; z-index: 2; }
+.tes-quote { aspect-ratio: 48 / 40; --deco-w: 2.1rem; --deco-sw: 3.5; display: block; margin-bottom: .35rem; }
+.tes-q p { font: 500 1.06rem/1.5 var(--font-body); color: var(--ink); }
+.tes-cap { display: flex; align-items: center; gap: .65rem; margin-top: var(--gap-3); min-width: 0; color: var(--ink); }
+.tes-av {
+  flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+  background: var(--paper); color: var(--ink); border: var(--stroke) solid var(--ink);
+  font: 800 .95rem/1 var(--font-display); letter-spacing: -.01em;
+}
+.tes-who { min-width: 0; font: 500 var(--step--1)/1.3 var(--font-body); }
+.tes-name { font-weight: 700; }
+.tes-note:nth-child(even) { margin-left: auto; }
+@media (min-width: 900px) {
+  .tes-board { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-4); padding: 3rem 2.25rem 2.75rem; align-items: start; }
+  .tes-note { --n-w: 100%; }
+  .tes-note:nth-child(2) { margin-top: 2.25rem; }
+  .tes-note:nth-child(3) { margin-top: .5rem; }
+}
 
-/* ---------- FAQ ---------- */
+/* ---------- FAQ (sobri) ---------- */
 .faq-layout{display:grid;gap:var(--gap-5)}
 .faq-head{min-width:0}
-.faq-axo{width:120px;height:120px;margin-top:var(--gap-3)}
+.faq-axo{--axo-size:120px;margin-top:var(--gap-3)}
 .faq-list{display:grid;gap:var(--gap-2);min-width:0;align-content:start}
 .faq-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-m);overflow:hidden}
 .faq-h{margin:0;font:inherit}
 .faq-btn{display:flex;align-items:center;justify-content:space-between;gap:var(--gap-3);width:100%;min-height:48px;padding:var(--gap-3) var(--gap-4);background:transparent;border:0;color:var(--fg);font:600 var(--step-0)/1.35 var(--font-body);text-align:left;cursor:pointer}
 .faq-btn:hover{background:var(--surface-2)}
 .faq-btn span:first-child{min-width:0}
-.faq-ico{flex:none;position:relative;width:1.25rem;height:1.25rem;color:var(--accent)}
+.faq-ico{flex:none;position:relative;width:1.25rem;height:1.25rem;color:var(--accent-text)}
 .faq-ico::before,.faq-ico::after{content:"";position:absolute;left:50%;top:50%;width:100%;height:2.5px;background:currentColor;border-radius:2px;transform:translate(-50%,-50%);transition:transform .2s ease}
 .faq-ico::after{transform:translate(-50%,-50%) rotate(90deg)}
 .faq-btn[aria-expanded="true"] .faq-ico::after{transform:translate(-50%,-50%) rotate(0)}
@@ -1000,54 +1443,106 @@ button { cursor: pointer; }
 @media (min-width:900px){
   .faq-layout{grid-template-columns:minmax(0,5fr) minmax(0,7fr);align-items:start}
   .faq-head{position:sticky;top:calc(var(--gap-6) + 1rem);display:flex;flex-direction:column}
-  .faq-axo{order:-1;width:140px;height:140px;margin:0 0 var(--gap-3)}
+  .faq-axo{order:-1;--axo-size:140px;margin:0 0 var(--gap-3)}
 }
 
-/* ---------- CTA + formulari ---------- */
-.cta-box{box-sizing:border-box;width:calc(100% - 2 * var(--gutter));max-width:calc(var(--wrap-max, 1200px) - 2 * var(--gutter));margin-inline:auto;display:grid;gap:var(--gap-5);padding:var(--gap-5) var(--gap-4);background:var(--accent-soft);border:1px solid var(--border);border-radius:var(--radius-l);align-items:center}
-.cta-copy{min-width:0}
-.cta-axo{width:140px;height:140px;margin-bottom:var(--gap-2)}
-.cta-panel{padding:var(--gap-4);min-width:0}
-.cta-form{display:grid;gap:var(--gap-4)}
-.cta-field{display:grid;gap:var(--gap-1);min-width:0}
-.cta-label{font-weight:600;color:var(--fg)}
-.cta-input{width:100%;min-height:48px;padding:.65rem .85rem;background:var(--bg);color:var(--fg);border:1.5px solid var(--border);border-radius:var(--radius-s);font:400 max(16px,var(--step-0))/1.4 var(--font-body)}
-.cta-input::placeholder{color:var(--fg-muted);opacity:1}
-.cta-input[aria-invalid="true"]{border-color:var(--bad)}
-.cta-check{position:relative;display:flex;gap:var(--gap-2);align-items:center;min-height:44px}
-.cta-check label::after{content:"";position:absolute;inset:0;cursor:pointer}
-.cta-check input{flex:none;width:1.4rem;height:1.4rem;margin:0;accent-color:var(--accent)}
-.cta-check label{color:var(--fg);min-width:0;font-size:var(--step--1);padding:.6rem 0}
-.cta-err{margin:0;min-height:0;color:var(--bad);font-size:var(--step--1);font-weight:500}
-.cta-err:empty{display:none}
-.cta-submit{width:100%;min-height:48px;justify-content:center}
-.cta-demo{margin:0;color:var(--fg-muted);font-size:var(--step--1)}
-.cta-ok{display:grid;gap:var(--gap-2);justify-items:center;text-align:center;padding:var(--gap-3) 0}
-.cta-ok[hidden]{display:none}
-.cta-ok p{margin:0;color:var(--fg-muted)}
-.cta-ok-axo{width:120px;height:120px}
-.cta-ok-h{margin:0;font:700 var(--step-2)/1.2 var(--font-display);color:var(--fg)}
-@media (min-width:640px){.cta-box{padding:var(--gap-6) var(--gap-5)}}
-@media (min-width:900px){.cta-box{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
-
-/* ---------- Footer ---------- */
-.ft{background:var(--surface-2);border-top:1px solid var(--border);padding:var(--gap-5) 0;color:var(--fg-muted)}
-.ft-inner{display:grid;gap:var(--gap-3);min-width:0}
-.ft-brand{display:flex;align-items:center;gap:.5rem}
-.ft-logo{--axo-size:30px;width:30px;height:24px;transform:translateY(-1px)}
-.ft-name{font:800 1.3rem/1 var(--font-display);letter-spacing:-.02em;color:var(--fg)}
-.ft-nav{display:flex;flex-wrap:wrap;gap:var(--gap-1) var(--gap-4)}
-.ft-nav a{display:inline-flex;align-items:center;min-height:44px;color:var(--fg);text-decoration:underline;text-underline-offset:3px}
-.ft-nav a:hover{color:var(--accent)}
-.ft-copy{margin:0;font-size:var(--step--1)}
-@media (min-width:900px){
-  .ft-inner{grid-template-columns:auto 1fr auto;align-items:center;column-gap:var(--gap-5)}
-  .ft-nav{justify-content:center}
+/* ---------- CTA: bitllet amb vora perforada + fitxa d'inscripció ---------- */
+.cta-ticket {
+  position: relative; display: grid; background: var(--paper-2); color: var(--fg);
+  border: var(--stroke) solid var(--ink); border-radius: 14px; box-shadow: var(--hard-shadow);
+}
+.cta-stub { position: relative; min-width: 0; padding: var(--gap-5) var(--gap-4) var(--gap-4); border-bottom: 3px dashed var(--ink); display: grid; gap: var(--gap-3); align-content: start; }
+.cta-stub::before, .cta-stub::after {
+  content: ""; position: absolute; width: 30px; height: 30px; border-radius: 50%; background: var(--paper); border: var(--stroke) solid var(--ink); bottom: -17px;
+}
+.cta-stub::before { left: -17px; clip-path: inset(0 0 0 50%); }
+.cta-stub::after { right: -17px; clip-path: inset(0 50% 0 0); }
+.cta-stamp { --r: -2deg; justify-self: start; font-size: var(--step-0); padding: .3em .9em; border-width: 4px; }
+.cta-title { font-size: var(--step-4); line-height: 1.02; }
+.cta-lead { font-size: var(--step-0); color: var(--fg); }
+.cta-axo-wrap { position: relative; min-height: 190px; margin-top: var(--gap-2); }
+.cta-axo { --axo-size: 160px; position: absolute; left: calc(50% - 80px); bottom: 0; }
+.cta-c1 { position: absolute; --deco-w: 2.2rem; left: 12%; top: 8%; rotate: -10deg; }
+.cta-c2 { position: absolute; --deco-w: 2.4rem; right: 10%; top: 18%; }
+.cta-scissors { aspect-ratio: 60 / 40; position: absolute; z-index: 2; --deco-w: 3rem; --deco-sw: 3; left: 18%; bottom: -19px; }
+.cta-main { position: relative; min-width: 0; padding: var(--gap-4); background: var(--paper); border-radius: 0 0 12px 12px; }
+.cta-form { display: grid; gap: var(--gap-4); }
+.cta-formtitle { margin: 0; padding-bottom: .5rem; border-bottom: var(--stroke) solid var(--ink); color: var(--ink); font: 700 .78rem/1.2 var(--font-mono); letter-spacing: .16em; text-transform: uppercase; }
+.cta-field { display: grid; gap: var(--gap-1); min-width: 0; }
+.cta-label { font: 700 var(--step--1)/1.3 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ink); }
+.cta-input {
+  width: 100%; min-height: 48px; padding: .6rem .5rem; color: var(--fg);
+  background: color-mix(in srgb, var(--hl) 12%, var(--paper)); border: 0; border-bottom: 3px solid var(--ink); border-radius: 4px 4px 0 0;
+  font: 500 max(16px, var(--step-0))/1.4 var(--font-body);
+}
+.cta-input::placeholder { color: var(--fg-muted); opacity: 1; }
+.cta-input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-bottom-color: var(--accent); }
+.cta-input[aria-invalid="true"] { border-bottom-color: var(--bad); }
+.cta-check { position: relative; display: flex; gap: var(--gap-3); align-items: center; min-height: 48px; }
+.cta-check label { min-width: 0; padding: .55rem 0; color: var(--fg); font-size: var(--step--1); line-height: 1.4; }
+.cta-check label::after { content: ""; position: absolute; inset: 0; cursor: pointer; }
+.cta-check input {
+  appearance: none; -webkit-appearance: none; flex: none; position: relative; width: 28px; height: 28px; margin: 0;
+  background: var(--paper); border: var(--stroke) solid var(--ink); border-radius: 5px 7px 5px 8px; rotate: -3deg;
+}
+.cta-check input::before {
+  content: ""; position: absolute; inset: -4px -2px 0 2px; background: var(--accent-text); scale: 0; transform-origin: 20% 80%;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 40'%3E%3Cpath d='M5 22 L18 35 C24 22 34 12 46 5' fill='none' stroke='%23000' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 40'%3E%3Cpath d='M5 22 L18 35 C24 22 34 12 46 5' fill='none' stroke='%23000' stroke-width='7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  transition: scale .18s cubic-bezier(.3, 1.6, .5, 1);
+}
+.cta-check input:checked::before { scale: 1; }
+.cta-check input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.cta-check input[aria-invalid="true"] { border-color: var(--bad); }
+.cta-err { margin: 0; color: var(--bad); font-size: var(--step--1); font-weight: 600; }
+.cta-err:empty { display: none; }
+.cta-submit { width: 100%; min-height: 52px; justify-content: center; }
+.cta-demo { margin: 0; padding: .5rem .75rem; border: 2px dashed var(--ink-soft); border-radius: 4px; color: var(--ink-soft); font-size: var(--step--1); line-height: 1.45; }
+.cta-ok { position: relative; display: grid; gap: var(--gap-2); justify-items: center; text-align: center; padding: var(--gap-3) 0; }
+.cta-ok[hidden] { display: none; }
+.cta-ok p { margin: 0; }
+.cta-ok > p:not(.cta-okstamp) { color: var(--fg); }
+.cta-ok-axo { --axo-size: 120px; }
+.cta-okstamp { --r: -3deg; font-size: clamp(1.5rem, 1rem + 3vw, 2.2rem); letter-spacing: .12em; padding: .15em .6em; border-width: 5px; background: var(--paper); }
+.cta-ok:not([hidden]) .cta-okstamp { animation: d-thunk .5s cubic-bezier(.3, 1.4, .5, 1) both .1s; }
+@keyframes d-thunk { 0% { scale: 2.4; opacity: 0; } 55% { scale: .92; opacity: 1; } 100% { scale: 1; opacity: 1; } }
+.cta-ok-h { margin: 0; font: 800 var(--step-2)/1.1 var(--font-display); color: var(--ink); }
+@media (min-width: 900px) {
+  .cta-ticket { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
+  .cta-stub { padding: var(--gap-5); border-bottom: 0; border-right: 3px dashed var(--ink); }
+  .cta-stub::before, .cta-stub::after { bottom: auto; left: auto; right: -17px; }
+  .cta-stub::before { top: -17px; clip-path: inset(50% 0 0 0); }
+  .cta-stub::after { top: auto; bottom: -17px; clip-path: inset(0 0 50% 0); }
+  .cta-scissors { left: auto; right: -25px; top: 14%; bottom: auto; rotate: 90deg; }
+  .cta-main { padding: var(--gap-5); border-radius: 0 12px 12px 0; }
 }
 
-@media (prefers-reduced-motion:reduce){
-  .who-card,.faq-ico::before,.faq-ico::after{transition:none}
-  .who-card:hover{transform:none}
+/* ---------- Footer: gran wordmark en contorn, Axo assomant ---------- */
+.ft { padding: 3rem 0 var(--gap-5); color: var(--fg-muted); }
+.ft-peek { position: relative; display: flex; align-items: flex-end; justify-content: flex-end; gap: var(--gap-3); padding-right: 12%; border-bottom: var(--stroke) solid var(--ink); }
+.ft-axo-box { display: block; width: 120px; height: 74px; overflow: hidden; }
+.ft-axo { --axo-size: 120px; margin-top: -22px; }
+.ft-hi { align-self: center; color: var(--accent-text); rotate: -2deg; }
+.ft-mark {
+  margin: .1em 0 0; text-align: center; white-space: nowrap; user-select: none; overflow: hidden;
+  font: 800 min(17vw, 15rem)/1.08 var(--font-display); letter-spacing: -.035em;
+  color: var(--paper-2); -webkit-text-stroke: 4px var(--ink); paint-order: stroke fill;
+}
+.ft-inner { display: grid; gap: var(--gap-3); min-width: 0; margin-top: var(--gap-4); }
+.ft-brand { display: flex; align-items: center; gap: .5rem; }
+.ft-logo { --axo-size: 30px; width: 30px; height: 24px; transform: translateY(-1px); }
+.ft-name { font: 800 1.3rem/1 var(--font-display); letter-spacing: -.02em; color: var(--ink); }
+.ft-nav { display: flex; flex-wrap: wrap; gap: var(--gap-1) var(--gap-4); }
+.ft-nav a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); text-decoration: underline; text-decoration-thickness: 2px; text-decoration-color: var(--coral); text-underline-offset: 4px; }
+.ft-nav a:hover { color: var(--accent-text); }
+.ft-copy { margin: 0; font-size: var(--step--1); color: var(--ink-soft); }
+@media (min-width: 900px) {
+  .ft-inner { grid-template-columns: auto 1fr auto; align-items: center; column-gap: var(--gap-5); }
+  .ft-nav { justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-item, .faq-ico, .cta-check input::before { transition: none; }
 }
 </style>
 </head>
@@ -1239,24 +1734,52 @@ button { cursor: pointer; }
 
 <a class="skip-link" href="#top" data-t="common.skip">Salta al contingut</a>
 
+<!-- Símbols decoratius d'A (kit quadern). Ús: <svg class="deco deco--wave" aria-hidden="true"><use href="#a-deco-wave"/></svg> -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+  <symbol id="a-deco-wave" viewBox="0 0 120 16"><path d="M3 9 C10 3 15 3 22 9 S33 15 41 9 S53 2 60 8 S73 15 80 9 S92 3 99 9 S111 14 117 7" pathLength="1"/></symbol>
+  <symbol id="a-deco-arrow-r" viewBox="0 0 100 60"><path d="M5 12 C30 3 64 9 86 43" pathLength="1"/><path d="M71 38 L87 45 L90 27" pathLength="1"/></symbol>
+  <symbol id="a-deco-arrow-d" viewBox="0 0 60 100"><path d="M15 5 C5 34 13 62 37 90" pathLength="1"/><path d="M21 79 L37 92 L45 73" pathLength="1"/></symbol>
+  <symbol id="a-deco-arrow-u" viewBox="0 0 100 60"><path d="M5 53 C30 58 64 50 85 16" pathLength="1"/><path d="M69 20 L85 13 L88 32" pathLength="1"/></symbol>
+  <symbol id="a-deco-star" viewBox="0 0 40 40"><path d="M20 3 L24.6 15 L37 15.8 L27.4 24 L30.6 36.6 L19.8 29.8 L9.6 36.4 L12.8 24 L3.2 16.2 L15.4 15 Z" pathLength="1"/></symbol>
+  <symbol id="a-deco-spiral" viewBox="0 0 60 60"><path d="M30 30 C30 26 35 25 36 30 C38 38 26 40 23 31 C19 19 36 13 42 24 C49 36 36 49 24 45 C9 40 7 19 22 11" pathLength="1"/></symbol>
+  <symbol id="a-deco-strike" viewBox="0 0 100 30"><path d="M4 8 L96 14 L6 18 L94 24 L10 28" pathLength="1"/></symbol>
+  <symbol id="a-deco-circle" viewBox="0 0 120 70"><path d="M62 6 C28 3 6 20 8 38 C10 58 44 66 74 62 C104 58 118 40 112 22 C108 10 90 4 64 5 C50 5 38 8 30 13" pathLength="1"/></symbol>
+  <symbol id="a-deco-check" viewBox="0 0 50 40"><path d="M5 22 L18 35 C24 22 34 12 46 5" pathLength="1"/></symbol>
+  <symbol id="a-deco-qmark" viewBox="0 0 36 60"><path d="M7 18 C8 5 29 4 29 18 C29 29 18 31 18 41" pathLength="1"/><path d="M18 53 L18.2 54" pathLength="1"/></symbol>
+  <symbol id="a-deco-exclam" viewBox="0 0 24 60"><path d="M12 5 C14 20 11 32 12 42" pathLength="1"/><path d="M12 54 L12.2 55" pathLength="1"/></symbol>
+  <symbol id="a-deco-bracket" viewBox="0 0 24 100"><path d="M18 4 C8 5 8 11 8 24 L8 76 C8 89 10 95 18 96" pathLength="1"/></symbol>
+  <symbol id="a-deco-pin" viewBox="0 0 40 52"><path d="M20 4 C28 4 33 10 32 17 C31 24 25 28 20 28 C14 28 8 23 8 16 C8 9 13 4 20 4" pathLength="1"/><path d="M20 28 L19 49" pathLength="1"/><path d="M14 15 C15 11 18 9 22 9" pathLength="1"/></symbol>
+  <symbol id="a-deco-clip" viewBox="0 0 30 70"><path d="M10 52 L10 18 C10 4 25 4 24 19 L24 55 C24 66 7 66 8 54 L8 24" pathLength="1"/></symbol>
+  <symbol id="a-deco-corner" viewBox="0 0 40 40"><path d="M3 3 L37 3" pathLength="1"/><path d="M3 3 L3 37" pathLength="1"/><path d="M3 37 C14 36 25 28 29 14 L37 3" pathLength="1"/></symbol>
+</svg>
+
 <header class="nav" id="a-nav">
-  <div class="wrap nav-inner">
-    <a class="nav-brand" href="#top" data-t-aria="nav.homeAria" aria-label="QuadreFIB, torna a l'inici">
-      <svg class="axo nav-logo" viewBox="0 0 156 124" aria-hidden="true" focusable="false"><use href="#axo-mini"/></svg>
-      <span class="nav-brand-text" data-t="nav.brand">QuadreFIB</span>
-    </a>
+  <div class="nav-top">
+    <div class="wrap nav-inner">
+      <a class="nav-brand" href="#top" data-t-aria="nav.homeAria" aria-label="QuadreFIB, torna a l'inici">
+        <svg class="axo nav-logo" viewBox="0 0 156 124" aria-hidden="true" focusable="false"><use href="#axo-mini"/></svg>
+        <span class="nav-brand-text" data-t="nav.brand">QuadreFIB</span>
+      </a>
+  
+      <nav class="nav-links" data-t-aria="nav.aria" aria-label="Navegació principal">
+        <a href="#funcionalitats" data-t="nav.features">Funcionalitats</a>
+        <a href="#com-funciona" data-t="nav.how">Com funciona</a>
+        <a href="#preguntes" data-t="nav.faq">Preguntes</a>
+      </nav>
+  
+      <a class="btn btn-primary nav-cta" href="#llista-espera" data-t="nav.cta">Llista d'espera</a>
+  
+      <button class="nav-toggle" id="a-menu-btn" type="button" aria-expanded="false" aria-controls="a-menu" data-t-aria="nav.menuOpen" aria-label="Obre el menú">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+      </button>
+    </div>
 
-    <nav class="nav-links" data-t-aria="nav.aria" aria-label="Navegació principal">
-      <a href="#funcionalitats" data-t="nav.features">Funcionalitats</a>
-      <a href="#com-funciona" data-t="nav.how">Com funciona</a>
-      <a href="#preguntes" data-t="nav.faq">Preguntes</a>
-    </nav>
-
-    <a class="btn btn-primary nav-cta" href="#llista-espera" data-t="nav.cta">Llista d'espera</a>
-
-    <button class="nav-toggle" id="a-menu-btn" type="button" aria-expanded="false" aria-controls="a-menu" data-t-aria="nav.menuOpen" aria-label="Obre el menú">
-      <span class="nav-toggle-bars" aria-hidden="true"></span>
-    </button>
+    <!-- barra de progrés de scroll: Axo mini avança cap al birret (decoratiu) -->
+    <div class="nav-progress" aria-hidden="true">
+      <i class="nav-progress-bar"></i>
+      <span class="nav-progress-axo"><svg class="axo" viewBox="0 0 156 124" focusable="false"><use href="#axo-mini"/></svg></span>
+      <svg class="nav-progress-cap" viewBox="0 0 28 22" focusable="false"><path d="M14 2 L26 7.5 L14 13 L2 7.5 Z M7 10.5 V15.5 C10 18.5 18 18.5 21 15.5 V10.5 M26 7.5 V15"/><circle cx="26" cy="17" r="1.6"/></svg>
+    </div>
   </div>
 
   <div class="nav-menu" id="a-menu" hidden>
@@ -1276,8 +1799,8 @@ button { cursor: pointer; }
 <section class="hero" id="top" aria-labelledby="a-hero-title">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow hero-eyebrow reveal" data-t="hero.eyebrow">Per a estudiants de la FIB</p>
-      <h1 class="hero-title reveal" id="a-hero-title" data-t="hero.title">Planifica la teva carrera a la FIB, de principi a fi.</h1>
+      <p class="hero-eyebrow reveal"><span class="stamp stamp--accent" data-t="hero.eyebrow">Per a estudiants de la FIB</span></p>
+      <h1 class="hero-title reveal" id="a-hero-title"><span data-t="hero.h1a">Planifica la teva</span> <span class="hl" data-t="hero.h1b">carrera</span> <span data-t="hero.h1c">a la</span> <span class="circled" data-t="hero.h1d">FIB</span><span data-t="hero.h1e">, de</span> <span data-t="hero.h1f">principi a fi</span><span data-t="hero.h1g">.</span></h1>
       <p class="lead hero-sub reveal" data-t="hero.sub">Organitza el teu horari, controla les teves notes i planifica els quadrimestres que et queden en un únic espai.</p>
       <div class="hero-ctas reveal">
         <a class="btn btn-primary" href="#llista-espera" data-t="hero.ctaPrimary">Comença a planificar</a>
@@ -1285,128 +1808,172 @@ button { cursor: pointer; }
       </div>
     </div>
 
-    <div class="hero-visual reveal">
-      <div class="pl">
+    <div class="hero-visual">
+      <div class="pl paper spiral reveal">
+        <i class="tape pl-tape pl-tape--l"></i>
+        <i class="tape tape--dots pl-tape pl-tape--r"></i>
         <div class="pl-head">
           <span class="pl-title" data-t="planner.title">El teu pla de carrera</span>
+          <span class="pl-hint" aria-hidden="true">
+            <span class="note note--accent pl-hint-note" data-t="planner.drag">arrossega!</span>
+            <svg class="deco deco--arrow-d deco--draw deco--accent pl-hint-arrow" focusable="false"><use href="#a-deco-arrow-d"/></svg>
+          </span>
         </div>
 
         <div class="pl-board" role="img" data-t-aria="planner.aria" aria-label="Maqueta del planificador de carrera: tres quadrimestres en columnes amb assignatures d'exemple. Una assignatura del Quad. 5 es mou al Quad. 7 per alleugerir la càrrega.">
-          <!-- Quad. 5 (Q1) -->
-          <div class="pl-col">
-            <div class="pl-colhead"><span class="pl-q" data-t="planner.q1">Quad. 5</span><span class="pl-per" data-t="planner.p1">Q1 · tardor</span><span class="pl-sum" data-t="planner.q1ects">24 ECTS</span></div>
-            <div class="pl-card pl-card--tr">
-              <div class="pl-row"><span class="pl-code">BD</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
-              <span class="pl-name" data-t="planner.bd">Bases de Dades</span>
-              <span class="pl-type" data-t="planner.troncal">Troncal</span>
+              <!-- Quad. 5 (Q1) -->
+              <div class="pl-col">
+                <div class="pl-colhead"><span class="pl-q" data-t="planner.q1">Quad. 5</span><span class="pl-per" data-t="planner.p1">Q1 · tardor</span><span class="pl-sum" data-t="planner.q1ects">24 ECTS</span></div>
+                <div class="pl-card pl-card--tr">
+                  <div class="pl-row"><span class="pl-code">BD</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
+                  <span class="pl-name" data-t="planner.bd">Bases de Dades</span>
+                  <span class="pl-type" data-t="planner.troncal">Troncal</span>
+                </div>
+                <div class="pl-card pl-card--ob pl-card--drag" aria-hidden="true">
+                  <div class="pl-row"><span class="pl-code">PAR</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
+                  <span class="pl-name" data-t="planner.par">Paral·lelisme</span>
+                  <span class="pl-type" data-t="planner.obligatoria">Obligatòria</span>
+                  <svg class="pl-cursor" viewBox="0 0 20 24" width="20" height="24" aria-hidden="true" focusable="false"><path d="M2 1.5 18 13l-7 1.2 4 7.6-3.2 1.6-4-7.7L2 19.5Z" fill="var(--fg)" stroke="var(--surface)" stroke-width="1.5" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="pl-card pl-card--ob">
+                  <div class="pl-row"><span class="pl-code">IES</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
+                  <span class="pl-name" data-t="planner.ies">Enginyeria del Programari</span>
+                  <span class="pl-type" data-t="planner.obligatoria">Obligatòria</span>
+                </div>
+                <div class="pl-card pl-card--cm">
+                  <div class="pl-row"><span class="pl-code">CBDE</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
+                  <span class="pl-name" data-t="planner.cbde">Cerca i Anàlisi de Dades</span>
+                  <span class="pl-type" data-t="planner.compl">Compl. menció</span>
+                </div>
+              </div>
+    
+              <!-- Quad. 6 (Q2) -->
+              <div class="pl-col">
+                <div class="pl-colhead"><span class="pl-q" data-t="planner.q2">Quad. 6</span><span class="pl-per" data-t="planner.p2">Q2 · primavera</span><span class="pl-sum" data-t="planner.q2ects">18 ECTS</span></div>
+                <div class="pl-card pl-card--ob">
+                  <div class="pl-row"><span class="pl-code">DBD</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
+                  <span class="pl-name" data-t="planner.dbd">Disseny de Bases de Dades</span>
+                  <span class="pl-type" data-t="planner.obligatoria">Obligatòria</span>
+                </div>
+                <div class="pl-card pl-card--ob">
+                  <div class="pl-row"><span class="pl-code">XC</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
+                  <span class="pl-name" data-t="planner.xc">Xarxes de Computadors</span>
+                  <span class="pl-type" data-t="planner.obligatoria">Obligatòria</span>
+                </div>
+                <div class="pl-card pl-card--tr">
+                  <div class="pl-row"><span class="pl-code">SO</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
+                  <span class="pl-name" data-t="planner.so">Sistemes Operatius</span>
+                  <span class="pl-type" data-t="planner.troncal">Troncal</span>
+                </div>
+              </div>
+    
+              <!-- Quad. 7 (Q1) -->
+              <div class="pl-col">
+                <div class="pl-colhead"><span class="pl-q" data-t="planner.q3">Quad. 7</span><span class="pl-per" data-t="planner.p3">Q1 · tardor</span><span class="pl-sum" data-t="planner.q3ects">6 ECTS</span></div>
+                <div class="pl-card pl-card--ob">
+                  <div class="pl-row"><span class="pl-code">PROP</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
+                  <span class="pl-name" data-t="planner.prop">Projecte de Programació</span>
+                  <span class="pl-type" data-t="planner.obligatoria">Obligatòria</span>
+                </div>
+                <div class="pl-slot" aria-hidden="true"></div>
+              </div>
             </div>
-            <div class="pl-card pl-card--ob pl-card--drag" aria-hidden="true">
-              <div class="pl-row"><span class="pl-code">PAR</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
-              <span class="pl-name" data-t="planner.par">Paral·lelisme</span>
-              <span class="pl-type" data-t="planner.obligatoria">Obligatòria</span>
-              <svg class="pl-cursor" viewBox="0 0 20 24" width="20" height="24" aria-hidden="true" focusable="false"><path d="M2 1.5 18 13l-7 1.2 4 7.6-3.2 1.6-4-7.7L2 19.5Z" fill="var(--fg)" stroke="var(--surface)" stroke-width="1.5" stroke-linejoin="round"/></svg>
-            </div>
-            <div class="pl-card pl-card--ob">
-              <div class="pl-row"><span class="pl-code">IES</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
-              <span class="pl-name" data-t="planner.ies">Enginyeria del Programari</span>
-              <span class="pl-type" data-t="planner.obligatoria">Obligatòria</span>
-            </div>
-            <div class="pl-card pl-card--cm">
-              <div class="pl-row"><span class="pl-code">CBDE</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
-              <span class="pl-name" data-t="planner.cbde">Cerca i Anàlisi de Dades</span>
-              <span class="pl-type" data-t="planner.compl">Compl. menció</span>
-            </div>
-          </div>
-
-          <!-- Quad. 6 (Q2) -->
-          <div class="pl-col">
-            <div class="pl-colhead"><span class="pl-q" data-t="planner.q2">Quad. 6</span><span class="pl-per" data-t="planner.p2">Q2 · primavera</span><span class="pl-sum" data-t="planner.q2ects">18 ECTS</span></div>
-            <div class="pl-card pl-card--ob">
-              <div class="pl-row"><span class="pl-code">DBD</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
-              <span class="pl-name" data-t="planner.dbd">Disseny de Bases de Dades</span>
-              <span class="pl-type" data-t="planner.obligatoria">Obligatòria</span>
-            </div>
-            <div class="pl-card pl-card--ob">
-              <div class="pl-row"><span class="pl-code">XC</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
-              <span class="pl-name" data-t="planner.xc">Xarxes de Computadors</span>
-              <span class="pl-type" data-t="planner.obligatoria">Obligatòria</span>
-            </div>
-            <div class="pl-card pl-card--tr">
-              <div class="pl-row"><span class="pl-code">SO</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
-              <span class="pl-name" data-t="planner.so">Sistemes Operatius</span>
-              <span class="pl-type" data-t="planner.troncal">Troncal</span>
-            </div>
-          </div>
-
-          <!-- Quad. 7 (Q1) -->
-          <div class="pl-col">
-            <div class="pl-colhead"><span class="pl-q" data-t="planner.q3">Quad. 7</span><span class="pl-per" data-t="planner.p3">Q1 · tardor</span><span class="pl-sum" data-t="planner.q3ects">6 ECTS</span></div>
-            <div class="pl-card pl-card--ob">
-              <div class="pl-row"><span class="pl-code">PROP</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
-              <span class="pl-name" data-t="planner.prop">Projecte de Programació</span>
-              <span class="pl-type" data-t="planner.obligatoria">Obligatòria</span>
-            </div>
-            <div class="pl-slot" aria-hidden="true"></div>
-          </div>
-        </div>
+        <span class="sticker sticker--hl hero-st hero-st3" aria-hidden="true" data-t="hero.st3">TFG</span>
       </div>
 
-      <div class="hero-axo">
-        <svg class="axo hero-axo-img" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#axo-neutral"/></svg>
-        <p class="bubble hero-bubble" data-t="hero.bubble">Aquest quadrimestre suma 24 ECTS: el repartim?</p>
+      <span class="sticker sticker--ok hero-st hero-st1" aria-hidden="true" data-t="hero.st1">ECTS ✓</span>
+
+      <div class="hero-bottom">
+        <div class="axo-says hero-axo">
+          <svg class="axo hero-axo-img" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#axo-neutral"/></svg>
+          <p class="bubble hero-bubble" data-t="hero.bubble">Aquest quadrimestre suma 24 ECTS: el repartim?</p>
+        </div>
+        <p class="sticky sticky--yellow hero-tip reveal" data-t="hero.tip">Consell: reparteix els ECTS entre quadrimestres.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Quadrimestre ACTUAL = Quad. 5 (Q1, tardor 2026): BD, PAR, IES, CBDE. Quad. 6 (Q2): DBD, XC, SO. Quad. 7 (Q1): PROP. -->
-<section id="problema" class="section prob" aria-labelledby="b-prob-h">
-  <div class="wrap">
-    <div class="prob-head reveal">
-      <div class="prob-head-text">
-        <p class="eyebrow" data-t="prob.eyebrow">El problema</p>
-        <h2 class="h2" id="b-prob-h" data-t="prob.title">Planificar la carrera a la FIB no hauria de ser una gimcana</h2>
-        <p class="lead" data-t="prob.lead">Horaris en una web, guies en una altra, la normativa en un PDF i els números en un Excel. Si estudies a la FIB, segur que et sona.</p>
-      </div>
-      <div class="prob-mascot">
-        <p class="bubble" data-t="prob.bubble1">Tinc cinc pestanyes obertes… i encara no sé quants crèdits em falten.</p>
-        <svg class="axo prob-axo" viewBox="0 0 200 200" aria-hidden="true"><use href="#axo-worried"/></svg>
+<!-- Ticker (decoratiu): els termes es repeteixen a tota la web -->
+<div class="tick" aria-hidden="true">
+  <div class="tick-strip">
+    <div class="marquee">
+      <div class="marquee-track">
+        <div class="marquee-group">
+          <span class="marquee-item" data-t="ticker.i1">BD</span><svg class="deco deco--star marquee-sep" focusable="false"><use href="#a-deco-star"/></svg>
+          <span class="marquee-item" data-t="ticker.i2">PAR</span><svg class="deco deco--star marquee-sep" focusable="false"><use href="#a-deco-star"/></svg>
+          <span class="marquee-item" data-t="ticker.i3">IES</span><svg class="deco deco--star marquee-sep" focusable="false"><use href="#a-deco-star"/></svg>
+          <span class="marquee-item" data-t="ticker.i4">XC</span><svg class="deco deco--star marquee-sep" focusable="false"><use href="#a-deco-star"/></svg>
+          <span class="marquee-item" data-t="ticker.i5">SO</span><svg class="deco deco--star marquee-sep" focusable="false"><use href="#a-deco-star"/></svg>
+          <span class="marquee-item" data-t="ticker.i6">PROP</span><svg class="deco deco--star marquee-sep" focusable="false"><use href="#a-deco-star"/></svg>
+          <span class="marquee-item" data-t="ticker.i7">TFG</span><svg class="deco deco--star marquee-sep" focusable="false"><use href="#a-deco-star"/></svg>
+          <span class="marquee-item" data-t="ticker.i8">ECTS</span><svg class="deco deco--star marquee-sep" focusable="false"><use href="#a-deco-star"/></svg>
+          <span class="marquee-item" data-t="ticker.i9">Erasmus</span><svg class="deco deco--star marquee-sep" focusable="false"><use href="#a-deco-star"/></svg>
+          <span class="marquee-item" data-t="ticker.i10">Pràctiques</span><svg class="deco deco--star marquee-sep" focusable="false"><use href="#a-deco-star"/></svg>
+          <span class="marquee-item" data-t="ticker.i11">Prerequisits</span><svg class="deco deco--star marquee-sep" focusable="false"><use href="#a-deco-star"/></svg>
+          <span class="marquee-item" data-t="ticker.i12">Quadrimestre</span><svg class="deco deco--star marquee-sep" focusable="false"><use href="#a-deco-star"/></svg>
+        </div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- Quadrimestre ACTUAL = Quad. 5 (Q1, tardor 2026): BD, PAR, IES, CBDE. Quad. 6 (Q2): DBD, XC, SO. Quad. 7 (Q1): PROP. -->
+<section id="problema" class="section prob paper paper--grid torn-top" aria-labelledby="b-prob-h">
+  <div class="wrap">
+    <div class="prob-head">
+      <div class="prob-head-text reveal">
+        <p><span class="stamp stamp--accent" style="--r:-1.5deg" data-t="prob.eyebrow">El problema</span></p>
+        <h2 class="h2" id="b-prob-h"><span data-t="prob.title_a">Planificar la carrera a la FIB no hauria de ser una</span> <span class="hl" data-t="prob.title_b">gimcana</span></h2>
+        <p class="lead" data-t="prob.lead">Horaris en una web, guies en una altra, la normativa en un PDF i els números en un Excel. Si estudies a la FIB, segur que et sona.</p>
+      </div>
+      <div class="prob-mascot axo-says axo-says--right reveal" style="--axo-size:128px">
+        <svg class="axo prob-axo" viewBox="0 0 200 200" aria-hidden="true"><use href="#axo-worried"/></svg>
+        <p class="bubble bubble--right" data-t="prob.bubble1">Tinc cinc pestanyes obertes… i encara no sé quants crèdits em falten.</p>
+      </div>
+    </div>
+
     <ul class="prob-grid">
-      <li class="card prob-card reveal">
+      <li class="sticky sticky--yellow prob-pit reveal" style="--r:-1.2deg">
+        <svg class="deco deco--pin deco--coral prob-pin" aria-hidden="true" focusable="false"><use href="#a-deco-pin"/></svg>
         <svg class="prob-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="8" width="21" height="16" rx="3"/><rect x="22" y="22" width="21" height="16" rx="3"/><path d="M11 14h9M28 28h9M28 33h5"/></svg>
         <h3 data-t="prob.f1t">Tot està escampat</h3>
         <p data-t="prob.f1d">Horaris, guies docents i normativa viuen a webs diferents. Cada dubte és una cerca nova.</p>
+        <span class="note note--coral prob-ann prob-ann--1" style="--r:1.5deg" aria-hidden="true" data-t="prob.n1">uf!</span>
         <div class="prob-card-axo"><svg class="axo prob-axo-s" viewBox="0 0 200 200" aria-hidden="true"><use href="#axo-confused"/></svg><span class="prob-note" data-t="prob.bubble2">On era aquella guia docent?</span></div>
       </li>
-      <li class="card prob-card reveal">
+      <li class="sticky sticky--pink prob-pit reveal" style="--r:1deg;--reveal-delay:90ms">
+        <svg class="deco deco--pin deco--coral prob-pin" aria-hidden="true" focusable="false"><use href="#a-deco-pin"/></svg>
         <svg class="prob-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 36a17 17 0 1 1 32 0"/><path d="M24 36l8-11"/><circle cx="24" cy="36" r="2.5"/><path d="M14 22l2 1.5M24 14v3M34 22l-2 1.5"/></svg>
         <h3 data-t="prob.f2t">No sé quants crèdits em falten</h3>
         <p data-t="prob.f2d">Comptar ECTS per tipus i saber si el teu pla és viable acaba sent feina d'Excel i calculadora.</p>
       </li>
-      <li class="card prob-card reveal">
+      <li class="sticky sticky--mint prob-pit reveal" style="--r:-.8deg;--reveal-delay:180ms">
+        <svg class="deco deco--pin deco--coral prob-pin" aria-hidden="true" focusable="false"><use href="#a-deco-pin"/></svg>
         <svg class="prob-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M24 43s-13-11-13-21a13 13 0 0 1 26 0c0 10-13 21-13 21z"/><circle cx="24" cy="22" r="4.5"/></svg>
         <h3 data-t="prob.f3t">No trobo on estudiar</h3>
         <p data-t="prob.f3d">Endolls, silenci, lloc lliure… trobar un bon racó és prova i error.</p>
       </li>
     </ul>
+
     <div class="prob-funnel reveal">
       <ul class="prob-chips">
-        <li class="chip prob-chip" data-t="prob.c1">Horaris FIB</li>
-        <li class="chip prob-chip" data-t="prob.c2">Guies docents</li>
-        <li class="chip prob-chip" data-t="prob.c3">Normativa</li>
-        <li class="chip prob-chip" data-t="prob.c4">Excel</li>
-        <li class="chip prob-chip" data-t="prob.c5">Calculadora de notes</li>
-        <li class="chip prob-chip" data-t="prob.c6">Calendari acadèmic</li>
+        <li class="prob-chip prob-chip--paper" style="--r:-1.2deg" data-t="prob.c1">Horaris FIB</li>
+        <li class="prob-chip prob-chip--yellow" style="--r:1deg" data-t="prob.c2">Guies docents</li>
+        <li class="prob-chip prob-chip--paper" style="--r:-.6deg" data-t="prob.c3">Normativa</li>
+        <li class="prob-chip prob-chip--pink" style="--r:1.4deg" data-t="prob.c4">Excel</li>
+        <li class="prob-chip prob-chip--mint" style="--r:-1.4deg" data-t="prob.c5">Calculadora de notes</li>
+        <li class="prob-chip prob-chip--paper" style="--r:.6deg" data-t="prob.c6">Calendari acadèmic</li>
       </ul>
       <svg class="prob-lines" viewBox="0 0 600 80" preserveAspectRatio="none" aria-hidden="true" focusable="false">
         <path d="M50 0 C50 45 300 35 300 80" vector-effect="non-scaling-stroke"/><path d="M150 0 C150 45 300 35 300 80" vector-effect="non-scaling-stroke"/><path d="M250 0 C250 45 300 35 300 80" vector-effect="non-scaling-stroke"/><path d="M350 0 C350 45 300 35 300 80" vector-effect="non-scaling-stroke"/><path d="M450 0 C450 45 300 35 300 80" vector-effect="non-scaling-stroke"/><path d="M550 0 C550 45 300 35 300 80" vector-effect="non-scaling-stroke"/>
       </svg>
-      <div class="card prob-hub">
+      <div class="prob-hub ink-card paper" style="--r:-.5deg">
+        <span class="stamp stamp--accent prob-stamp" style="--r:1.5deg" aria-hidden="true" data-t="prob.stamp">Tot en un lloc</span>
         <svg class="axo prob-hub-axo" viewBox="0 0 156 124" aria-hidden="true"><use href="#axo-mini"/></svg>
-        <div>
+        <div class="prob-hub-b">
           <p class="prob-hub-name">QuadreFIB</p>
+          <svg class="deco deco--wave deco--coral prob-hub-wave" aria-hidden="true" focusable="false"><use href="#a-deco-wave"/></svg>
           <p class="prob-hub-d" data-t="prob.hub">Deixa de planificar la carrera amb cinc webs, un Excel i una calculadora: QuadreFIB ho connecta tot en un únic lloc.</p>
         </div>
       </div>
@@ -1414,11 +1981,11 @@ button { cursor: pointer; }
   </div>
 </section>
 
-<section id="funcionalitats" class="section car" aria-labelledby="b-car-h">
+<section id="funcionalitats" class="section car paper-2 torn-top" aria-labelledby="b-car-h">
   <div class="wrap">
     <div class="car-head reveal">
       <p class="eyebrow" data-t="car.eyebrow">Funcionalitats</p>
-      <h2 class="h2" id="b-car-h" data-t="car.title">Tot el que necessites per ordenar la teva etapa a la FIB</h2>
+      <h2 class="h2" id="b-car-h"><span data-t="car.title_a">Tot el que</span> <span class="hl" data-t="car.title_b">necessites</span> <span data-t="car.title_c">per ordenar la teva etapa a la FIB</span></h2>
       <p class="lead" data-t="car.lead">El planificador de carrera és el cor de QuadreFIB; la resta de mòduls l'acompanyen en el dia a dia.</p>
     </div>
     <ul class="car-mods reveal" id="b-modules">
@@ -1622,63 +2189,67 @@ button { cursor: pointer; }
   </div>
 </section>
 
-<section id="progres" class="section prog" aria-labelledby="b-prog-h">
+<section id="progres" class="section prog paper torn-top" aria-labelledby="b-prog-h">
   <div class="wrap">
     <div class="prog-head reveal">
-      <p class="eyebrow" data-t="prog.eyebrow">El teu progrés</p>
-      <h2 class="h2" id="b-prog-h" data-t="prog.title">Mira on ets d'un sol cop d'ull</h2>
+      <p><span class="stamp stamp--accent" style="--r:-1.5deg" data-t="prog.eyebrow">El teu progrés</span></p>
+      <h2 class="h2" id="b-prog-h"><span data-t="prog.title_a">Mira on ets d'un sol</span> <span class="hl hl--pink" data-t="prog.title_b">cop d'ull</span></h2>
     </div>
-    <div class="card prog-dash reveal" id="b-prog">
-      <div class="prog-top">
-        <div class="prog-mascot">
-          <p class="bubble" data-t="prog.bubble">Més de la meitat de la carrera!</p>
-          <svg class="axo prog-axo" viewBox="0 0 200 200" aria-hidden="true"><use href="#axo-surprised"/></svg>
+    <div class="prog-wrap">
+      <div class="prog-peek axo-says axo-says--right reveal" style="--axo-size:104px">
+        <svg class="axo prog-axo" viewBox="0 0 200 200" aria-hidden="true"><use href="#axo-surprised"/></svg>
+        <p class="bubble bubble--right" data-t="prog.bubble">Més de la meitat de la carrera!</p>
+      </div>
+      <div class="prog-dash ink-card paper reveal" id="b-prog">
+        <div class="prog-band"><span class="prog-band-t" data-t="prog.card">Butlletí de progrés</span><span class="prog-band-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+        <div class="prog-body">
+          <div class="prog-main">
+            <p class="prog-big"><b>156</b> <span class="prog-of">/ 240</span> <span data-t="prog.ects">ECTS</span></p>
+            <span class="stamp stamp--ok prog-stamp" style="--r:-1.5deg" aria-hidden="true">65 %</span>
+            <div class="prog-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="65" data-t-aria="prog.bar_aria" aria-label="Progrés total: 156 de 240 ECTS, 65 %">
+              <i class="prog-fill" style="--w:65%"></i>
+            </div>
+            <span class="note note--coral prog-note" style="--r:-1.5deg" aria-hidden="true" data-t="prog.note">ja gairebé!</span>
+          </div>
+          <ul class="prog-stats">
+            <li class="prog-stat"><span class="sticker sticker--hl" style="--r:-1.5deg"><b>3</b></span><span data-t="prog.s1">quadrimestres per acabar</span></li>
+            <li class="prog-stat"><span class="sticker sticker--ok" style="--r:1.5deg"><b>2</b></span><span data-t="prog.s2">complementàries pendents</span></li>
+            <li class="prog-stat"><span class="sticker sticker--rect prog-stat-tfg" style="--r:-1deg;--s:var(--note-lilac);--s-ink:var(--ink)"><svg class="prog-flag" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 42V8M12 10h24l-5 8 5 8H12"/></svg><b data-t="prog.s3">TFG · gener de 2028</b></span></li>
+          </ul>
+          <ul class="prog-rows">
+            <li class="prog-row is-full" style="--r:-1deg">
+              <span class="prog-lbl" data-t="prog.r1">Bàsica / troncal</span>
+              <span class="prog-val">60 / 60</span>
+              <div class="prog-track" role="img" data-t-aria="prog.r1_aria" aria-label="Bàsica / troncal: 60 de 60 ECTS"><i class="prog-fill" style="--w:100.0%"></i></div>
+            </li>
+            <li class="prog-row" style="--r:.8deg">
+              <span class="prog-lbl" data-t="prog.r2">Obligatòries</span>
+              <span class="prog-val">60 / 72</span>
+              <div class="prog-track" role="img" data-t-aria="prog.r2_aria" aria-label="Obligatòries: 60 de 72 ECTS"><i class="prog-fill" style="--w:83.3%"></i></div>
+            </li>
+            <li class="prog-row" style="--r:-.6deg">
+              <span class="prog-lbl" data-t="prog.r3">Optatives</span>
+              <span class="prog-val">24 / 30</span>
+              <div class="prog-track" role="img" data-t-aria="prog.r3_aria" aria-label="Optatives: 24 de 30 ECTS"><i class="prog-fill" style="--w:80.0%"></i></div>
+            </li>
+            <li class="prog-row" style="--r:1.1deg">
+              <span class="prog-lbl" data-t="prog.r4">Complementàries de menció</span>
+              <span class="prog-val">12 / 24</span>
+              <div class="prog-track" role="img" data-t-aria="prog.r4_aria" aria-label="Complementàries de menció: 12 de 24 ECTS"><i class="prog-fill" style="--w:50.0%"></i></div>
+            </li>
+            <li class="prog-row" style="--r:-.9deg">
+              <span class="prog-lbl" data-t="prog.r5">Pràctiques</span>
+              <span class="prog-val">0 / 18</span>
+              <div class="prog-track" role="img" data-t-aria="prog.r5_aria" aria-label="Pràctiques: 0 de 18 ECTS"><i class="prog-fill" style="--w:0.0%"></i></div>
+            </li>
+            <li class="prog-row" style="--r:.6deg">
+              <span class="prog-lbl" data-t="prog.r6">TFG</span>
+              <span class="prog-val">0 / 36</span>
+              <div class="prog-track" role="img" data-t-aria="prog.r6_aria" aria-label="TFG: 0 de 36 ECTS"><i class="prog-fill" style="--w:0.0%"></i></div>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="prog-main">
-        <p class="prog-big"><b>156</b> <span class="prog-of">/ 240</span> <span data-t="prog.ects">ECTS</span></p>
-        <div class="prog-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="65" data-t-aria="prog.bar_aria" aria-label="Progrés total: 156 de 240 ECTS, 65 %">
-          <i class="prog-fill" style="--w:65%"></i>
-        </div>
-        <p class="prog-pct">65 %</p>
-      </div>
-      <ul class="prog-stats">
-        <li class="prog-stat"><svg class="prog-stat-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="24" cy="24" r="17"/><path d="M24 14v10l7 4"/></svg><b>3</b><span data-t="prog.s1">quadrimestres per acabar</span></li>
-        <li class="prog-stat"><svg class="prog-stat-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 25l9 9 19-20"/></svg><b>2</b><span data-t="prog.s2">complementàries pendents</span></li>
-        <li class="prog-stat"><svg class="prog-stat-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 42V8M12 10h24l-5 8 5 8H12"/></svg><b class="prog-stat-sm" data-t="prog.s3">TFG · gener de 2028</b></li>
-      </ul>
-      <ul class="prog-rows">
-        <li class="prog-row">
-          <span class="prog-lbl" data-t="prog.r1">Bàsica / troncal</span>
-          <span class="prog-val">60 / 60</span>
-          <div class="prog-track" role="img" data-t-aria="prog.r1_aria" aria-label="Bàsica / troncal: 60 de 60 ECTS"><i class="prog-fill" style="--w:100.0%"></i></div>
-        </li>
-        <li class="prog-row">
-          <span class="prog-lbl" data-t="prog.r2">Obligatòries</span>
-          <span class="prog-val">60 / 72</span>
-          <div class="prog-track" role="img" data-t-aria="prog.r2_aria" aria-label="Obligatòries: 60 de 72 ECTS"><i class="prog-fill" style="--w:83.3%"></i></div>
-        </li>
-        <li class="prog-row">
-          <span class="prog-lbl" data-t="prog.r3">Optatives</span>
-          <span class="prog-val">24 / 30</span>
-          <div class="prog-track" role="img" data-t-aria="prog.r3_aria" aria-label="Optatives: 24 de 30 ECTS"><i class="prog-fill" style="--w:80.0%"></i></div>
-        </li>
-        <li class="prog-row">
-          <span class="prog-lbl" data-t="prog.r4">Complementàries de menció</span>
-          <span class="prog-val">12 / 24</span>
-          <div class="prog-track" role="img" data-t-aria="prog.r4_aria" aria-label="Complementàries de menció: 12 de 24 ECTS"><i class="prog-fill" style="--w:50.0%"></i></div>
-        </li>
-        <li class="prog-row">
-          <span class="prog-lbl" data-t="prog.r5">Pràctiques</span>
-          <span class="prog-val">0 / 18</span>
-          <div class="prog-track" role="img" data-t-aria="prog.r5_aria" aria-label="Pràctiques: 0 de 18 ECTS"><i class="prog-fill" style="--w:0.0%"></i></div>
-        </li>
-        <li class="prog-row">
-          <span class="prog-lbl" data-t="prog.r6">TFG</span>
-          <span class="prog-val">0 / 36</span>
-          <div class="prog-track" role="img" data-t-aria="prog.r6_aria" aria-label="TFG: 0 de 36 ECTS"><i class="prog-fill" style="--w:0.0%"></i></div>
-        </li>
-      </ul>
     </div>
   </div>
 </section>
@@ -1712,15 +2283,15 @@ button { cursor: pointer; }
           </div>
         </div>
         <div class="qd-result" data-state="low">
-          <div class="qd-axo-wrap">
-            <div class="bubble qd-bubble" id="c-qd-bubble" aria-hidden="true" data-d="qd.b_low">Tens marge. Bona feina!</div>
-            <svg class="axo qd-axo" viewBox="0 0 200 200" aria-hidden="true"><use id="c-qd-axo" href="#axo-surprised"/></svg>
+          <div class="axo-says qd-says">
+            <svg class="axo qd-axo" style="--axo-size:104px" viewBox="0 0 200 200" aria-hidden="true"><use id="c-qd-axo" href="#axo-surprised"/></svg>
+            <div class="bubble" id="c-qd-bubble" aria-hidden="true" data-d="qd.b_low">Tens marge. Bona feina!</div>
           </div>
           <div class="qd-need">
             <p class="qd-need-l" data-t="qd.need_label">Nota necessària al final</p>
             <p class="qd-need-n" id="c-qd-need">5,0</p>
             <div class="qd-bar" aria-hidden="true"><span id="c-qd-bar" style="width:50%"></span></div>
-            <p class="qd-msg" id="c-qd-msg" aria-live="polite" data-d="qd.msg_low" data-v="n=5,0">Només necessites un 5 al final. Tens bon marge.</p>
+            <p class="qd-msg" id="c-qd-msg" aria-live="polite" data-d="qd.msg_low" data-v="n=5,0">Només necessites un 5,0 al final. Tens bon marge.</p>
           </div>
         </div>
       </div>
@@ -1956,15 +2527,21 @@ button { cursor: pointer; }
   </div>
 </section>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="d-quote" viewBox="0 0 48 40"><path d="M14 5 C6 10 3 20 7 30" pathLength="1"/><path d="M8 34 L8.3 34.3" pathLength="1"/><path d="M38 5 C30 10 27 20 31 30" pathLength="1"/><path d="M32 34 L32.3 34.3" pathLength="1"/></symbol>
+    <symbol id="d-scissors" viewBox="0 0 60 40"><path d="M13 9 A5 5 0 1 1 3 9 A5 5 0 1 1 13 9" pathLength="1"/><path d="M13 31 A5 5 0 1 1 3 31 A5 5 0 1 1 13 31" pathLength="1"/><path d="M12 12 L57 30" pathLength="1"/><path d="M12 28 L57 10" pathLength="1"/></symbol>
+  </defs>
+</svg>
 <section id="com-funciona" class="section how" aria-labelledby="d-how-title">
   <div class="wrap">
     <p class="eyebrow reveal" data-t="how.eyebrow">Com funciona</p>
-    <h2 class="h2 reveal" id="d-how-title" data-t="how.title">De la matrícula al pla complet en tres passos</h2>
+    <h2 class="h2 reveal" id="d-how-title"><span data-t="how.title">De la matrícula al pla complet en</span> <span class="hl" data-t="how.titleHl">tres passos</span></h2>
     <p class="lead reveal" data-t="how.lead">Pensat per a estudiants de la FIB: tres passos, al teu ritme.</p>
     <ol class="how-steps">
       <li class="how-step card reveal">
         <span class="how-num" aria-hidden="true">1</span>
-        <svg class="axo how-axo" viewBox="0 0 200 200" role="img" data-t-aria="how.axo1" aria-label="Axo, neutral"><use href="#axo-neutral"/></svg>
+        <svg class="axo how-axo" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#axo-neutral"/></svg>
         <p class="sr-only"><span data-t="how.stepLabel">Pas</span> 1</p>
         <h3 class="how-h" data-t="how.s1t">Connecta el teu compte (idea de projecte)</h3>
         <p class="how-d" data-t="how.s1d">Importa el teu horari i la teva matrícula perquè QuadreFIB parteixi del que ja tens.</p>
@@ -1972,7 +2549,7 @@ button { cursor: pointer; }
       </li>
       <li class="how-step card reveal">
         <span class="how-num" aria-hidden="true">2</span>
-        <svg class="axo how-axo" viewBox="0 0 200 200" role="img" data-t-aria="how.axo2" aria-label="Axo, pensant"><use href="#axo-thinking"/></svg>
+        <svg class="axo how-axo" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#axo-thinking"/></svg>
         <p class="sr-only"><span data-t="how.stepLabel">Pas</span> 2</p>
         <h3 class="how-h" data-t="how.s2t">Personalitza capes, notes i pla</h3>
         <p class="how-d" data-t="how.s2d">Activa les capes que vols veure, afegeix hores d'estudi i ajusta les notes i el pla al teu gust.</p>
@@ -1980,7 +2557,7 @@ button { cursor: pointer; }
       </li>
       <li class="how-step card reveal">
         <span class="how-num" aria-hidden="true">3</span>
-        <svg class="axo how-axo" viewBox="0 0 200 200" role="img" data-t-aria="how.axo3" aria-label="Axo, contenta"><use href="#axo-happy"/></svg>
+        <svg class="axo how-axo" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#axo-happy"/></svg>
         <p class="sr-only"><span data-t="how.stepLabel">Pas</span> 3</p>
         <h3 class="how-h" data-t="how.s3t">Planifica els teus quadrimestres</h3>
         <p class="how-d" data-t="how.s3d">Arrossega assignatures, comprova restriccions i compara escenaris fins a la graduació.</p>
@@ -1993,23 +2570,23 @@ button { cursor: pointer; }
 <section id="per-a-qui" class="section who" aria-labelledby="d-who-title">
   <div class="wrap">
     <p class="eyebrow reveal" data-t="who.eyebrow">Per a qui és</p>
-    <h2 class="h2 reveal" id="d-who-title" data-t="who.title">Si estudies a la FIB, hi ha un lloc per a tu</h2>
+    <h2 class="h2 reveal" id="d-who-title"><span data-t="who.title">Si estudies a la FIB, hi ha un lloc</span> <span class="hl" data-t="who.titleHl">per a tu</span></h2>
     <p class="lead reveal" data-t="who.lead">Des del primer quadrimestre fins al TFG, QuadreFIB t'acompanya en cada etapa.</p>
     <ul class="who-grid">
       <li class="who-card card reveal">
-        <svg class="axo who-axo" viewBox="0 0 200 200" role="img" data-t-aria="who.axo1" aria-label="Axo, neutral"><use href="#axo-neutral"/></svg>
+        <svg class="axo who-axo" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#axo-neutral"/></svg>
         <h3 class="who-h" data-t="who.p1t">Primer curs</h3>
         <p class="who-d" data-t="who.p1d">Acabes d'arribar i tot és nou: assignatures, grups, normativa.</p>
         <p class="who-gain" data-t="who.p1g">Què hi guanyes: sabràs què toca cada quadrimestre i no et perdràs entre webs.</p>
       </li>
       <li class="who-card card reveal">
-        <svg class="axo who-axo" viewBox="0 0 200 200" role="img" data-t-aria="who.axo2" aria-label="Axo, estudiant"><use href="#axo-studying"/></svg>
+        <svg class="axo who-axo" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#axo-studying"/></svg>
         <h3 class="who-h" data-t="who.p2t">Pràctiques o Erasmus</h3>
         <p class="who-d" data-t="who.p2d">Vols fer pràctiques o marxar un temps i no saps com encaixa al pla.</p>
         <p class="who-gain" data-t="who.p2g">Què hi guanyes: compares escenaris i veus quan acabaries amb cada opció.</p>
       </li>
       <li class="who-card card reveal">
-        <svg class="axo who-axo" viewBox="0 0 200 200" role="img" data-t-aria="who.axo3" aria-label="Axo, graduada"><use href="#axo-graduated"/></svg>
+        <svg class="axo who-axo" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#axo-graduated"/></svg>
         <h3 class="who-h" data-t="who.p3t">TFG a la vista</h3>
         <p class="who-d" data-t="who.p3d">Et queden els últims crèdits i has de tancar la carrera sense sorpreses.</p>
         <p class="who-gain" data-t="who.p3g">Què hi guanyes: controles què et falta i planifiques l'últim tram amb calma.</p>
@@ -2018,32 +2595,38 @@ button { cursor: pointer; }
   </div>
 </section>
 
-<section id="testimonis" class="section tes" aria-labelledby="d-tes-title">
+<section id="testimonis" class="section tes paper torn-top" aria-labelledby="d-tes-title">
   <div class="wrap">
-    <p class="eyebrow reveal" data-t="tes.eyebrow">Testimonis</p>
-    <h2 class="h2 reveal" id="d-tes-title" data-t="tes.title">Què en diria la comunitat</h2>
+    <p class="eyebrow reveal"><span class="stamp stamp--accent" style="--r:-2deg" data-t="tes.eyebrow">Testimonis</span></p>
+    <h2 class="h2 reveal" id="d-tes-title"><span data-t="tes.title">Què en diria</span> <span class="hl" data-t="tes.titleHl">la comunitat</span></h2>
     <p class="lead reveal" data-t="tes.lead">Opinions d'estudiants de la FIB sobre com els ajudaria QuadreFIB.</p>
     <p class="tes-warn reveal" data-t="tes.warn">Testimonis ficticis, escrits com a exemple del que podria dir un estudiant.</p>
-    <div class="tes-grid">
-      <figure class="tes-card card reveal">
+    <div class="tes-board">
+      <figure class="sticky sticky--yellow tes-note reveal" style="--r:-1.4deg;--reveal-delay:0ms">
+        <i class="tape tape--dots" style="--r:-4deg"></i>
+        <svg class="deco deco--ink deco--draw tes-quote" aria-hidden="true" focusable="false"><use href="#d-quote"/></svg>
         <blockquote class="tes-q"><p data-t="tes.q1">Per fi veig de cop quants crèdits em falten i si el pla m'encaixa.</p></blockquote>
         <figcaption class="tes-cap">
           <span class="tes-av" aria-hidden="true" data-t="tes.i1">LM</span>
-          <span class="tes-who"><strong data-t="tes.n1">Laia M.</strong> · <span data-t="tes.r1">1r curs</span></span>
+          <span class="tes-who"><strong class="tes-name" data-t="tes.n1">Laia M.</strong> · <span data-t="tes.r1">1r curs</span></span>
         </figcaption>
       </figure>
-      <figure class="tes-card card reveal">
+      <figure class="sticky sticky--pink tes-note reveal" style="--r:1.2deg;--reveal-delay:110ms">
+        <svg class="deco deco--pin deco--coral tes-pin" aria-hidden="true" focusable="false"><use href="#a-deco-pin"/></svg>
+        <svg class="deco deco--ink deco--draw tes-quote" aria-hidden="true" focusable="false"><use href="#d-quote"/></svg>
         <blockquote class="tes-q"><p data-t="tes.q2">Vaig comparar fer pràctiques ara o més endavant i vaig decidir amb dades a la vista.</p></blockquote>
         <figcaption class="tes-cap">
           <span class="tes-av" aria-hidden="true" data-t="tes.i2">PG</span>
-          <span class="tes-who"><strong data-t="tes.n2">Pol G.</strong> · <span data-t="tes.r2">pràctiques</span></span>
+          <span class="tes-who"><strong class="tes-name" data-t="tes.n2">Pol G.</strong> · <span data-t="tes.r2">pràctiques</span></span>
         </figcaption>
       </figure>
-      <figure class="tes-card card reveal">
+      <figure class="sticky sticky--mint tes-note reveal" style="--r:-.8deg;--reveal-delay:220ms">
+        <i class="tape tape--pink" style="--r:5deg"></i>
+        <svg class="deco deco--ink deco--draw tes-quote" aria-hidden="true" focusable="false"><use href="#d-quote"/></svg>
         <blockquote class="tes-q"><p data-t="tes.q3">Amb el TFG a prop, tenir tot el que em queda en un únic lloc em treu molt d'estrès.</p></blockquote>
         <figcaption class="tes-cap">
           <span class="tes-av" aria-hidden="true" data-t="tes.i3">AT</span>
-          <span class="tes-who"><strong data-t="tes.n3">Anna T.</strong> · <span data-t="tes.r3">TFG</span></span>
+          <span class="tes-who"><strong class="tes-name" data-t="tes.n3">Anna T.</strong> · <span data-t="tes.r3">TFG</span></span>
         </figcaption>
       </figure>
     </div>
@@ -2054,9 +2637,9 @@ button { cursor: pointer; }
   <div class="wrap faq-layout">
     <div class="faq-head">
       <p class="eyebrow reveal" data-t="faq.eyebrow">Preguntes freqüents</p>
-      <h2 class="h2 reveal" id="d-faq-title" data-t="faq.title">Dubtes habituals</h2>
+      <h2 class="h2 reveal" id="d-faq-title"><span data-t="faq.title">Dubtes</span> <span class="hl" data-t="faq.titleHl">habituals</span></h2>
       <p class="lead reveal" data-t="faq.lead">Respostes breus per a estudiants de la FIB.</p>
-      <svg class="axo faq-axo" viewBox="0 0 200 200" role="img" data-t-aria="faq.axo" aria-label="Axo, confusa"><use href="#axo-confused"/></svg>
+      <svg class="axo faq-axo" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#axo-confused"/></svg>
     </div>
     <div class="faq-list" id="d-faq-list">
       <div class="faq-item">
@@ -2083,48 +2666,56 @@ button { cursor: pointer; }
   </div>
 </section>
 
-<section id="llista-espera" class="section cta" aria-labelledby="d-cta-title">
-  <div class="wrap cta-box">
-    <div class="cta-copy">
-      <svg id="d-cta-axo" class="axo cta-axo" viewBox="0 0 200 200" role="img" data-t-aria="cta.axo" aria-label="Axo, graduada"><use href="#axo-graduated"/></svg>
-      <p class="eyebrow" data-t="cta.eyebrow">Llista d'espera</p>
-      <h2 class="h2" id="d-cta-title" data-t="cta.title">Apunta't i planifica la teva carrera a la FIB</h2>
-      <p class="lead" data-t="cta.lead">Aquesta és una demostració de la llista d'espera: quan QuadreFIB sigui una realitat, aquí podràs apuntar-t'hi. Pensat per a estudiants de la FIB.</p>
-    </div>
-    <div class="cta-panel card">
-      <form id="d-form" class="cta-form" novalidate>
-        <div class="cta-field">
-          <label for="d-email" class="cta-label" data-t="cta.emailLabel">Correu electrònic</label>
-          <input class="cta-input" type="email" id="d-email" name="email" autocomplete="email" inputmode="email" required aria-describedby="d-email-err" data-t-ph="cta.emailPh" placeholder="nom@exemple.cat">
-          <p class="cta-err" id="d-email-err" aria-live="polite"></p>
+<section id="llista-espera" class="section cta paper torn-top" aria-labelledby="d-cta-title">
+  <div class="wrap">
+    <div class="cta-ticket">
+      <div class="cta-stub">
+        <p class="reveal"><span class="stamp stamp--coral cta-stamp" data-t="cta.eyebrow">Llista d'espera</span></p>
+        <h2 class="h2 cta-title reveal" id="d-cta-title"><span data-t="cta.title">Apunta't i planifica la teva carrera</span> <span class="hl" data-t="cta.titleHl">a la FIB</span></h2>
+        <p class="lead cta-lead" data-t="cta.lead">Aquesta és una demostració de la llista d'espera: quan QuadreFIB sigui una realitat, aquí podràs apuntar-t'hi. Pensat per a estudiants de la FIB.</p>
+        <div class="cta-axo-wrap reveal" aria-hidden="true">
+          <svg class="axo cta-axo" viewBox="0 0 200 200" aria-hidden="true" focusable="false" id="d-cta-axo"><use href="#axo-graduated"/></svg>
+          <svg class="deco deco--star deco--draw deco--coral cta-c1" aria-hidden="true" focusable="false"><use href="#a-deco-star"/></svg><svg class="deco deco--spiral deco--draw deco--accent cta-c2" aria-hidden="true" focusable="false"><use href="#a-deco-spiral"/></svg>
         </div>
-        <div class="cta-field">
-          <label for="d-course" class="cta-label" data-t="cta.courseLabel">Curs o menció (opcional)</label>
-          <select class="cta-input" id="d-course" name="course">
-            <option value="" data-t="cta.courseDefault">Prefereixo no dir-ho</option>
-            <option value="c1" data-t="cta.c1">Primer curs</option>
-            <option value="c2" data-t="cta.c2">Segon curs</option>
-            <option value="c3" data-t="cta.c3">Tercer curs</option>
-            <option value="c4" data-t="cta.c4">Quart curs o TFG</option>
-            <option value="m1" data-t="cta.m1">Menció en Computació</option>
-            <option value="m2" data-t="cta.m2">Menció en Enginyeria del Programari</option>
-            <option value="m3" data-t="cta.m3">Menció en Enginyeria de Computadors</option>
-          </select>
-        </div>
-        <div class="cta-field">
-          <div class="cta-check">
-            <input type="checkbox" id="d-consent" name="consent" required aria-describedby="d-consent-err">
-            <label for="d-consent" data-t="cta.consent">Entenc que això és un prototip i que no es desa res.</label>
+        <svg class="deco deco--ink cta-scissors" aria-hidden="true" focusable="false"><use href="#d-scissors"/></svg>
+      </div>
+      <div class="cta-main">
+        <form id="d-form" class="cta-form" novalidate>
+          <p class="cta-formtitle" data-t="cta.formTitle">Fitxa d'inscripció</p>
+          <div class="cta-field">
+            <label for="d-email" class="cta-label" data-t="cta.emailLabel">Correu electrònic</label>
+            <input class="cta-input" type="email" id="d-email" name="email" autocomplete="email" inputmode="email" required aria-describedby="d-email-err" data-t-ph="cta.emailPh" placeholder="nom@exemple.cat">
+            <p class="cta-err" id="d-email-err" aria-live="polite"></p>
           </div>
-          <p class="cta-err" id="d-consent-err" aria-live="polite"></p>
+          <div class="cta-field">
+            <label for="d-course" class="cta-label" data-t="cta.courseLabel">Curs o menció (opcional)</label>
+            <select class="cta-input" id="d-course" name="course">
+              <option value="" data-t="cta.courseDefault">Prefereixo no dir-ho</option>
+              <option value="c1" data-t="cta.c1">Primer curs</option>
+              <option value="c2" data-t="cta.c2">Segon curs</option>
+              <option value="c3" data-t="cta.c3">Tercer curs</option>
+              <option value="c4" data-t="cta.c4">Quart curs o TFG</option>
+              <option value="m1" data-t="cta.m1">Menció en Computació</option>
+              <option value="m2" data-t="cta.m2">Menció en Enginyeria del Programari</option>
+              <option value="m3" data-t="cta.m3">Menció en Enginyeria de Computadors</option>
+            </select>
+          </div>
+          <div class="cta-field">
+            <div class="cta-check">
+              <input type="checkbox" id="d-consent" name="consent" required aria-describedby="d-consent-err">
+              <label for="d-consent" data-t="cta.consent">Entenc que això és un prototip i que no es desa res.</label>
+            </div>
+            <p class="cta-err" id="d-consent-err" aria-live="polite"></p>
+          </div>
+          <button type="submit" class="btn btn-primary cta-submit" data-t="cta.submit">Apunta'm a la llista</button>
+          <p class="cta-demo" data-t="cta.demo">Això és un prototip: el formulari no envia res a cap lloc.</p>
+        </form>
+        <div class="cta-ok" id="d-ok" role="status" tabindex="-1" hidden>
+          <svg class="axo cta-ok-axo" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#axo-happy"/></svg>
+          <p class="stamp stamp--ok cta-okstamp" data-t="cta.okStamp">Apuntat!</p>
+          <h3 class="cta-ok-h" data-t="cta.okTitle">Gràcies!</h3>
+          <p data-t="cta.okText">Això és un exemple: no s'ha desat res ni t'enviarem cap correu. Quan QuadreFIB sigui una realitat, aquí podràs apuntar-t'hi.</p>
         </div>
-        <button type="submit" class="btn btn-primary cta-submit" data-t="cta.submit">Apunta'm a la llista</button>
-        <p class="cta-demo" data-t="cta.demo">Això és un prototip: el formulari no envia res a cap lloc.</p>
-      </form>
-      <div class="cta-ok" id="d-ok" role="status" tabindex="-1" hidden>
-        <svg class="axo cta-ok-axo" viewBox="0 0 200 200" role="img" data-t-aria="cta.axoOk" aria-label="Axo, contenta"><use href="#axo-happy"/></svg>
-        <h3 class="cta-ok-h" data-t="cta.okTitle">Gràcies!</h3>
-        <p data-t="cta.okText">Això és un exemple: no s'ha desat res ni t'enviarem cap correu. Quan QuadreFIB sigui una realitat, aquí podràs apuntar-t'hi.</p>
       </div>
     </div>
   </div>
@@ -2132,20 +2723,27 @@ button { cursor: pointer; }
 
 
 </main>
-<footer class="ft" id="d-footer">
-  <div class="wrap ft-inner">
-    <div class="ft-brand">
-      <svg class="axo ft-logo" viewBox="0 0 156 124" aria-hidden="true" focusable="false"><use href="#axo-mini"/></svg>
-      <span class="ft-name" data-t="ft.brand">QuadreFIB</span>
+<footer class="ft paper-2 torn-top" id="d-footer">
+  <div class="wrap">
+    <div class="ft-peek" aria-hidden="true">
+      <span class="note ft-hi" data-t="ft.hi">fins aviat!</span>
+      <span class="ft-axo-box"><svg class="axo ft-axo" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#axo-neutral"/></svg></span>
     </div>
-    <nav class="ft-nav" data-t-aria="ft.navLabel" aria-label="Enllaços del peu">
-      <a href="#com-funciona" data-t="ft.l1">Com funciona</a>
-      <a href="#per-a-qui" data-t="ft.l2">Per a qui és</a>
-      <a href="#preguntes" data-t="ft.l3">Preguntes</a>
-      <a href="#llista-espera" data-t="ft.l4">Llista d'espera</a>
-      <a href="#top" data-t="ft.top">Torna a dalt</a>
-    </nav>
-    <p class="ft-copy">&copy; <span id="d-year">2026</span> <span data-t="ft.brand">QuadreFIB</span> &middot; <span data-t="ft.rights">Projecte acadèmic</span></p>
+    <div class="ft-mark" aria-hidden="true" data-t="ft.brand">QuadreFIB</div>
+    <div class="ft-inner">
+      <div class="ft-brand">
+        <svg class="axo ft-logo" viewBox="0 0 156 124" aria-hidden="true" focusable="false"><use href="#axo-mini"/></svg>
+        <span class="ft-name" data-t="ft.brand">QuadreFIB</span>
+      </div>
+      <nav class="ft-nav" data-t-aria="ft.navLabel" aria-label="Enllaços del peu">
+        <a href="#com-funciona" data-t="ft.l1">Com funciona</a>
+        <a href="#per-a-qui" data-t="ft.l2">Per a qui és</a>
+        <a href="#preguntes" data-t="ft.l3">Preguntes</a>
+        <a href="#llista-espera" data-t="ft.l4">Llista d'espera</a>
+        <a href="#top" data-t="ft.top">Torna a dalt</a>
+      </nav>
+      <p class="ft-copy">&copy; <span id="d-year">2026</span> <span data-t="ft.brand">QuadreFIB</span> &middot; <span data-t="ft.rights">Projecte acadèmic</span></p>
+    </div>
   </div>
 </footer>
 
@@ -2172,10 +2770,22 @@ Object.assign(T.ca, {
     sub: "Organitza el teu horari, controla les teves notes i planifica els quadrimestres que et queden en un únic espai.",
     ctaPrimary: "Comença a planificar",
     ctaSecondary: "Veure com funciona",
-    bubble: "Aquest quadrimestre suma 24 ECTS: el repartim?"
+    bubble: "Aquest quadrimestre suma 24 ECTS: el repartim?",
+    h1a: "Planifica la teva",
+    h1b: "carrera",
+    h1c: "a la",
+    h1d: "FIB",
+    h1e: ", de",
+    h1f: "principi a fi",
+    h1g: ".",
+    st1: "ECTS ✓",
+    st2: "Quad. 7",
+    st3: "TFG",
+    tip: "Consell: reparteix els ECTS entre quadrimestres."
   },
   planner: {
     title: "El teu pla de carrera",
+    drag: "arrossega!",
     aria: "Maqueta del planificador de carrera: tres quadrimestres en columnes amb assignatures d'exemple. Una assignatura del Quad. 5 es mou al Quad. 7 per alleugerir la càrrega.",
     q1: "Quad. 5",
     q2: "Quad. 6",
@@ -2199,6 +2809,10 @@ Object.assign(T.ca, {
     compl: "Compl. menció",
     cbde: "Cerca i Anàlisi de Dades"
   },
+  ticker: {
+    i1: "BD", i2: "PAR", i3: "IES", i4: "XC", i5: "SO", i6: "PROP",
+    i7: "TFG", i8: "ECTS", i9: "Erasmus", i10: "Pràctiques", i11: "Prerequisits", i12: "Quadrimestre"
+  },
   common: {
     skip: "Salta al contingut",
     sample: "Dades d'exemple",
@@ -2213,11 +2827,13 @@ Object.assign(T.ca, {
 Object.assign(T.ca, {
  "prob": {
   "eyebrow": "El problema",
-  "title": "Planificar la carrera a la FIB no hauria de ser una gimcana",
+  "title_a": "Planificar la carrera a la FIB no hauria de ser una",
+  "title_b": "gimcana",
   "lead": "Horaris en una web, guies en una altra, la normativa en un PDF i els números en un Excel. Si estudies a la FIB, segur que et sona.",
   "bubble1": "Tinc cinc pestanyes obertes… i encara no sé quants crèdits em falten.",
   "f1t": "Tot està escampat",
   "f1d": "Horaris, guies docents i normativa viuen a webs diferents. Cada dubte és una cerca nova.",
+  "n1": "uf!",
   "bubble2": "On era aquella guia docent?",
   "f2t": "No sé quants crèdits em falten",
   "f2d": "Comptar ECTS per tipus i saber si el teu pla és viable acaba sent feina d'Excel i calculadora.",
@@ -2229,6 +2845,7 @@ Object.assign(T.ca, {
   "c4": "Excel",
   "c5": "Calculadora de notes",
   "c6": "Calendari acadèmic",
+  "stamp": "Tot en un lloc",
   "hub": "Deixa de planificar la carrera amb cinc webs, un Excel i una calculadora: QuadreFIB ho connecta tot en un únic lloc."
  },
  "car": {
@@ -2266,7 +2883,9 @@ Object.assign(T.ca, {
   "ec_p0": "Sistemes distribuïts",
   "ec_p1": "Microcontroladors",
   "eyebrow": "Funcionalitats",
-  "title": "Tot el que necessites per ordenar la teva etapa a la FIB",
+  "title_a": "Tot el que",
+  "title_b": "necessites",
+  "title_c": "per ordenar la teva etapa a la FIB",
   "lead": "El planificador de carrera és el cor de QuadreFIB; la resta de mòduls l'acompanyen en el dia a dia.",
   "m1t": "Aquest quadrimestre",
   "m1d": "Horari amb capes i calculadora de notes.",
@@ -2344,10 +2963,13 @@ Object.assign(T.ca, {
  },
  "prog": {
   "eyebrow": "El teu progrés",
-  "title": "Mira on ets d'un sol cop d'ull",
+  "title_a": "Mira on ets d'un sol",
+  "title_b": "cop d'ull",
   "bubble": "Més de la meitat de la carrera!",
+  "card": "Butlletí de progrés",
   "ects": "ECTS",
   "bar_aria": "Progrés total: 156 de 240 ECTS, 65 %",
+  "note": "ja gairebé!",
   "s1": "quadrimestres per acabar",
   "s2": "complementàries pendents",
   "s3": "TFG · gener de 2028",
@@ -2594,7 +3216,8 @@ Object.assign(T.ca, {
 Object.assign(T.ca, {
   how: {
     eyebrow: "Com funciona",
-    title: "De la matrícula al pla complet en tres passos",
+    title: "De la matrícula al pla complet en",
+    titleHl: "tres passos",
     lead: "Pensat per a estudiants de la FIB: tres passos, al teu ritme.",
     s1t: "Connecta el teu compte (idea de projecte)",
     s1d: "Importa el teu horari i la teva matrícula perquè QuadreFIB parteixi del que ja tens.",
@@ -2605,14 +3228,12 @@ Object.assign(T.ca, {
     b1: "Comencem pel que ja tens.",
     b2: "Ho ajustem a la teva manera.",
     b3: "Ara toca planificar!",
-    stepLabel: "Pas",
-    axo1: "Axo, neutral",
-    axo2: "Axo, pensant",
-    axo3: "Axo, contenta"
+    stepLabel: "Pas"
   },
   who: {
     eyebrow: "Per a qui és",
-    title: "Si estudies a la FIB, hi ha un lloc per a tu",
+    title: "Si estudies a la FIB, hi ha un lloc",
+    titleHl: "per a tu",
     lead: "Des del primer quadrimestre fins al TFG, QuadreFIB t'acompanya en cada etapa.",
     p1t: "Primer curs",
     p1d: "Acabes d'arribar i tot és nou: assignatures, grups, normativa.",
@@ -2622,14 +3243,12 @@ Object.assign(T.ca, {
     p2g: "Què hi guanyes: compares escenaris i veus quan acabaries amb cada opció.",
     p3t: "TFG a la vista",
     p3d: "Et queden els últims crèdits i has de tancar la carrera sense sorpreses.",
-    p3g: "Què hi guanyes: controles què et falta i planifiques l'últim tram amb calma.",
-    axo1: "Axo, neutral",
-    axo2: "Axo, estudiant",
-    axo3: "Axo, graduada"
+    p3g: "Què hi guanyes: controles què et falta i planifiques l'últim tram amb calma."
   },
   tes: {
     eyebrow: "Testimonis",
-    title: "Què en diria la comunitat",
+    title: "Què en diria",
+    titleHl: "la comunitat",
     lead: "Opinions d'estudiants de la FIB sobre com els ajudaria QuadreFIB.",
     warn: "Testimonis ficticis, escrits com a exemple del que podria dir un estudiant.",
     q1: "Per fi veig de cop quants crèdits em falten i si el pla m'encaixa.",
@@ -2642,7 +3261,8 @@ Object.assign(T.ca, {
   },
   faq: {
     eyebrow: "Preguntes freqüents",
-    title: "Dubtes habituals",
+    title: "Dubtes",
+    titleHl: "habituals",
     lead: "Respostes breus per a estudiants de la FIB.",
     q1: "Qui pot veure les meves notes?",
     a1: "La idea és que només tu les vegis: les notes i els teus plans serien personals i no es compartirien amb ningú sense el teu permís. Al prototip no s'envia res a cap servidor.",
@@ -2653,12 +3273,14 @@ Object.assign(T.ca, {
     q4: "És oficial?",
     a4: "No. QuadreFIB és un projecte acadèmic independent, i no és oficial de la FIB ni de la UPC. No hi ha cap vinculació ni aval de cap de les dues institucions.",
     q5: "Puc exportar el meu pla?",
-    a5: "La idea és que puguis exportar-lo a .ics per al teu calendari, a PDF per imprimir-lo o com a enllaç de només lectura per compartir-lo.",
-    axo: "Axo, confusa"
+    a5: "La idea és que puguis exportar-lo a .ics per al teu calendari, a PDF per imprimir-lo o com a enllaç de només lectura per compartir-lo."
   },
   cta: {
     eyebrow: "Llista d'espera",
-    title: "Apunta't i planifica la teva carrera a la FIB",
+    title: "Apunta't i planifica la teva carrera",
+    titleHl: "a la FIB",
+    formTitle: "Fitxa d'inscripció",
+    okStamp: "Apuntat!",
     lead: "Aquesta és una demostració de la llista d'espera: quan QuadreFIB sigui una realitat, aquí podràs apuntar-t'hi. Pensat per a estudiants de la FIB.",
     emailLabel: "Correu electrònic",
     emailPh: "nom@exemple.cat",
@@ -2678,9 +3300,7 @@ Object.assign(T.ca, {
     submit: "Apunta'm a la llista",
     demo: "Això és un prototip: el formulari no envia res a cap lloc.",
     okTitle: "Gràcies!",
-    okText: "Això és un exemple: no s'ha desat res ni t'enviarem cap correu. Quan QuadreFIB sigui una realitat, aquí podràs apuntar-t'hi.",
-    axo: "Axo, graduada",
-    axoOk: "Axo, contenta"
+    okText: "Això és un exemple: no s'ha desat res ni t'enviarem cap correu. Quan QuadreFIB sigui una realitat, aquí podràs apuntar-t'hi."
   },
   ft: {
     brand: "QuadreFIB",
@@ -2690,7 +3310,8 @@ Object.assign(T.ca, {
     l3: "Preguntes",
     l4: "Llista d'espera",
     top: "Torna a dalt",
-    rights: "Projecte acadèmic"
+    rights: "Projecte acadèmic",
+    hi: "fins aviat!"
   }
 });
 
@@ -2737,15 +3358,37 @@ Object.assign(T.ca, {
     if (mq.addEventListener) mq.addEventListener('change', onChange);
   }
 
+  /* Ombra de la navbar + progrés de scroll (--p) amb rAF i listener passiu */
   function initScrollShadow() {
     var nav = document.getElementById('a-nav');
     if (!nav) return;
-    var tick = false;
-    function update() { nav.classList.toggle('is-scrolled', window.scrollY > 8); tick = false; }
+    var tick = false, movingT = 0;
+    function update() {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      nav.style.setProperty('--p', p.toFixed(4));
+      nav.classList.toggle('is-scrolled', window.scrollY > 8);
+      tick = false;
+    }
     window.addEventListener('scroll', function () {
       if (!tick) { tick = true; requestAnimationFrame(update); }
+      nav.classList.add('is-moving');
+      clearTimeout(movingT);
+      movingT = setTimeout(function () { nav.classList.remove('is-moving'); }, 180);
     }, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
     update();
+  }
+
+  /* Ticker: clona el grup perquè el bucle sigui continu (la còpia és aria-hidden). */
+  function initMarquee() {
+    document.querySelectorAll('.marquee-track').forEach(function (track) {
+      var g = track.querySelector('.marquee-group');
+      if (!g || track.querySelectorAll('.marquee-group').length > 1) return;
+      var c = g.cloneNode(true);
+      c.setAttribute('aria-hidden', 'true');
+      track.appendChild(c);
+    });
   }
 
   function initReveal() {
@@ -2773,6 +3416,7 @@ Object.assign(T.ca, {
     applyLang();
     initMenu();
     initScrollShadow();
+    initMarquee();
     initReveal();
     initPlanner();
   }
@@ -3109,6 +3753,9 @@ Object.assign(T.ca, {
         var path = document.createElementNS(NS, 'path');
         path.setAttribute('d', 'M' + p.x + ' ' + p.y + ' C' + p.x + ' ' + (p.y + k) + ' ' + x2 + ' ' + (hy - k) + ' ' + x2 + ' ' + hy);
         svg.appendChild(path);
+        var dot = document.createElementNS(NS, 'circle');
+        dot.setAttribute('cx', x2); dot.setAttribute('cy', hy); dot.setAttribute('r', 4);
+        svg.appendChild(dot);
       });
     };
     fun.classList.add('is-js');
@@ -3503,6 +4150,7 @@ Object.assign(T.ca, {
     var btns = Array.prototype.slice.call(list.querySelectorAll('.faq-btn'));
     var setOpen = function (btn, open) {
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var it = btn.closest('.faq-item'); if (it) it.classList.toggle('is-open', open);
       var p = document.getElementById(btn.getAttribute('aria-controls'));
       if (p) p.hidden = !open;
     };
@@ -3530,7 +4178,6 @@ Object.assign(T.ca, {
     var emailErr = document.getElementById('d-email-err');
     var consentErr = document.getElementById('d-consent-err');
     var ok = document.getElementById('d-ok');
-    var axo = document.getElementById('d-cta-axo');
 
     var msgEmail = function (code) {
       if (code === 'required') return tt('cta.emailRequired', 'Escriu el teu correu electrònic.');
@@ -3557,7 +4204,6 @@ Object.assign(T.ca, {
       if (!a) { email.focus(); return; }
       if (!b) { consent.focus(); return; }
       form.hidden = true;
-      if (axo) axo.style.display = 'none';
       if (ok) { ok.hidden = false; ok.focus(); }
     });
   }
