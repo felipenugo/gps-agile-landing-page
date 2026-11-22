@@ -874,7 +874,8 @@ button { cursor: pointer; }
 .car-board-top{display:flex;flex-wrap:wrap;gap:var(--gap-2);align-items:center;justify-content:space-between;margin-bottom:var(--gap-3)}
 .car-board-t{margin:0;font-family:var(--font-display);font-weight:700}
 .car-scroll{overflow-x:auto;border-radius:var(--radius-m);overscroll-behavior-x:contain}
-.car-cols{display:grid;grid-template-columns:repeat(3,minmax(168px,1fr));gap:var(--gap-2);min-width:calc(3 * 168px + 2 * var(--gap-2))}
+.car-cols{--n:3;display:grid;grid-template-columns:repeat(var(--n),minmax(168px,1fr));gap:var(--gap-2);min-width:calc(var(--n) * 168px + (var(--n) - 1) * var(--gap-2))}
+.car-col[hidden]{display:none}
 .car-col{background:var(--surface-2);border-radius:var(--radius-m);padding:var(--gap-2);min-width:0}
 .car-colh{display:flex;justify-content:space-between;gap:var(--gap-2);padding:var(--gap-1) var(--gap-1) var(--gap-2)}
 .car-colname{margin:0;font-weight:700}
@@ -907,15 +908,16 @@ button { cursor: pointer; }
 
 .car-alert{display:flex;gap:var(--gap-3);align-items:center;margin-top:var(--gap-3);padding:var(--gap-3) var(--gap-4);border-radius:var(--radius-m);border:2px solid var(--warn);background:var(--coral-soft);transition:background .3s,border-color .3s}
 .car-alert.is-ok{border-color:var(--ok);background:var(--accent-soft)}
-.car-alert-axo{flex:none}
-.car-axo-s{width:64px;height:auto;display:block}
+.car-axo-s{width:100%;height:auto;display:block}
+.car-axo{width:clamp(96px,28vw,140px);margin:var(--gap-4) 0 0}
+.car-axo [hidden]{display:none}
 .car-alert-b{min-width:0;display:grid;gap:var(--gap-2);justify-items:start}
 .car-alert-b p{margin:0;font-weight:600}
 .car-move{min-height:44px}
 
 /* timeline */
-.car-route,.car-road{padding:var(--gap-5);margin-bottom:var(--gap-5);min-width:0}
-.car-route-top,.car-road-top{display:flex;flex-wrap:wrap;gap:var(--gap-2);align-items:center;justify-content:space-between;margin-bottom:var(--gap-4)}
+.car-route{padding:var(--gap-5);margin-bottom:var(--gap-5);min-width:0}
+.car-route-top{display:flex;flex-wrap:wrap;gap:var(--gap-2);align-items:center;justify-content:space-between;margin-bottom:var(--gap-4)}
 .car-h4{margin:0;font-family:var(--font-display);font-size:var(--step-2)}
 .car-route-sc{font-family:var(--font-mono);color:var(--fg-muted)}
 .car-route-sc b{color:var(--accent)}
@@ -931,19 +933,6 @@ button { cursor: pointer; }
 .car-axo-grad{width:100%;height:auto;display:block}
 [data-sc][hidden]{display:none}
 
-/* mencions */
-.car-road-d{margin:0 0 var(--gap-4);color:var(--fg-muted)}
-.car-tabs{display:flex;flex-wrap:wrap;gap:var(--gap-2);margin-bottom:var(--gap-4)}
-.car-tab{font:inherit;font-weight:600;min-height:44px;padding:var(--gap-2) var(--gap-4);border-radius:999px;border:1px solid var(--border);background:var(--surface-2);color:var(--fg);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
-.car-tab:hover{border-color:var(--accent)}
-.car-tab[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
-.car-panel{display:grid;gap:var(--gap-5)}
-.car-panel[hidden]{display:none}
-.car-rm-h{margin:0 0 var(--gap-2);font-size:var(--step-0);font-weight:700}
-.car-rm-l{list-style:none;margin:0;padding:0;display:grid;gap:var(--gap-2)}
-.car-rm-i{display:flex;flex-wrap:wrap;align-items:center;gap:var(--gap-2);padding:var(--gap-2) var(--gap-3);background:var(--surface-2);border-radius:var(--radius-s);min-width:0}
-.car-rm-n{flex:1 1 140px;min-width:0;font-weight:500}
-.car-rm-q{font-family:var(--font-mono);font-size:.75rem;padding:3px 8px;border-radius:999px;background:var(--accent-soft);color:var(--fg)}
 
 
 /* pista de scroll horitzontal intern (planner) */
@@ -1047,7 +1036,6 @@ button { cursor: pointer; }
 @media (min-width:640px){
   .car-mods{grid-template-columns:repeat(3,minmax(0,1fr))}
   .car-sc-opts{grid-template-columns:1fr 1fr}
-  .car-panel{grid-template-columns:1fr 1fr}
 }
 @media (min-width:900px){
   .car-block{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--gap-6)}
@@ -2007,8 +1995,6 @@ button { cursor: pointer; }
         <ul class="car-bul">
           <li><svg class="car-bul-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 25l9 9 19-20"/></svg><span data-t="car.b1">Comptador de crèdits per tipus</span></li>
           <li><svg class="car-bul-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 25l9 9 19-20"/></svg><span data-t="car.b2">Comprovador de prerequisits i incompatibilitats</span></li>
-          <li><svg class="car-bul-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 25l9 9 19-20"/></svg><span data-t="car.b3">Escenaris: i si faig pràctiques?</span></li>
-          <li><svg class="car-bul-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 25l9 9 19-20"/></svg><span data-t="car.b4">Ruta de graduació amb fites</span></li>
         </ul>
 
         <div class="car-sc card" role="radiogroup" id="b-scenarios" data-t-aria="car.sc_aria" aria-label="Comparador d'escenaris">
@@ -2023,6 +2009,10 @@ button { cursor: pointer; }
               <span class="car-sc-r" data-t="car.sc_b_r">Acabes el juny de 2028</span><i class="car-sc-bar" aria-hidden="true"><i style="--w:100%"></i></i>
             </button>
           </div>
+        </div>
+        <div class="car-axo" id="b-axo" aria-hidden="true">
+          <span data-st="bad"><svg class="axo car-axo-s" viewBox="0 0 200 200" focusable="false"><use href="#axo-worried"/></svg></span>
+          <span data-st="ok" hidden><svg class="axo car-axo-s" viewBox="0 0 200 200" focusable="false"><use href="#axo-happy"/></svg></span>
         </div>
       </div>
 
@@ -2110,19 +2100,22 @@ button { cursor: pointer; }
           <li class="car-drop" aria-hidden="true" data-t="car.drop">Deixa-hi una assignatura</li>
         </ul>
       </div>
+              <div class="car-col" id="b-col3" hidden>
+        <div class="car-colh"><div><p class="car-colname" data-t="car.col3">Quad. 8</p><p class="car-colsub" data-t="car.col3s">Q2 · primavera</p></div>
+          <div class="car-count"><b data-count>0</b> <span data-t="car.ects">ECTS</span><i class="car-countbar"><i data-bar></i></i></div></div>
+        <ul class="car-list" data-col="3" data-season="2">
+          <li class="car-drop" aria-hidden="true" data-t="car.drop">Deixa-hi una assignatura</li>
+        </ul>
+      </div>
             </div>
           </div>
         </div>
         <p class="car-hint" data-t="car.hint">Arrossega una tarjeta a un altre quadrimestre o tria-ne un al selector de cada tarjeta.</p>
         <p class="sr-only" id="b-live" role="status" aria-live="polite"></p>
         <div class="car-alert is-bad" id="b-alert" role="status" aria-live="polite">
-          <div class="car-alert-axo">
-            <span data-st="bad"><svg class="axo car-axo-s" viewBox="0 0 200 200" aria-hidden="true"><use href="#axo-worried"/></svg></span>
-            <span data-st="ok" hidden><svg class="axo car-axo-s" viewBox="0 0 200 200" aria-hidden="true"><use href="#axo-happy"/></svg></span>
-          </div>
           <div class="car-alert-b">
-            <p data-st="bad" data-t="car.alert_bad">⚠️ No pots cursar CBDE abans de superar DBD.</p>
-            <p data-st="ok" hidden data-t="car.alert_ok">✅ Pla viable: prerequisits, disponibilitat i càrrega complerts.</p>
+            <p data-st="bad" data-t="car.alert_bad">No pots cursar CBDE abans de superar DBD.</p>
+            <p data-st="ok" hidden data-t="car.alert_ok">Pla viable: prerequisits, disponibilitat i càrrega complerts.</p>
             <button type="button" class="btn btn-ghost car-move" id="b-undo" disabled data-t="car.undo">Desfés</button>
           </div>
         </div>
@@ -2143,53 +2136,8 @@ button { cursor: pointer; }
         <p class="car-tl-s" data-sc="A" data-t="car.tl5a">Gener de 2028</p><p class="car-tl-s" data-sc="B" data-t="car.tl5b">Juny de 2028</p></li>
       <li class="car-tl-i car-tl-end"><span class="car-tl-dot" aria-hidden="true"></span>
         <div class="car-tl-grad"><svg class="axo car-axo-grad" viewBox="0 0 200 200" aria-hidden="true"><use href="#axo-graduated"/></svg></div>
-        <p class="car-tl-t" data-t="car.tl6">🎓 Graduació</p></li>
+        <p class="car-tl-t" data-t="car.tl6">Graduació</p></li>
     </ol>
-    </div>
-
-    <div class="card car-road reveal">
-      <div class="car-road-top">
-        <h3 class="car-h4" data-t="car.road_h">Full de ruta per menció</h3>
-      </div>
-      <p class="car-road-d" data-t="car.road_d">Tria una menció i veuràs què et falta i en quin quadrimestre s'imparteix cada assignatura. Codis i noms il·lustratius.</p>
-      <div class="car-tabs" role="tablist" id="b-tabs" data-t-aria="car.tabs_aria" aria-label="Menció">
-        <button type="button" role="tab" id="b-tab-comp" aria-selected="true" aria-controls="b-panel-comp" tabindex="0" class="car-tab" data-t="car.tab_comp">Computació</button>
-        <button type="button" role="tab" id="b-tab-ep" aria-selected="false" aria-controls="b-panel-ep" tabindex="-1" class="car-tab" data-t="car.tab_ep">Enginyeria del Programari</button>
-        <button type="button" role="tab" id="b-tab-ec" aria-selected="false" aria-controls="b-panel-ec" tabindex="-1" class="car-tab" data-t="car.tab_ec">Enginyeria de Computadors</button>
-      </div>
-      <div role="tabpanel" id="b-panel-comp" aria-labelledby="b-tab-comp" tabindex="0" class="car-panel">
-        <div class="car-rm-col"><h4 class="car-rm-h" data-t="car.rm_ob">Obligatòries</h4><ul class="car-rm-l">
-          <li class="car-rm-i"><span class="car-code">AA</span><span class="car-rm-n" data-t="car.comp_o0">Algorísmia avançada</span><span class="car-rm-q" data-t="car.q1">Q1 · tardor</span></li>
-          <li class="car-rm-i"><span class="car-code">CPL</span><span class="car-rm-n" data-t="car.comp_o1">Complexitat</span><span class="car-rm-q" data-t="car.q2">Q2 · primavera</span></li>
-          <li class="car-rm-i"><span class="car-code">IAE</span><span class="car-rm-n" data-t="car.comp_o2">Intel·ligència artificial</span><span class="car-rm-q" data-t="car.q1">Q1 · tardor</span></li>
-        </ul></div>
-        <div class="car-rm-col"><h4 class="car-rm-h" data-t="car.rm_pe">Complementàries pendents</h4><ul class="car-rm-l">
-          <li class="car-rm-i"><span class="car-code">CBDE</span><span class="car-rm-n" data-t="car.comp_p0">Cerca i Anàlisi de Dades</span><span class="car-rm-q" data-t="car.q1">Q1 · tardor</span></li>
-          <li class="car-rm-i"><span class="car-code">HPC</span><span class="car-rm-n" data-t="car.comp_p1">Computació d'altes prestacions</span><span class="car-rm-q" data-t="car.q2">Q2 · primavera</span></li>
-        </ul></div>
-      </div>
-      <div role="tabpanel" id="b-panel-ep" aria-labelledby="b-tab-ep" tabindex="0" class="car-panel" hidden>
-        <div class="car-rm-col"><h4 class="car-rm-h" data-t="car.rm_ob">Obligatòries</h4><ul class="car-rm-l">
-          <li class="car-rm-i"><span class="car-code">RDS</span><span class="car-rm-n" data-t="car.ep_o0">Requisits i disseny</span><span class="car-rm-q" data-t="car.q1">Q1 · tardor</span></li>
-          <li class="car-rm-i"><span class="car-code">PSW</span><span class="car-rm-n" data-t="car.ep_o1">Proves de programari</span><span class="car-rm-q" data-t="car.q2">Q2 · primavera</span></li>
-          <li class="car-rm-i"><span class="car-code">GPS</span><span class="car-rm-n" data-t="car.ep_o2">Gestió de projectes</span><span class="car-rm-q" data-t="car.q1">Q1 · tardor</span></li>
-        </ul></div>
-        <div class="car-rm-col"><h4 class="car-rm-h" data-t="car.rm_pe">Complementàries pendents</h4><ul class="car-rm-l">
-          <li class="car-rm-i"><span class="car-code">QSW</span><span class="car-rm-n" data-t="car.ep_p0">Qualitat del programari</span><span class="car-rm-q" data-t="car.q2">Q2 · primavera</span></li>
-          <li class="car-rm-i"><span class="car-code">ASR</span><span class="car-rm-n" data-t="car.ep_p1">Arquitectura de serveis</span><span class="car-rm-q" data-t="car.q1">Q1 · tardor</span></li>
-        </ul></div>
-      </div>
-      <div role="tabpanel" id="b-panel-ec" aria-labelledby="b-tab-ec" tabindex="0" class="car-panel" hidden>
-        <div class="car-rm-col"><h4 class="car-rm-h" data-t="car.rm_ob">Obligatòries</h4><ul class="car-rm-l">
-          <li class="car-rm-i"><span class="car-code">AC2</span><span class="car-rm-n" data-t="car.ec_o0">Arquitectura avançada</span><span class="car-rm-q" data-t="car.q1">Q1 · tardor</span></li>
-          <li class="car-rm-i"><span class="car-code">XC</span><span class="car-rm-n" data-t="car.ec_o1">Xarxes de Computadors</span><span class="car-rm-q" data-t="car.q2">Q2 · primavera</span></li>
-          <li class="car-rm-i"><span class="car-code">EMB</span><span class="car-rm-n" data-t="car.ec_o2">Sistemes encastats</span><span class="car-rm-q" data-t="car.q1">Q1 · tardor</span></li>
-        </ul></div>
-        <div class="car-rm-col"><h4 class="car-rm-h" data-t="car.rm_pe">Complementàries pendents</h4><ul class="car-rm-l">
-          <li class="car-rm-i"><span class="car-code">SDC</span><span class="car-rm-n" data-t="car.ec_p0">Sistemes distribuïts</span><span class="car-rm-q" data-t="car.q2">Q2 · primavera</span></li>
-          <li class="car-rm-i"><span class="car-code">MCS</span><span class="car-rm-n" data-t="car.ec_p1">Microcontroladors</span><span class="car-rm-q" data-t="car.q1">Q1 · tardor</span></li>
-        </ul></div>
-      </div>
     </div>
   </div>
 </section>
@@ -2864,29 +2812,7 @@ Object.assign(T.ca, {
   "tl5": "TFG",
   "tl5a": "Gener de 2028",
   "tl5b": "Juny de 2028",
-  "tl6": "🎓 Graduació",
-  "tab_comp": "Computació",
-  "tab_ep": "Enginyeria del Programari",
-  "tab_ec": "Enginyeria de Computadors",
-  "rm_ob": "Obligatòries",
-  "comp_o0": "Algorísmia avançada",
-  "q1": "Q1 · tardor",
-  "comp_o1": "Complexitat",
-  "q2": "Q2 · primavera",
-  "comp_o2": "Intel·ligència artificial",
-  "rm_pe": "Complementàries pendents",
-  "comp_p0": "Cerca i Anàlisi de Dades",
-  "comp_p1": "Computació d'altes prestacions",
-  "ep_o0": "Requisits i disseny",
-  "ep_o1": "Proves de programari",
-  "ep_o2": "Gestió de projectes",
-  "ep_p0": "Qualitat del programari",
-  "ep_p1": "Arquitectura de serveis",
-  "ec_o0": "Arquitectura avançada",
-  "ec_o1": "Xarxes de Computadors",
-  "ec_o2": "Sistemes encastats",
-  "ec_p0": "Sistemes distribuïts",
-  "ec_p1": "Microcontroladors",
+  "tl6": "Graduació",
   "eyebrow": "Funcionalitats",
   "title_a": "Tot el que",
   "title_b": "necessites",
@@ -2903,8 +2829,6 @@ Object.assign(T.ca, {
   "phrase": "Arrossega assignatures entre quadrimestres, controla els crèdits i compara camins fins a la graduació.",
   "b1": "Comptador de crèdits per tipus",
   "b2": "Comprovador de prerequisits i incompatibilitats",
-  "b3": "Escenaris: i si faig pràctiques?",
-  "b4": "Ruta de graduació amb fites",
   "sc_aria": "Comparador d'escenaris",
   "sc_h": "Compara escenaris",
   "sc_a_k": "Escenari A",
@@ -2949,20 +2873,19 @@ Object.assign(T.ca, {
   "n_so": "Sistemes Operatius",
   "sel_so": "Mou SO a un altre quadrimestre",
   "col2s": "Q1 · tardor",
+  "col3": "Quad. 8",
+  "col3s": "Q2 · primavera",
   "n_prop": "Projecte de Programació",
   "sel_prop": "Mou PROP a un altre quadrimestre",
   "hint": "Arrossega una tarjeta a un altre quadrimestre o tria-ne un al selector de cada tarjeta.",
-  "alert_bad": "⚠️ No pots cursar CBDE abans de superar DBD.",
-  "alert_ok": "✅ Pla viable: prerequisits, disponibilitat i càrrega complerts.",
+  "alert_bad": "No pots cursar CBDE abans de superar DBD.",
+  "alert_ok": "Pla viable: prerequisits, disponibilitat i càrrega complerts.",
   "undo": "Desfés",
   "route_h": "Ruta de graduació",
   "route_sc": "Escenari",
-  "road_h": "Full de ruta per menció",
-  "road_d": "Tria una menció i veuràs què et falta i en quin quadrimestre s'imparteix cada assignatura. Codis i noms il·lustratius.",
-  "tabs_aria": "Menció",
-  "w_pre": "⚠️ No pots cursar {a} abans de superar {b}.",
-  "w_av": "⚠️ {a} només s'ofereix al {q}.",
-  "w_load": "⚠️ {c} supera els 30 ECTS.",
+  "w_pre": "No pots cursar {a} abans de superar {b}.",
+  "w_av": "{a} només s'ofereix al {q}.",
+  "w_load": "{c} supera els 30 ECTS.",
   "w_more": " (+{n} més)",
   "moved": "{a} mogut a {c}. Total: {n} ECTS."
  },
@@ -3464,17 +3387,6 @@ Object.assign(T.ca, {
     });
   }
 
-  /* Tabs de menció */
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('#b-tabs [role="tab"]'));
-  if (tabs.length) {
-    roving(tabs, 'aria-selected', function (i, tab) {
-      tabs.forEach(function (t) {
-        var p = document.getElementById(t.getAttribute('aria-controls'));
-        if (p) p.hidden = t !== tab;
-      });
-    });
-  }
-
   /* Escenaris */
   var scBtns = Array.prototype.slice.call(document.querySelectorAll('#b-scenarios [role="radio"]'));
   var host = document.getElementById('funcionalitats');
@@ -3483,6 +3395,7 @@ Object.assign(T.ca, {
     Array.prototype.forEach.call(host.querySelectorAll('[data-sc]'), function (n) {
       n.hidden = n.getAttribute('data-sc') !== s;
     });
+    if (typeof renderScenario === 'function') renderScenario(s);
   }
   if (scBtns.length) {
     roving(scBtns, 'aria-checked', function (i, b) { setScenario(b.getAttribute('data-sc-set')); });
@@ -3564,7 +3477,7 @@ Object.assign(T.ca, {
     var issues = check(), ok = issues.length === 0;
     alertBox.classList.toggle('is-ok', ok);
     alertBox.classList.toggle('is-bad', !ok);
-    Array.prototype.forEach.call(alertBox.querySelectorAll('[data-st]'), function (n) {
+    Array.prototype.forEach.call(host.querySelectorAll('#b-alert [data-st], #b-axo [data-st]'), function (n) {
       n.hidden = (n.getAttribute('data-st') === 'ok') !== ok;
     });
     var bad = alertBox.querySelector('p[data-st="bad"]');
@@ -3611,14 +3524,80 @@ Object.assign(T.ca, {
     afterMove(card, had);
   }
 
-  if (board && alertBox) {
+  /* Dades per escenari: id de targeta -> columna (l'ordre de les claus és l'ordre dins la columna) */
+  var SCEN = {
+    A: { cols: 3, place: { bd: 0, par: 0, ies: 0, dbd: 1, xc: 1, so: 1, pex: 1, prop: 2, cbde: 2 } },
+    B: { cols: 4, place: { bd: 0, par: 0, ies: 0, dbd: 1, so: 1, prop: 2, cbde: 2, aa: 2, xc: 3, hpc: 3 } }
+  };
+  var EXTRA = [
+    { id: 'pex', code: 'PEX', name: 'Pràctiques externes', ects: 12, av: '01', tag: ['oblig', 'Pràctiques'], men: 'Empresa' },
+    { id: 'aa', code: 'AA', name: 'Algorísmia avançada', ects: 6, av: '10', tag: ['oblig', 'Obligatòria'], men: 'Computació' },
+    { id: 'hpc', code: 'HPC', name: "Computació d'altes prestacions", ects: 6, av: '01', tag: ['compl', 'Compl. menció'], men: 'Computació' }
+  ];
+  var cardById = {};
+  var GRIP = '<svg class="car-grip-i" viewBox="0 0 12 18" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="3" cy="3" r="1.6"/><circle cx="9" cy="3" r="1.6"/><circle cx="3" cy="9" r="1.6"/><circle cx="9" cy="9" r="1.6"/><circle cx="3" cy="15" r="1.6"/><circle cx="9" cy="15" r="1.6"/></svg>';
+  function mkCard(d) {
+    var li = document.createElement('li');
+    li.className = 'car-card';
+    li.id = 'b-card-' + d.id;
+    li.setAttribute('data-ects', d.ects);
+    li.setAttribute('data-av', d.av);
+    function av(q) {
+      var on = d.av.charAt(q - 1) === '1';
+      return '<span class="car-av ' + (on ? 'is-on' : 'is-off') + '" aria-label="Q' + q + (on ? ' disponible' : ' no disponible') + '">Q' + q + '</span>';
+    }
+    li.innerHTML =
+      '<div class="car-card-top"><span class="car-grip">' + GRIP + '</span><span class="car-code">' + d.code + '</span><span class="car-ects"><b>' + d.ects + '</b> <span data-t="car.ects">ECTS</span></span></div>' +
+      '<p class="car-name">' + d.name + '</p>' +
+      '<div class="car-tags"><span class="car-tag car-tag-' + d.tag[0] + '">' + d.tag[1] + '</span><span class="car-tag car-tag-men">' + d.men + '</span></div>' +
+      '<div class="car-avs" role="group" aria-label="Disponibilitat per quadrimestre">' + av(1) + av(2) + '</div>' +
+      '<select class="car-sel" aria-label="Mou ' + d.code + ' a un altre quadrimestre"></select>';
+    return li;
+  }
+
+  var curScen = null;
+  function renderScenario(s) {
+    var S = SCEN[s];
+    if (!S || !board || !lists.length || curScen === s) return;
+    curScen = s;
+    history.length = 0;
+    lastId = null; lastCol = -1;
+    var id;
+    for (id in cardById) {
+      if (cardById[id].parentNode) cardById[id].parentNode.removeChild(cardById[id]);
+    }
+    var cols = board.querySelector('.car-cols');
+    if (cols) cols.style.setProperty('--n', S.cols);
+    lists.forEach(function (ul, i) { ul.closest('.car-col').hidden = i >= S.cols; });
+    var names = [];
+    for (var i = 0; i < S.cols; i++) names.push(colName(i));
+    for (id in S.place) {
+      var card = cardById[id];
+      if (!card) continue;
+      var ul = lists[S.place[id]];
+      ul.insertBefore(card, ul.querySelector('.car-drop'));
+      var sel = card.querySelector('.car-sel');
+      sel.innerHTML = '';
+      names.forEach(function (n, k) {
+        var o = document.createElement('option');
+        o.value = String(k); o.textContent = n;
+        sel.appendChild(o);
+      });
+      sel.value = String(S.place[id]);
+    }
     recount();
     update();
+    if (live) live.textContent = '';
+  }
 
-    Array.prototype.forEach.call(board.querySelectorAll('.car-sel'), function (sel) {
-      sel.addEventListener('change', function () {
-        moveCard(sel.closest('.car-card'), +sel.value, null);
-      });
+  if (board && alertBox) {
+    Array.prototype.forEach.call(board.querySelectorAll('.car-card'), function (c) { cardById[idOf(c)] = c; });
+    EXTRA.forEach(function (d) { cardById[d.id] = mkCard(d); });
+    renderScenario('A');
+
+    board.addEventListener('change', function (e) {
+      var sel = e.target;
+      if (sel && sel.classList && sel.classList.contains('car-sel')) moveCard(sel.closest('.car-card'), +sel.value, null);
     });
 
     if (undoBtn) {
