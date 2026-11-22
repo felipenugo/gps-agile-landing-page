@@ -1178,7 +1178,6 @@ button { cursor: pointer; }
 .ia-av { width: 44px; height: 44px; flex: none; }
 .ia-head-t { flex: 1; min-width: 0; }
 .ia-name { margin: 0; font: 700 var(--step-0) var(--font-display); }
-.ia-status { margin: 0; font-size: var(--step--1); color: var(--fg-muted); }
 .ia-log { padding: var(--gap-3); display: flex; flex-direction: column; gap: var(--gap-3); }
 .ia-msg { display: flex; gap: var(--gap-2); min-width: 0; }
 .ia-msg[hidden] { display: none; }
@@ -1208,7 +1207,6 @@ button { cursor: pointer; }
 .ia-input span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ia-send { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-weight: 700; }
 .ia-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--gap-3); }
-.ia-disc { margin: 0; flex: 1 1 260px; font-size: var(--step--1); color: var(--fg-muted); }
 .ia-replay { min-height: 44px; }
 /* variant suau (com a la v1), sense contorn de tinta ni ombra dura */
 .btn.ia-replay { border: 1.5px solid var(--border); border-radius: var(--radius-m); background: transparent; color: var(--fg); box-shadow: none; font-weight: 600; transform: none; }
@@ -1452,7 +1450,6 @@ button { cursor: pointer; }
 .cta-err { margin: 0; color: var(--bad); font-size: var(--step--1); font-weight: 600; }
 .cta-err:empty { display: none; }
 .cta-submit { width: 100%; min-height: 52px; justify-content: center; }
-.cta-demo { margin: 0; padding: .5rem .75rem; border: 2px dashed var(--ink-soft); border-radius: 4px; color: var(--ink-soft); font-size: var(--step--1); line-height: 1.45; }
 .cta-ok { position: relative; display: grid; gap: var(--gap-2); justify-items: center; text-align: center; padding: var(--gap-3) 0; }
 .cta-ok[hidden] { display: none; }
 .cta-ok p { margin: 0; }
@@ -1462,6 +1459,99 @@ button { cursor: pointer; }
 .cta-ok:not([hidden]) .cta-okstamp { animation: d-thunk .5s cubic-bezier(.3, 1.4, .5, 1) both .1s; }
 @keyframes d-thunk { 0% { scale: 2.4; opacity: 0; } 55% { scale: .92; opacity: 1; } 100% { scale: 1; opacity: 1; } }
 .cta-ok-h { margin: 0; font: 800 var(--step-2)/1.1 var(--font-display); color: var(--ink); }
+/* Viewport-fit (desktop): cada secció es veu sencera i centrada sense scroll intern */
+@media (min-width: 900px) {
+  .ia, .map, .qd, .how, .who, .faq, .cta {
+    --gap-3: .6rem; --gap-4: .9rem; --gap-5: 1.25rem; --gap-6: 2rem;
+    --step-0: .95rem; --step--1: .85rem; --step-1: 1.05rem; --step-2: 1.3rem; --step-3: 1.7rem; --step-4: 2.1rem;
+    min-height: calc(100svh - 4.75rem); display: flex; flex-direction: column; justify-content: center;
+    padding-block: .6rem;
+    scroll-margin-top: 4.75rem;
+  }
+  .ia .h2, .map .h2, .qd .h2, .how .h2, .who .h2, .faq .h2 { font-size: var(--step-3); margin-block: .25rem; }
+  .ia .lead, .map .lead, .qd .lead, .how .lead, .who .lead, .faq .lead { font-size: var(--step-0); margin-top: .35rem; }
+  .ia .card, .map .card, .qd .card { padding: .8rem 1rem; }
+  .ia .card.ia-win { padding: 0; }
+  .ia-grid, .qd-grid, .map-grid { align-items: center; gap: var(--gap-5) 2rem; }
+  /* assistent */
+  .ia-head { padding: .5rem .9rem; flex-wrap: nowrap; }
+  .ia-av { width: 36px; height: 36px; }
+  .ia-log { padding: .7rem .9rem; gap: .55rem; }
+  .ia-bub { padding: 6px 12px; line-height: 1.4; }
+  .ia-mav { width: 28px; height: 28px; }
+  .ia-input { margin: 0 .9rem .7rem; padding: 6px 12px; }
+  .ia-foot { justify-content: center; }
+  .ia-replay { min-height: 36px; padding-block: .3rem; }
+  /* mapa */
+  .map-card { gap: .4rem; }
+  .map-filter { min-height: 32px; padding: 3px 11px; }
+  .map-canvas { width: min(100%, calc(100svh - 210px)); margin-inline: auto; }
+  .map-desc { font-size: .8rem; margin: 0; }
+  .map-st-t { font-size: .95rem; margin: 0 0 3px; }
+  .map-st-c, .map-st-u { font-size: .72rem; }
+  .map-sheet .qd-h3 { font-size: 1rem; }
+  .map-text .lead { font-size: .85rem; margin: 0; }
+  .map-axo-row { gap: .5rem; }
+  .map-bubble { font-size: .8rem; }
+  .map-hint { display: none; }
+  .map-fib { display: none; }
+  .map-axo { width: 56px; height: 56px; }
+  .map-axo-row .bubble { padding: .4rem .7rem; }
+  .map-text { gap: .4rem; }
+  .map-comm { display: none; }
+  .map-status { padding: .5rem .75rem; }
+  .map-sheet-top { gap: .6rem; }
+  .map-photos { max-width: 50%; }
+  .map-photo { aspect-ratio: 2 / 1; }
+  .map-axo { width: 48px; height: 48px; }
+  .map-text { gap: .25rem; }
+  .map-sheet { gap: .35rem; }
+  .map-revs { gap: .4rem; }
+  .map-h4 { margin: .3rem 0 .2rem; }
+  /* quadrimestre */
+  .qd-fib, .qd-hint { display: none; }
+  .qd-sw { min-height: 32px; padding: 2px 12px 2px 6px; }
+  .qd-sliders { gap: .3rem 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .qd-result { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: .5rem .75rem; }
+  .qd-says .bubble { font-size: .8rem; padding: .4rem .6rem; }
+  .qd-switches { gap: .35rem; flex-wrap: nowrap; }
+  .qd-grid { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+  .qd-switches { justify-content: space-between; }
+  .qd-sw { font-size: .72rem; gap: 4px; white-space: nowrap; min-width: 0; padding: 2px 8px 2px 5px; }
+  .qd-sw-sw { width: 30px; height: 18px; }
+  .qd-sw-sw::after { width: 12px; height: 12px; }
+  .qd-sw[aria-checked="true"] .qd-sw-sw::after { transform: translateX(12px); }
+  .qd-card-head { gap: 0; }
+  .qd-calc, .qd-sched-card, .qd-groups { gap: .4rem; }
+  .qd-range input[type="range"] { height: 28px; }
+  .qd-axo { --axo-size: 64px !important; }
+  .qd-need-n { font-size: 2rem; }
+  .qd-visual, .qd-text { gap: .6rem; }
+  .qd-sched { grid-template-rows: 20px repeat(6, clamp(24px, 4.6svh, 34px)); }
+  .qd-table { min-width: 0; }
+  .qd-table th, .qd-table td { padding: 5px 8px; }
+  /* com funciona / per a qui */
+  .how-steps, .who-grid { margin-top: var(--gap-4); }
+  .how-step, .who-card { padding: .8rem 1rem; }
+  .how-axo { --axo-size: 72px; }
+  .who-axo { --axo-size: 64px; }
+  .how-bubble { margin-top: .25rem; }
+  /* preguntes */
+  .faq-axo { --axo-size: 100px; }
+  .faq-btn { min-height: 44px; padding: .6rem 1rem; }
+  .faq-head { top: 6rem; }
+  /* cta */
+  .cta-title { font-size: var(--step-3); }
+  .cta-stub { padding: 1.25rem 1.5rem; }
+  .cta-main { padding: 1.25rem 1.5rem; }
+  .cta-axo-wrap { min-height: 140px; }
+  .cta-axo { --axo-size: 120px; left: calc(50% - 60px); }
+  .cta-form { gap: .7rem; }
+  .cta-input { padding-block: .45rem; }
+  .cta-check { min-height: 40px; }
+  .cta-check label { padding: .3rem 0; }
+  .cta-submit { min-height: 46px; }
+}
 @media (min-width: 900px) {
   .cta-ticket { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
   .cta-stub { padding: var(--gap-5); border-bottom: 0; border-right: 3px dashed var(--ink); }
@@ -2258,12 +2348,11 @@ button { cursor: pointer; }
     </div>
 
     <div class="ia-chatcol reveal">
-      <div class="card ia-win" id="c-ia-win" role="group" data-t-aria="ia.chat_aria" aria-label="Conversa d'exemple amb l'assistent">
+      <div class="card ia-win" id="c-ia-win" role="group" data-t-aria="ia.chat_aria" aria-label="Conversa amb l'assistent">
         <div class="ia-head">
           <svg class="axo ia-av" viewBox="0 0 200 200" aria-hidden="true"><use id="c-ia-head-use" href="#axo-neutral"/></svg>
           <div class="ia-head-t">
             <p class="ia-name" data-t="ia.chat_title">Axo · Assistent</p>
-            <p class="ia-status" data-t="ia.chat_status">Conversa d'exemple · idea de projecte</p>
           </div>
         </div>
         <div class="ia-log" id="c-ia-log" role="log">
@@ -2287,7 +2376,6 @@ button { cursor: pointer; }
         <div class="ia-input" aria-hidden="true"><span data-t="ia.input_ph">Pregunta sobre normativa, assignatures o el teu pla…</span><span class="ia-send">↑</span></div>
       </div>
       <div class="ia-foot">
-        <p class="ia-disc" data-t="ia.disclaimer">Conversa d'exemple. Les fonts citades són il·lustratives; l'assistent real consultarà fonts oficials de la FIB i la UPC. Projecte independent, no oficial.</p>
         <button type="button" class="btn btn-ghost ia-replay" id="c-ia-replay" data-t="ia.replay">Torna a reproduir</button>
       </div>
     </div>
@@ -2550,7 +2638,7 @@ button { cursor: pointer; }
       <div class="cta-stub">
         <p class="reveal"><span class="stamp stamp--coral cta-stamp" data-t="cta.eyebrow">Llista d'espera</span></p>
         <h2 class="h2 cta-title reveal" id="d-cta-title"><span data-t="cta.title">Apunta't i planifica la teva carrera</span> <span class="hl" data-t="cta.titleHl">a la FIB</span></h2>
-        <p class="lead cta-lead" data-t="cta.lead">Aquesta és una demostració de la llista d'espera: quan QuadreFIB sigui una realitat, aquí podràs apuntar-t'hi. Pensat per a estudiants de la FIB.</p>
+        <p class="lead cta-lead" data-t="cta.lead">Quan QuadreFIB sigui una realitat, aquí podràs apuntar-t'hi. Pensat per a estudiants de la FIB.</p>
         <div class="cta-axo-wrap reveal" aria-hidden="true">
           <svg class="axo cta-axo" viewBox="0 0 200 200" aria-hidden="true" focusable="false" id="d-cta-axo"><use href="#axo-graduated"/></svg>
           <svg class="deco deco--star deco--draw deco--coral cta-c1" aria-hidden="true" focusable="false"><use href="#a-deco-star"/></svg><svg class="deco deco--spiral deco--draw deco--accent cta-c2" aria-hidden="true" focusable="false"><use href="#a-deco-spiral"/></svg>
@@ -2581,18 +2669,17 @@ button { cursor: pointer; }
           <div class="cta-field">
             <div class="cta-check">
               <input type="checkbox" id="d-consent" name="consent" required aria-describedby="d-consent-err">
-              <label for="d-consent" data-t="cta.consent">Entenc que això és un prototip i que no es desa res.</label>
+              <label for="d-consent" data-t="cta.consent">Accepto que m'avisin quan QuadreFIB estigui disponible.</label>
             </div>
             <p class="cta-err" id="d-consent-err" aria-live="polite"></p>
           </div>
           <button type="submit" class="btn btn-primary cta-submit" data-t="cta.submit">Apunta'm a la llista</button>
-          <p class="cta-demo" data-t="cta.demo">Això és un prototip: el formulari no envia res a cap lloc.</p>
         </form>
         <div class="cta-ok" id="d-ok" role="status" tabindex="-1" hidden>
           <svg class="axo cta-ok-axo" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#axo-happy"/></svg>
           <p class="stamp stamp--ok cta-okstamp" data-t="cta.okStamp">Apuntat!</p>
           <h3 class="cta-ok-h" data-t="cta.okTitle">Gràcies!</h3>
-          <p data-t="cta.okText">Això és un exemple: no s'ha desat res ni t'enviarem cap correu. Quan QuadreFIB sigui una realitat, aquí podràs apuntar-t'hi.</p>
+          <p data-t="cta.okText">Quan QuadreFIB sigui una realitat, aquí podràs apuntar-t'hi.</p>
         </div>
       </div>
     </div>
@@ -2919,9 +3006,8 @@ Object.assign(T.ca, {
     p1: "Cada resposta cita la font",
     p2: "Coneix el teu pla, no només la normativa",
     p3: "Si no ho sap, t'ho diu i et remet a la font",
-    chat_aria: "Conversa d'exemple amb l'assistent",
+    chat_aria: "Conversa amb l'assistent",
     chat_title: "Axo · Assistent",
-    chat_status: "Conversa d'exemple · idea de projecte",
     you: "Tu",
     axo: "Axo",
     q1: "Quants crèdits de pràctiques puc reconèixer?",
@@ -2937,8 +3023,7 @@ Object.assign(T.ca, {
     sources: "Fonts:",
     thinking: "Axo està pensant…",
     replay: "Torna a reproduir",
-    input_ph: "Pregunta sobre normativa, assignatures o el teu pla…",
-    disclaimer: "Conversa d'exemple. Les fonts citades són il·lustratives; l'assistent real consultarà fonts oficials de la FIB i la UPC. Projecte independent, no oficial."
+    input_ph: "Pregunta sobre normativa, assignatures o el teu pla…"
   },
   map: {
     eyebrow: "Mòdul complementari",
@@ -3116,7 +3201,7 @@ Object.assign(T.ca, {
     titleHl: "a la FIB",
     formTitle: "Fitxa d'inscripció",
     okStamp: "Apuntat!",
-    lead: "Aquesta és una demostració de la llista d'espera: quan QuadreFIB sigui una realitat, aquí podràs apuntar-t'hi. Pensat per a estudiants de la FIB.",
+    lead: "Quan QuadreFIB sigui una realitat, aquí podràs apuntar-t'hi. Pensat per a estudiants de la FIB.",
     emailLabel: "Correu electrònic",
     emailPh: "nom@exemple.cat",
     emailRequired: "Escriu el teu correu electrònic.",
@@ -3130,12 +3215,11 @@ Object.assign(T.ca, {
     m1: "Menció en Computació",
     m2: "Menció en Enginyeria del Programari",
     m3: "Menció en Enginyeria de Computadors",
-    consent: "Entenc que això és un prototip i que no es desa res.",
+    consent: "Accepto que m'avisin quan QuadreFIB estigui disponible.",
     consentRequired: "Cal que marquis aquesta casella per continuar.",
     submit: "Apunta'm a la llista",
-    demo: "Això és un prototip: el formulari no envia res a cap lloc.",
     okTitle: "Gràcies!",
-    okText: "Això és un exemple: no s'ha desat res ni t'enviarem cap correu. Quan QuadreFIB sigui una realitat, aquí podràs apuntar-t'hi."
+    okText: "Quan QuadreFIB sigui una realitat, aquí podràs apuntar-t'hi."
   },
   ft: {
     brand: "QuadreFIB",
