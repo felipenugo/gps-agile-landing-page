@@ -954,70 +954,65 @@ button { cursor: pointer; }
 /* ==========================================================================
    PROGRÉS: butlletí de notes
    ========================================================================== */
-.prog { padding-top: calc(clamp(3.5rem, 8vw, 6.5rem) + 14px); }
-.prog-head { margin-bottom: var(--gap-4); }
-.prog-head .h2 { margin: var(--gap-3) 0 0; max-width: 16ch; }
+.prog { padding-top: calc(clamp(2.5rem, 5vw, 3.5rem) + 14px); padding-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+.prog-head { margin-bottom: var(--gap-3); display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap-2) var(--gap-4); }
+.prog-head .h2 { margin: 0; max-width: none; font-size: var(--step-3); }
 .prog-head .h2 > span { display: inline; }
 .prog-head .h2 > .hl { display: inline-block; }
-.prog-wrap { position: relative; margin-top: 7.5rem; }
-.prog-peek { position: absolute; right: .8rem; bottom: calc(100% - 16px); z-index: 0; max-width: calc(100% - 1rem); }
-.prog-peek .bubble { max-width: 15rem; }
+.prog-wrap { position: relative; margin-top: 0; }
 .prog-dash { position: relative; z-index: 1; padding: 0; overflow: hidden; }
 .prog-dash:hover { transform: none; box-shadow: var(--hard-shadow); }
-.prog-band { display: flex; align-items: center; justify-content: space-between; gap: var(--gap-3); padding: .55rem 1rem; background: var(--ink); color: var(--paper); }
-.prog-band-t { font-family: var(--font-mono); font-size: var(--step--1); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.prog-band { display: flex; align-items: center; justify-content: space-between; gap: var(--gap-3); padding: .35rem .85rem; background: var(--ink); color: var(--paper); }
+.prog-band-t { font-family: var(--font-body); font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
 .prog-band-dots { display: inline-flex; gap: 5px; }
-.prog-band-dots i { width: 9px; height: 9px; border: 1.5px solid var(--paper); border-radius: 50%; }
-.prog-body { padding: var(--gap-5) var(--gap-4) var(--gap-5); display: grid; gap: var(--gap-5); }
-.prog-main { position: relative; display: grid; gap: var(--gap-3); }
-.prog-big { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: .1em .35em; font-family: var(--font-mono); line-height: .95; color: var(--ink); }
-.prog-big b { font-size: clamp(4.2rem, 14vw, 8.5rem); font-weight: 700; letter-spacing: -.06em; }
-.prog-of { font-size: clamp(1.6rem, 5vw, 2.8rem); color: var(--ink-soft); font-weight: 600; }
-.prog-big > span:last-child { font-size: clamp(1.1rem, 3vw, 1.6rem); font-weight: 700; color: var(--ink-soft); }
-.prog-stamp { position: absolute; top: 0; right: 0; font-size: clamp(1.2rem, 4vw, 1.9rem); background: var(--paper); letter-spacing: .06em; }
-.prog-bar { height: 28px; border: 2px solid var(--ink); border-radius: 6px; background: var(--paper-2); overflow: hidden; }
-.prog-note { position: relative; justify-self: end; margin-top: -.3rem; }
+.prog-band-dots i { width: 8px; height: 8px; border: 1.5px solid var(--paper); border-radius: 50%; }
+.prog-body { padding: var(--gap-3); display: grid; gap: var(--gap-3); }
+.prog-left { display: grid; gap: var(--gap-3); align-content: start; min-width: 0; }
+.prog-main { position: relative; display: grid; gap: var(--gap-2); }
+.prog-big { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: .1em .3em; font-family: var(--font-display); line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; }
+.prog-big b { font-size: clamp(2.6rem, 6vw, 3.6rem); font-weight: 800; letter-spacing: -.03em; }
+.prog-of { font-size: clamp(1.2rem, 2.6vw, 1.6rem); color: var(--ink-soft); font-weight: 600; }
+.prog-big > span:last-child { font-size: var(--step-0); font-weight: 600; color: var(--ink-soft); letter-spacing: .04em; }
+.prog-stamp { position: absolute; top: 0; right: 0; font-size: var(--step-1); background: var(--paper); letter-spacing: .04em; }
+.prog-bar { height: 18px; border: 2px solid var(--ink); border-radius: 6px; background: var(--paper-2); overflow: hidden; }
 .prog-dash.is-armed:not(.is-in) .prog-fill { width: 0; }
 
-.prog-stats { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--gap-4); }
-.prog-stat { display: flex; align-items: center; gap: var(--gap-3); min-width: 0; }
+.prog-stats { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--gap-2); }
+.prog-stat { display: flex; align-items: center; gap: var(--gap-2); min-width: 0; font-size: var(--step--1); line-height: 1.25; }
 .prog-stat > span:last-child, .prog-stat > span:not(.sticker) { font-weight: 600; min-width: 0; color: var(--ink); }
-.prog-stat .sticker { --sticker-size: 68px; }
-.prog-stat .sticker b { font-family: var(--font-display); font-size: 2rem; font-weight: 800; }
-.prog-stat-tfg { gap: .5rem; max-width: 100%; }
-.prog-stat-tfg b { font-size: 1rem !important; line-height: 1.15; }
-.prog-flag { width: 24px; height: 24px; flex: none; }
+.prog-stat .sticker { --sticker-size: 38px; }
+.prog-stat .sticker b { font-family: var(--font-display); font-size: 1.2rem; font-weight: 800; }
+.prog-stat-tfg { gap: .4rem; max-width: 100%; }
+.prog-stat-tfg b { font-size: .8125rem !important; line-height: 1.15; }
+.prog-flag { width: 18px; height: 18px; flex: none; }
 
-.prog-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--gap-3); }
+.prog-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--gap-2); align-content: start; }
 .prog-row {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px var(--gap-3); align-items: baseline;
-  padding: .8rem 1rem; background: var(--paper-2); outline: 1.5px dashed var(--ink-soft); outline-offset: -5px; rotate: var(--r, 0deg);
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px var(--gap-3); align-items: baseline;
+  padding: .5rem .8rem; background: var(--paper-2); outline: 1.5px dashed var(--ink-soft); outline-offset: -4px;
 }
-.prog-lbl { font-weight: 700; min-width: 0; color: var(--ink); }
+.prog-lbl { font-family: var(--font-body); font-weight: 600; font-size: var(--step--1); min-width: 0; color: var(--ink); }
 .prog-row.is-full .prog-lbl::after { content: " ✓"; color: var(--ok); }
-.prog-val { font-family: var(--font-mono); font-weight: 700; font-size: var(--step--1); color: var(--ink-soft); }
-.prog-track { grid-column: 1 / -1; height: 12px; border: 1.5px solid var(--ink); border-radius: 4px; background: var(--paper); overflow: hidden; }
+.prog-val { font-family: var(--font-mono); font-weight: 600; font-size: .75rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.prog-track { grid-column: 1 / -1; height: 9px; border: 1.5px solid var(--ink); border-radius: 4px; background: var(--paper); overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
 }
 
 /* ---------- Breakpoints ---------- */
 @media (max-width: 639px) {
-  .prog-peek { right: .4rem; }
   .prob-hub { flex-wrap: wrap; }
   .prog-stamp { top: -1.6rem; }
 }
 @media (min-width: 640px) {
   .prob-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .prog-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .prog-rows { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-4) var(--gap-5); }
-  .prog-body { padding: var(--gap-6) var(--gap-6) var(--gap-6); }
+  .prog-body { padding: var(--gap-4); }
 }
 @media (min-width: 900px) {
   .prob-head { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
   .prob-pit:nth-child(2) { margin-top: 1.8rem; }
-  .prog-wrap { margin-top: 6rem; }
-  .prog-peek { right: 3rem; }
+  .prog-body { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--gap-5); align-items: center; }
+  .prog-rows { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-2) var(--gap-3); }
 }
 @media (min-width: 1200px) {
 }
@@ -1339,13 +1334,12 @@ button { cursor: pointer; }
 @media (min-width: 1200px) { .map-sheet-top { grid-template-columns: minmax(0, 1fr) 220px; } }
 @media (prefers-reduced-motion: reduce) { .map-pt, .map-pt-drop, .map-photo, .qd-bar span, .qd-sw-sw::after, .qd-ev { transition: none; } }
 
-/* d.css — «El quadern»: com funciona, per a qui, testimonis, FAQ, CTA, footer. Només var(--…). */
+/* d.css — «El quadern»: com funciona, per a qui, FAQ, CTA, footer. Només var(--…). */
 
-.how, .who, .tes, .faq, .cta, .ft { overflow-x: clip; }
-.tes, .cta { padding-top: calc(clamp(3.5rem, 8vw, 6.5rem) + 12px); }
-.how .lead, .who .lead, .tes .lead, .faq .lead { margin-top: var(--gap-3); }
-.tes .eyebrow { margin-bottom: var(--gap-3); }
-.tes .h2, .cta .h2 { color: var(--ink); }
+.how, .who, .faq, .cta, .ft { overflow-x: clip; }
+.cta { padding-top: calc(clamp(3.5rem, 8vw, 6.5rem) + 12px); }
+.how .lead, .who .lead, .faq .lead { margin-top: var(--gap-3); }
+.cta .h2 { color: var(--ink); }
 
 /* ---------- Com funciona (sobri) ---------- */
 .how-steps{list-style:none;margin:var(--gap-5) 0 0;padding:0;display:grid;gap:var(--gap-5)}
@@ -1370,40 +1364,6 @@ button { cursor: pointer; }
 .who-gain{margin:var(--gap-1) 0 0;padding:var(--gap-2) var(--gap-3);background:var(--pink-soft);color:var(--fg);border-radius:var(--radius-s);font-weight:500}
 @media (min-width:640px){.who-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (min-width:900px){.who-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-
-/* ---------- Testimonis: post-its al tauler ---------- */
-.tes-warn {
-  display: inline-block; margin: var(--gap-4) 0 0; padding: .3rem .9rem .4rem; max-width: 100%;
-  font: 700 1.3rem/1.15 var(--font-hand); color: var(--ink); background: var(--paper);
-  border: 2px dashed var(--ink-soft); rotate: -1deg; position: relative; z-index: 2;
-}
-.tes-board {
-  position: relative; display: grid; gap: var(--gap-5); margin-top: -.6rem; padding: 2.75rem 1.25rem 2.25rem;
-  background-color: color-mix(in srgb, var(--coral) 16%, var(--paper-2));
-  background-image: radial-gradient(color-mix(in srgb, var(--ink) 16%, transparent) 1px, transparent 1.6px);
-  background-size: 11px 11px;
-  border: var(--stroke) solid var(--ink); border-radius: 8px; box-shadow: var(--hard-shadow);
-}
-.tes-note { min-width: 0; padding: 1.6rem 1.25rem 1.5rem; --n-w: 92%; width: var(--n-w); font-family: var(--font-body); font-weight: 500; }
-.tes-note:nth-child(even) { margin-left: auto; }
-.tes-pin { position: absolute; top: -18px; left: 50%; margin-left: -.85rem; --deco-w: 1.7rem; --deco-sw: 3.5; z-index: 2; }
-.tes-quote { aspect-ratio: 32 / 40; --deco-w: 1.6rem; --deco-sw: 3.5; display: block; margin-bottom: .35rem; }
-.tes-q p { font: 500 1.06rem/1.5 var(--font-body); color: var(--ink); }
-.tes-cap { display: flex; align-items: center; gap: .65rem; margin-top: var(--gap-3); min-width: 0; color: var(--ink); }
-.tes-av {
-  flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
-  background: var(--paper); color: var(--ink); border: var(--stroke) solid var(--ink);
-  font: 800 .95rem/1 var(--font-display); letter-spacing: -.01em;
-}
-.tes-who { min-width: 0; font: 500 var(--step--1)/1.3 var(--font-body); }
-.tes-name { font-weight: 700; }
-.tes-note:nth-child(even) { margin-left: auto; }
-@media (min-width: 900px) {
-  .tes-board { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap-4); padding: 3rem 2.25rem 2.75rem; align-items: start; }
-  .tes-note { --n-w: 100%; }
-  .tes-note:nth-child(2) { margin-top: 2.25rem; }
-  .tes-note:nth-child(3) { margin-top: .5rem; }
-}
 
 /* ---------- FAQ (sobri) ---------- */
 .faq-layout{display:grid;gap:var(--gap-5)}
@@ -2171,26 +2131,23 @@ button { cursor: pointer; }
       <h2 class="h2" id="b-prog-h"><span data-t="prog.title_a">Mira on ets d'un sol</span> <span class="hl hl--pink" data-t="prog.title_b">cop d'ull</span></h2>
     </div>
     <div class="prog-wrap">
-      <div class="prog-peek axo-says axo-says--right reveal" style="--axo-size:104px">
-        <svg class="axo prog-axo" viewBox="0 0 200 200" aria-hidden="true"><use href="#axo-surprised"/></svg>
-        <p class="bubble bubble--right" data-t="prog.bubble">Més de la meitat de la carrera!</p>
-      </div>
       <div class="prog-dash ink-card paper reveal" id="b-prog">
         <div class="prog-band"><span class="prog-band-t" data-t="prog.card">Butlletí de progrés</span><span class="prog-band-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
         <div class="prog-body">
+          <div class="prog-left">
           <div class="prog-main">
             <p class="prog-big"><b>156</b> <span class="prog-of">/ 240</span> <span data-t="prog.ects">ECTS</span></p>
             <span class="stamp stamp--ok prog-stamp" style="--r:-1.5deg" aria-hidden="true">65 %</span>
             <div class="prog-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="65" data-t-aria="prog.bar_aria" aria-label="Progrés total: 156 de 240 ECTS, 65 %">
               <i class="prog-fill" style="--w:65%"></i>
             </div>
-            <span class="note note--coral prog-note" style="--r:-1.5deg" aria-hidden="true" data-t="prog.note">ja gairebé!</span>
           </div>
           <ul class="prog-stats">
             <li class="prog-stat"><span class="sticker sticker--hl" style="--r:-1.5deg"><b>3</b></span><span data-t="prog.s1">quadrimestres per acabar</span></li>
             <li class="prog-stat"><span class="sticker sticker--ok" style="--r:1.5deg"><b>2</b></span><span data-t="prog.s2">complementàries pendents</span></li>
             <li class="prog-stat"><span class="sticker sticker--rect prog-stat-tfg" style="--r:-1deg;--s:var(--note-lilac);--s-ink:var(--ink)"><svg class="prog-flag" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 42V8M12 10h24l-5 8 5 8H12"/></svg><b data-t="prog.s3">TFG · gener de 2028</b></span></li>
           </ul>
+          </div>
           <ul class="prog-rows">
             <li class="prog-row is-full" style="--r:-1deg">
               <span class="prog-lbl" data-t="prog.r1">Bàsica / troncal</span>
@@ -2504,7 +2461,6 @@ button { cursor: pointer; }
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
-    <symbol id="d-quote" viewBox="0 0 32 40"><path d="M23 5 C11 9 6 19 11 27 C15 32 23 28 21 22 C19 18 13 19 13 23" pathLength="1"/></symbol>
     <symbol id="d-scissors" viewBox="0 0 60 40"><path d="M13 9 A5 5 0 1 1 3 9 A5 5 0 1 1 13 9" pathLength="1"/><path d="M13 31 A5 5 0 1 1 3 31 A5 5 0 1 1 13 31" pathLength="1"/><path d="M12 12 L57 30" pathLength="1"/><path d="M12 28 L57 10" pathLength="1"/></symbol>
   </defs>
 </svg>
@@ -2567,44 +2523,6 @@ button { cursor: pointer; }
         <p class="who-gain" data-t="who.p3g">Què hi guanyes: controles què et falta i planifiques l'últim tram amb calma.</p>
       </li>
     </ul>
-  </div>
-</section>
-
-<section id="testimonis" class="section tes paper torn-top" aria-labelledby="d-tes-title">
-  <div class="wrap">
-    <p class="eyebrow reveal"><span class="stamp stamp--accent" style="--r:-2deg" data-t="tes.eyebrow">Testimonis</span></p>
-    <h2 class="h2 reveal" id="d-tes-title"><span data-t="tes.title">Què en diria</span> <span class="hl" data-t="tes.titleHl">la comunitat</span></h2>
-    <p class="lead reveal" data-t="tes.lead">Opinions d'estudiants de la FIB sobre com els ajudaria QuadreFIB.</p>
-    <p class="tes-warn reveal" data-t="tes.warn">Testimonis ficticis, escrits com a exemple del que podria dir un estudiant.</p>
-    <div class="tes-board">
-      <figure class="sticky sticky--yellow tes-note reveal" style="--r:-1.4deg;--reveal-delay:0ms">
-        <i class="tape tape--dots" style="--r:-4deg"></i>
-        <svg class="deco deco--ink deco--draw tes-quote" aria-hidden="true" focusable="false"><use href="#d-quote"/></svg>
-        <blockquote class="tes-q"><p data-t="tes.q1">Per fi veig de cop quants crèdits em falten i si el pla m'encaixa.</p></blockquote>
-        <figcaption class="tes-cap">
-          <span class="tes-av" aria-hidden="true" data-t="tes.i1">LM</span>
-          <span class="tes-who"><strong class="tes-name" data-t="tes.n1">Laia M.</strong> · <span data-t="tes.r1">1r curs</span></span>
-        </figcaption>
-      </figure>
-      <figure class="sticky sticky--pink tes-note reveal" style="--r:1.2deg;--reveal-delay:110ms">
-        <svg class="deco deco--pin deco--coral tes-pin" aria-hidden="true" focusable="false"><use href="#a-deco-pin"/></svg>
-        <svg class="deco deco--ink deco--draw tes-quote" aria-hidden="true" focusable="false"><use href="#d-quote"/></svg>
-        <blockquote class="tes-q"><p data-t="tes.q2">Vaig comparar fer pràctiques ara o més endavant i vaig decidir amb dades a la vista.</p></blockquote>
-        <figcaption class="tes-cap">
-          <span class="tes-av" aria-hidden="true" data-t="tes.i2">PG</span>
-          <span class="tes-who"><strong class="tes-name" data-t="tes.n2">Pol G.</strong> · <span data-t="tes.r2">pràctiques</span></span>
-        </figcaption>
-      </figure>
-      <figure class="sticky sticky--mint tes-note reveal" style="--r:-.8deg;--reveal-delay:220ms">
-        <i class="tape tape--pink" style="--r:5deg"></i>
-        <svg class="deco deco--ink deco--draw tes-quote" aria-hidden="true" focusable="false"><use href="#d-quote"/></svg>
-        <blockquote class="tes-q"><p data-t="tes.q3">Amb el TFG a prop, tenir tot el que em queda en un únic lloc em treu molt d'estrès.</p></blockquote>
-        <figcaption class="tes-cap">
-          <span class="tes-av" aria-hidden="true" data-t="tes.i3">AT</span>
-          <span class="tes-who"><strong class="tes-name" data-t="tes.n3">Anna T.</strong> · <span data-t="tes.r3">TFG</span></span>
-        </figcaption>
-      </figure>
-    </div>
   </div>
 </section>
 
@@ -2934,11 +2852,9 @@ Object.assign(T.ca, {
   "eyebrow": "El teu progrés",
   "title_a": "Mira on ets d'un sol",
   "title_b": "cop d'ull",
-  "bubble": "Més de la meitat de la carrera!",
   "card": "Butlletí de progrés",
   "ects": "ECTS",
   "bar_aria": "Progrés total: 156 de 240 ECTS, 65 %",
-  "note": "ja gairebé!",
   "s1": "quadrimestres per acabar",
   "s2": "complementàries pendents",
   "s3": "TFG · gener de 2028",
@@ -3217,20 +3133,6 @@ Object.assign(T.ca, {
     p3t: "TFG a la vista",
     p3d: "Et queden els últims crèdits i has de tancar la carrera sense sorpreses.",
     p3g: "Què hi guanyes: controles què et falta i planifiques l'últim tram amb calma."
-  },
-  tes: {
-    eyebrow: "Testimonis",
-    title: "Què en diria",
-    titleHl: "la comunitat",
-    lead: "Opinions d'estudiants de la FIB sobre com els ajudaria QuadreFIB.",
-    warn: "Testimonis ficticis, escrits com a exemple del que podria dir un estudiant.",
-    q1: "Per fi veig de cop quants crèdits em falten i si el pla m'encaixa.",
-    n1: "Laia M.", i1: "LM", r1: "1r curs",
-    q2: "Vaig comparar fer pràctiques ara o més endavant i vaig decidir amb dades a la vista.",
-    n2: "Pol G.", i2: "PG", r2: "pràctiques",
-    q3: "Amb el TFG a prop, tenir tot el que em queda en un únic lloc em treu molt d'estrès.",
-    n3: "Anna T.", i3: "AT", r3: "TFG",
-    sep: "·"
   },
   faq: {
     eyebrow: "Preguntes freqüents",
