@@ -844,7 +844,7 @@ button { cursor: pointer; }
 .car-sc-opt[aria-checked="true"]{border-color:var(--accent);background:var(--accent-soft)}
 .car-sc-k{font-family:var(--font-mono);font-size:var(--step--1);color:var(--accent-text);font-weight:600}
 .car-sc-d{color:var(--fg-muted);font-size:var(--step--1)}
-.car-sc-r{font-family:var(--font-display);font-weight:700;font-size:var(--step-1)}
+.car-sc-r{font-family:var(--font-display);font-weight:700;font-size:var(--step-0)}
 .car-sc-bar{display:block;height:6px;border-radius:999px;background:var(--border);margin-top:var(--gap-2);overflow:hidden}
 .car-sc-bar>i{display:block;height:100%;width:var(--w);background:var(--accent);border-radius:999px}
 
@@ -856,7 +856,7 @@ button { cursor: pointer; }
 .car-cols{--n:3;display:grid;grid-template-columns:repeat(var(--n),minmax(168px,1fr));gap:var(--gap-2);min-width:calc(var(--n) * 168px + (var(--n) - 1) * var(--gap-2))}
 .car-col[hidden]{display:none}
 .car-col{background:var(--surface-2);border-radius:var(--radius-m);padding:var(--gap-2);min-width:0}
-.car-colh{display:flex;justify-content:space-between;gap:var(--gap-2);padding:var(--gap-1) var(--gap-1) var(--gap-2)}
+.car-colh{display:flex;justify-content:space-between;gap:var(--gap-2);padding:0 var(--gap-1) var(--gap-1)}
 .car-colname{margin:0;font-weight:700}
 .car-colsub{margin:0;font-size:var(--step--1);color:var(--fg-muted)}
 .car-count{text-align:right;font-family:var(--font-mono);font-size:var(--step--1);color:var(--fg-muted);white-space:nowrap}
@@ -888,7 +888,21 @@ button { cursor: pointer; }
 .car-alert{display:flex;gap:var(--gap-3);align-items:center;margin-top:var(--gap-3);padding:var(--gap-3) var(--gap-4);border-radius:var(--radius-m);border:2px solid var(--warn);background:var(--coral-soft);transition:background .3s,border-color .3s}
 .car-alert.is-ok{border-color:var(--ok);background:var(--accent-soft)}
 .car-axo-s{width:100%;height:auto;display:block}
-.car-axo{width:clamp(96px,28vw,140px);margin:var(--gap-4) 0 0}
+.car-axo{flex:none;width:clamp(72px,16vw,104px)}
+.car-foot{display:flex;align-items:center;gap:var(--gap-4);margin-top:var(--gap-3)}
+.car-foot .car-alert{flex:1 1 auto;margin-top:0;min-width:0}
+.car-card{grid-template-columns:auto auto 1fr auto;gap:2px var(--gap-2);padding:6px var(--gap-2);align-items:center}
+.car-card>.car-card-top{display:contents}
+.car-card .car-grip{grid-area:1/1;margin:-4px 0 -4px -6px;width:22px;height:24px}
+.car-card .car-code{grid-area:1/2}
+.car-card>.car-avs{grid-area:1/3;justify-self:start}
+.car-card .car-ects{grid-area:1/4;margin-left:0;justify-self:end}
+.car-card>.car-name{grid-area:2/1/3/4;font-size:.8rem}
+.car-card>.car-tags{display:none}
+.car-card>.car-sel{grid-area:2/4;width:5.2rem;min-width:0;min-height:26px;font-size:.72rem;padding:1px 3px}
+.car-col{padding:var(--gap-1) var(--gap-2) var(--gap-2)}
+.car-list{gap:6px}
+.car-hint{margin-top:var(--gap-2)}
 .car-axo [hidden]{display:none}
 .car-alert-b{min-width:0;display:grid;gap:var(--gap-2);justify-items:start}
 .car-alert-b p{margin:0;font-weight:600}
@@ -1012,8 +1026,19 @@ button { cursor: pointer; }
   .car-sc-opts{grid-template-columns:1fr 1fr}
 }
 @media (min-width:900px){
-  .car-block{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--gap-6)}
-  .car-sc-opts{grid-template-columns:1fr}
+  .car-block{grid-template-columns:minmax(0,1fr) minmax(0,26rem);grid-template-areas:"intro sc" "vis vis";gap:var(--gap-4) var(--gap-6);align-items:center}
+  .car-text{display:contents}
+  .car-intro{grid-area:intro;min-width:0}
+  .car-sc{grid-area:sc;margin-top:0}
+  .car-vis{grid-area:vis}
+  .car-bul{margin:var(--gap-2) 0 0;gap:var(--gap-1)}
+  .car-lead-sm{margin:0}
+  .car-board{padding:var(--gap-3)}
+  .car-board-top{margin-bottom:var(--gap-2)}
+  .car-drop{padding:6px}
+  .car-h3{margin-bottom:var(--gap-2)}
+  .car-cols{min-width:0;grid-template-columns:repeat(var(--n),minmax(0,1fr))}
+  .car-sc-opts{grid-template-columns:1fr 1fr}
   .car-tl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:var(--gap-5) 0 0;gap:var(--gap-3)}
   .car-tl::before{left:0;right:0;top:calc(var(--gap-5) + 8px);bottom:auto;width:auto;height:2px}
   .car-tl-i{padding-top:var(--gap-4)}
@@ -1021,9 +1046,7 @@ button { cursor: pointer; }
   .car-tl-i{margin-top:0}
   .car-tl-end{display:flex;flex-direction:column;align-items:flex-start}
 }
-@media (min-width:1200px){
-  .car-sc-opts{grid-template-columns:1fr 1fr}
-}
+
 @media (prefers-reduced-motion:reduce){ .car-mod,.car-card{transition:none} .car-card:hover{transform:none} }
 .car-grip{position:relative}
 @media (pointer:coarse){.car-grip::after{content:"";position:absolute;left:50%;top:50%;width:44px;height:44px;translate:-50% -50%}}
@@ -1929,6 +1952,7 @@ button { cursor: pointer; }
 
     <div class="car-block">
       <div class="car-text reveal">
+        <div class="car-intro">
         <p class="car-tagline" data-t="car.tag">Planificador</p>
         <h3 class="car-h3" data-t="car.h3">La teva carrera</h3>
         <p class="lead" data-t="car.phrase">Arrossega assignatures entre quadrimestres, controla els crèdits i compara camins fins a la graduació.</p>
@@ -1936,6 +1960,7 @@ button { cursor: pointer; }
           <li><svg class="car-bul-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 25l9 9 19-20"/></svg><span data-t="car.b1">Comptador de crèdits per tipus</span></li>
           <li><svg class="car-bul-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 25l9 9 19-20"/></svg><span data-t="car.b2">Comprovador de prerequisits i incompatibilitats</span></li>
         </ul>
+        </div>
 
         <div class="car-sc card" role="radiogroup" id="b-scenarios" data-t-aria="car.sc_aria" aria-label="Comparador d'escenaris">
           <p class="car-sc-h" data-t="car.sc_h">Compara escenaris</p>
@@ -1949,10 +1974,6 @@ button { cursor: pointer; }
               <span class="car-sc-r" data-t="car.sc_b_r">Acabes el juny de 2028</span><i class="car-sc-bar" aria-hidden="true"><i style="--w:100%"></i></i>
             </button>
           </div>
-        </div>
-        <div class="car-axo" id="b-axo" aria-hidden="true">
-          <span data-st="bad"><svg class="axo car-axo-s" viewBox="0 0 200 200" focusable="false"><use href="#axo-worried"/></svg></span>
-          <span data-st="ok" hidden><svg class="axo car-axo-s" viewBox="0 0 200 200" focusable="false"><use href="#axo-happy"/></svg></span>
         </div>
       </div>
 
@@ -2052,12 +2073,18 @@ button { cursor: pointer; }
         </div>
         <p class="car-hint" data-t="car.hint">Arrossega una tarjeta a un altre quadrimestre o tria-ne un al selector de cada tarjeta.</p>
         <p class="sr-only" id="b-live" role="status" aria-live="polite"></p>
+        <div class="car-foot">
+        <div class="car-axo" id="b-axo" aria-hidden="true">
+          <span data-st="bad"><svg class="axo car-axo-s" viewBox="0 0 200 200" focusable="false"><use href="#axo-worried"/></svg></span>
+          <span data-st="ok" hidden><svg class="axo car-axo-s" viewBox="0 0 200 200" focusable="false"><use href="#axo-happy"/></svg></span>
+        </div>
         <div class="car-alert is-bad" id="b-alert" role="status" aria-live="polite">
           <div class="car-alert-b">
             <p data-st="bad" data-t="car.alert_bad">No pots cursar CBDE abans de superar DBD.</p>
             <p data-st="ok" hidden data-t="car.alert_ok">Pla viable: prerequisits, disponibilitat i càrrega complerts.</p>
             <button type="button" class="btn btn-ghost car-move" id="b-undo" disabled data-t="car.undo">Desfés</button>
           </div>
+        </div>
         </div>
       </div>
     </div>
