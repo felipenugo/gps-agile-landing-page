@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#f6f5fb" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#14142a" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f6f5fb" data-scheme="light" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14142a" data-scheme="dark" media="(prefers-color-scheme: dark)">
 <meta name="description" content="QuadreFIB: planificador de carrera per a estudiants de la FIB. Organitza el quadrimestre, controla notes i crèdits i planifica fins a la graduació. Projecte acadèmic independent.">
 <title>QuadreFIB — Planifica la teva carrera a la FIB</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -104,9 +104,14 @@
   --polaroid: #fffefb;      /* marc polaroid (paper fotogràfic, igual en fosc) */
   --polaroid-ink: #23233a;
   --grain-opacity: .025;
+  --shadow-ink: var(--ink);
+  --note-shadow: rgb(30 30 70 / .25);
+  --pink-tape: rgb(255 130 170 / .55);
+  --ticker-mark: var(--hl);
 }
 
-@media (prefers-color-scheme: dark) {
+</style>
+<style data-scheme="dark" media="(prefers-color-scheme: dark)">
   :root {
     color-scheme: dark;
     --bg: #14142a;
@@ -151,8 +156,13 @@
     --hard-shadow-s: 2px 2px 0 #4a4a96;
     --sticker-edge: #f4f3ff;
     --grain-opacity: .035;
+    --shadow-ink: #4a4a96;
+    --note-shadow: rgb(0 0 0 / .5);
+    --pink-tape: rgb(255 140 180 / .34);
+    --ticker-mark: var(--paper);
   }
-}
+</style>
+<style>
 
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
@@ -229,18 +239,13 @@ button { cursor: pointer; }
   min-height: 48px; padding: .7rem 1.4rem;
   border: 1.5px solid var(--ink); border-radius: var(--radius-s);
   font-weight: 700; font-size: var(--step-0); line-height: 1.2; text-decoration: none;
-  box-shadow: 3px 3px 0 var(--ink);
+  box-shadow: 3px 3px 0 var(--shadow-ink);
   transition: transform .12s ease, box-shadow .12s ease, background-color .15s ease;
 }
-.btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--ink); }
-.btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--shadow-ink); }
+.btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--shadow-ink); }
 .btn-primary { background: var(--accent); color: var(--accent-ink); }
 .btn-ghost { background: var(--paper); color: var(--ink); }
-@media (prefers-color-scheme: dark) {
-  .btn { box-shadow: 3px 3px 0 #4a4a96; }
-  .btn:hover { box-shadow: 4px 4px 0 #4a4a96; }
-  .btn:active { box-shadow: 1px 1px 0 #4a4a96; }
-}
 
 /* ---------- Card (plana, SENSE padding) / ink-card (contorn + ombra dura) / chip ---------- */
 .card {
@@ -256,8 +261,7 @@ button { cursor: pointer; }
   box-shadow: var(--hard-shadow);
   transition: transform .15s ease, box-shadow .15s ease;
 }
-@media (hover: hover) { .ink-card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); } }
-@media (hover: hover) and (prefers-color-scheme: dark) { .ink-card:hover { box-shadow: 6px 6px 0 #4a4a96; } }
+@media (hover: hover) { .ink-card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--shadow-ink); } }
 
 .chip {
   display: inline-flex; align-items: center; gap: .35rem;
@@ -375,7 +379,7 @@ button { cursor: pointer; }
   position: relative; display: block; padding: 1rem 1.1rem 1.3rem; max-width: 100%;
   color: var(--ink); font-family: var(--font-hand); font-weight: 700; font-size: 1.3rem; line-height: 1.1;
   background: linear-gradient(315deg, transparent 18px, var(--n) 18px);
-  filter: drop-shadow(2px 4px 4px rgb(30 30 70 / .25));
+  filter: drop-shadow(2px 4px 4px var(--note-shadow));
   rotate: var(--r, var(--rot-1)); transition: rotate .2s ease, translate .2s ease;
 }
 .sticky::after {
@@ -387,7 +391,6 @@ button { cursor: pointer; }
 .sticky--mint { --n: var(--note-mint); }
 .sticky--lilac { --n: var(--note-lilac); }
 @media (hover: hover) { .sticky:hover { rotate: calc(var(--r, var(--rot-1)) * -.5); translate: 0 -3px; } }
-@media (prefers-color-scheme: dark) { .sticky { filter: drop-shadow(2px 4px 4px rgb(0 0 0 / .5)); } }
 .sticky.is-armed.is-in { animation: a-stick .55s cubic-bezier(.3, 1.6, .5, 1) both; animation-delay: var(--reveal-delay, 0ms); }
 @keyframes a-stick { 0% { translate: 0 -8px; rotate: calc(var(--r, var(--rot-1)) + 3deg); } 100% { translate: 0 0; rotate: var(--r, var(--rot-1)); } }
 
@@ -399,8 +402,7 @@ button { cursor: pointer; }
   rotate: var(--r, -1.5deg); pointer-events: none;
 }
 .tape--dots { background: radial-gradient(circle, color-mix(in srgb, var(--ink) 35%, transparent) 1.5px, transparent 2px) 0 0 / 9px 9px, var(--tape); }
-.tape--pink { --tape: rgb(255 130 170 / .55); }
-@media (prefers-color-scheme: dark) { .tape--pink { --tape: rgb(255 140 180 / .34); } }
+.tape--pink { --tape: var(--pink-tape); }
 
 /* ---- Segell (.stamp): majúscules, doble vora, color via --stamp ---- */
 .stamp {
@@ -555,6 +557,15 @@ button { cursor: pointer; }
 }
 .nav-links a:hover { color: var(--hl-ink); background: linear-gradient(transparent 52%, var(--hl) 52% 88%, transparent 88%); }
 .nav-cta { min-height: 44px; padding-block: .5rem; }
+
+/* Control secundari de la capçalera: icona de tinta sobre el paper. */
+.nav-theme {
+  display: grid; place-items: center; flex: none; width: 44px; height: 44px; padding: 0;
+  border: 0; border-radius: var(--radius-s); background: transparent; color: var(--ink-soft);
+}
+@media (hover: hover) { .nav-theme:hover { background: var(--note-lilac); color: var(--ink); } }
+.nav-theme svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.nav-theme[aria-pressed="false"] .theme-sun, .nav-theme[aria-pressed="true"] .theme-moon { display: none; }
 
 .nav-toggle {
   display: inline-flex; align-items: center; justify-content: center;
@@ -738,8 +749,7 @@ button { cursor: pointer; }
 }
 .tick::before { content: ""; position: absolute; z-index: -1; left: -3%; right: -3%; top: 2rem; bottom: 2rem; background: var(--hl); rotate: .6deg; }
 .tick .marquee-item { font-size: clamp(.9rem, .85rem + .35vw, 1.1rem); }
-.tick .marquee-sep { --deco-color: var(--hl); }
-@media (prefers-color-scheme: dark) { .tick .marquee-sep { --deco-color: var(--paper); } }
+.tick .marquee-sep { --deco-color: var(--ticker-mark); }
 
 /* ==========================================================================
    b.css — Design v2 «El quadern de la FIB»
@@ -1812,6 +1822,12 @@ button { cursor: pointer; }
         <a href="#preguntes" data-t="nav.faq">Preguntes</a>
       </nav>
   
+      <button class="nav-theme" id="a-theme" type="button" data-t-aria="nav.darkMode" aria-label="Mode fosc" aria-pressed="false" hidden>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <g class="theme-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></g>
+          <g class="theme-moon"><path d="M20 14.5A8.7 8.7 0 0 1 9.5 4a8.6 8.6 0 1 0 10.5 10.5Z"/><path d="M17 3v4m-2-2h4"/></g>
+        </svg>
+      </button>
       <a class="btn btn-primary nav-cta" href="#llista-espera" data-t="nav.cta">Llista d'espera</a>
   
       <button class="nav-toggle" id="a-menu-btn" type="button" aria-expanded="false" aria-controls="a-menu" data-t-aria="nav.menuOpen" aria-label="Obre el menú">
@@ -2727,6 +2743,9 @@ Object.assign(T.ca, {
     faq: "Preguntes",
     cta: "Llista d'espera",
     menuOpen: "Obre el menú",
+    darkMode: "Mode fosc",
+    useLight: "Activa el mode clar",
+    useDark: "Activa el mode fosc",
     menuClose: "Tanca el menú"
   },
   hero: {
@@ -3257,6 +3276,30 @@ Object.assign(T.ca, {
   // Exposat perquè B/C/D puguin re-aplicar textos a contingut que renderitzin per JS.
   window.applyLang = applyLang;
 
+  function initTheme() {
+    var btn = document.getElementById('a-theme');
+    var system = window.matchMedia('(prefers-color-scheme: dark)');
+    var root = document.documentElement;
+
+    function updateButton() {
+      var dark = root.dataset.theme ? root.dataset.theme === 'dark' : system.matches;
+      btn.setAttribute('aria-pressed', String(dark));
+      btn.title = t(dark ? 'nav.useLight' : 'nav.useDark');
+    }
+
+    btn.addEventListener('click', function () {
+      var theme = btn.getAttribute('aria-pressed') === 'true' ? 'light' : 'dark';
+      root.dataset.theme = theme;
+      document.querySelectorAll('[data-scheme]').forEach(function (el) {
+        el.media = el.dataset.scheme === theme ? 'all' : 'not all';
+      });
+      updateButton();
+    });
+    system.addEventListener('change', updateButton);
+    updateButton();
+    btn.hidden = false;
+  }
+
   function initMenu() {
     var btn = document.getElementById('a-menu-btn');
     var menu = document.getElementById('a-menu');
@@ -3333,6 +3376,7 @@ Object.assign(T.ca, {
 
   function init() {
     applyLang();
+    initTheme();
     initMenu();
     initScrollShadow();
     initMarquee();
