@@ -1751,7 +1751,7 @@ button { cursor: pointer; }
         <div class="pl-board" role="img" data-t-aria="planner.aria" aria-label="Maqueta del planificador de carrera: tres quadrimestres en columnes amb assignatures d'exemple. Una assignatura del Quad. 5 es mou al Quad. 7 per alleugerir la càrrega.">
               <!-- Quad. 5 (Q1) -->
               <div class="pl-col">
-                <div class="pl-colhead"><span class="pl-q" data-t="planner.q1">Quad. 5</span><span class="pl-per" data-t="planner.p1">Q1 · tardor</span><span class="pl-sum" data-t="planner.q1ects">24 ECTS</span></div>
+                <div class="pl-colhead"><span class="pl-q" data-t="planner.q1">Quad. 5</span><span class="pl-per" data-t="planner.p1">Q1 · tardor</span><span class="pl-sum" data-t="planner.q1ects">36 ECTS</span></div>
                 <div class="pl-card pl-card--tr">
                   <div class="pl-row"><span class="pl-code">BD</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
                   <span class="pl-name" data-t="planner.bd">Bases de Dades</span>
@@ -1772,6 +1772,16 @@ button { cursor: pointer; }
                   <div class="pl-row"><span class="pl-code">CBDE</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
                   <span class="pl-name" data-t="planner.cbde">Cerca i Anàlisi de Dades</span>
                   <span class="pl-type" data-t="planner.compl">Compl. menció</span>
+                </div>
+                <div class="pl-card pl-card--ob">
+                  <div class="pl-row"><span class="pl-code">SO</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
+                  <span class="pl-name">Sistemes Operatius</span>
+                  <span class="pl-type" data-t="planner.obligatoria">Obligatòria</span>
+                </div>
+                <div class="pl-card pl-card--tr">
+                  <div class="pl-row"><span class="pl-code">XC</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
+                  <span class="pl-name">Xarxes de Computadors</span>
+                  <span class="pl-type" data-t="planner.troncal">Troncal</span>
                 </div>
               </div>
     
@@ -2630,7 +2640,7 @@ Object.assign(T.ca, {
     p1: "Q1 · tardor",
     p2: "Q2 · primavera",
     p3: "Q1 · tardor",
-    q1ects: "24 ECTS",
+    q1ects: "36 ECTS",
     q2ects: "18 ECTS",
     q3ects: "6 ECTS",
     ects6: "6 ECTS",
@@ -3261,7 +3271,7 @@ Object.assign(T.ca, {
     Array.prototype.forEach.call(host.querySelectorAll('[data-sc]'), function (n) {
       n.hidden = n.getAttribute('data-sc') !== s;
     });
-    if (typeof renderScenario === 'function') renderScenario(s);
+    if (typeof renderScenario === 'function' && SCEN) renderScenario(s);
   }
   if (scBtns.length) {
     roving(scBtns, 'aria-checked', function (i, b) { setScenario(b.getAttribute('data-sc-set')); });
