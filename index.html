@@ -904,7 +904,14 @@ button { cursor: pointer; }
 .car-card>.car-name{grid-area:2/1/3/4;font-size:.8rem}
 .car-card>.car-tags{display:none}
 .car-card>.car-sel{grid-area:2/4;width:5.2rem;min-width:0;min-height:26px;font-size:.72rem;padding:1px 3px}
-.car-col{padding:var(--gap-1) var(--gap-2) var(--gap-2)}
+.car-col{padding:var(--gap-1) var(--gap-2) var(--gap-2);container-type:inline-size}
+@container (max-width:13rem){
+  .car-card{grid-template-columns:auto minmax(0,1fr) auto}
+  .car-card .car-ects{grid-area:1/3}
+  .car-card>.car-name{grid-area:2/1/3/-1}
+  .car-card>.car-avs{grid-area:3/1/4/3}
+  .car-card>.car-sel{grid-area:3/3;width:auto;max-width:100%}
+}
 .car-list{gap:6px}
 .car-hint{margin-top:var(--gap-2)}
 .car-axo [hidden]{display:none}
@@ -948,7 +955,7 @@ button { cursor: pointer; }
 .car-ects{margin-left:auto}
 .car-card.is-dragging{opacity:.35}
 .car-sel{font:inherit;font-size:.78rem;width:100%;min-height:32px;padding:4px 6px;border-radius:var(--radius-s);border:1px solid var(--border);background:var(--surface-2);color:var(--fg);cursor:pointer}
-@media (pointer:coarse){.car-sel{min-height:44px}}
+@media (pointer:coarse){.car-card>.car-sel{min-height:44px}}
 .car-ghost{position:fixed;left:0;top:0;z-index:9999;pointer-events:none;box-shadow:var(--shadow-2);border-radius:var(--radius-s);opacity:.95;will-change:transform}
 .car-ghost .car-card{rotate:2deg;margin:0;list-style:none}
 .car-list .car-drop{display:none;transition:background .15s,border-color .15s}
@@ -1043,7 +1050,7 @@ button { cursor: pointer; }
   .car-h3{margin-bottom:var(--gap-2)}
   .car-cols{min-width:0;grid-template-columns:repeat(var(--n),minmax(0,1fr))}
   .car-sc-opts{grid-template-columns:1fr 1fr}
-  .car-tl{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));padding:var(--gap-5) 0 0;gap:var(--gap-3)}
+  .car-tl{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);padding:var(--gap-5) 0 0;gap:var(--gap-3)}
   .car-tl::before{left:0;right:0;top:calc(var(--gap-5) + 8px);bottom:auto;width:auto;height:2px}
   .car-tl-i{padding-top:var(--gap-4)}
   .car-tl-dot{left:0;top:-4px}
@@ -1882,22 +1889,22 @@ button { cursor: pointer; }
                 </div>
                 <div class="pl-card pl-card--ob">
                   <div class="pl-row"><span class="pl-code">IES</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
-                  <span class="pl-name" data-t="planner.ies">Enginyeria del Programari</span>
+                  <span class="pl-name" data-t="planner.ies">Introducció a l’Enginyeria del Software</span>
                   <span class="pl-type" data-t="planner.obligatoria">Obligatòria</span>
                 </div>
                 <div class="pl-card pl-card--cm">
                   <div class="pl-row"><span class="pl-code">CBDE</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
-                  <span class="pl-name" data-t="planner.cbde">Cerca i Anàlisi de Dades</span>
+                  <span class="pl-name" data-t="planner.cbde">Conceptes per a Bases de Dades Especialitzades</span>
                   <span class="pl-type" data-t="planner.compl">Compl. menció</span>
                 </div>
                 <div class="pl-card pl-card--ob">
-                  <div class="pl-row"><span class="pl-code">SO</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
-                  <span class="pl-name">Sistemes Operatius</span>
+                  <div class="pl-row"><span class="pl-code">IDI</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
+                  <span class="pl-name" data-t="planner.idi">Interacció i Disseny d’Interfícies</span>
                   <span class="pl-type" data-t="planner.obligatoria">Obligatòria</span>
                 </div>
                 <div class="pl-card pl-card--tr">
-                  <div class="pl-row"><span class="pl-code">XC</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
-                  <span class="pl-name">Xarxes de Computadors</span>
+                  <div class="pl-row"><span class="pl-code">AC</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
+                  <span class="pl-name" data-t="planner.ac">Arquitectura de Computadors</span>
                   <span class="pl-type" data-t="planner.troncal">Troncal</span>
                 </div>
               </div>
@@ -1927,7 +1934,7 @@ button { cursor: pointer; }
                 <div class="pl-colhead"><span class="pl-q" data-t="planner.q3">Quad. 7</span><span class="pl-per" data-t="planner.p3">Q1 · tardor</span><span class="pl-sum" data-t="planner.q3ects">6 ECTS</span></div>
                 <div class="pl-card pl-card--ob">
                   <div class="pl-row"><span class="pl-code">PROP</span><span class="pl-ects" data-t="planner.ects6">6 ECTS</span></div>
-                  <span class="pl-name" data-t="planner.prop">Projecte de Programació</span>
+                  <span class="pl-name" data-t="planner.prop">Projectes de Programació</span>
                   <span class="pl-type" data-t="planner.obligatoria">Obligatòria</span>
                 </div>
                 <div class="pl-slot" aria-hidden="true"></div>
@@ -2098,14 +2105,14 @@ button { cursor: pointer; }
           </li>
           <li class="car-card" id="b-card-ies" data-ects="6" data-av="10">
             <div class="car-card-top"><span class="car-grip"><svg class="car-grip-i" viewBox="0 0 12 18" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="3" cy="3" r="1.6"/><circle cx="9" cy="3" r="1.6"/><circle cx="3" cy="9" r="1.6"/><circle cx="9" cy="9" r="1.6"/><circle cx="3" cy="15" r="1.6"/><circle cx="9" cy="15" r="1.6"/></svg></span><span class="car-code">IES</span><span class="car-ects"><b>6</b> <span data-t="car.ects">ECTS</span></span></div>
-            <p class="car-name" data-t="car.n_ies">Enginyeria del Programari</p>
+            <p class="car-name" data-t="car.n_ies">Introducció a l’Enginyeria del Software</p>
             <div class="car-tags"><span class="car-tag car-tag-oblig" data-t="car.t_oblig">Obligatòria</span><span class="car-tag car-tag-men" data-t="car.m_ep">Eng. del Programari</span></div>
             <div class="car-avs" role="group" data-t-aria="car.av_group" aria-label="Disponibilitat per quadrimestre"><span class="car-av is-on" data-t-aria="car.av1_on" aria-label="Q1 disponible">Q1</span><span class="car-av is-off" data-t-aria="car.av2_off" aria-label="Q2 no disponible">Q2</span></div>
             <select class="car-sel" data-t-aria="car.sel_ies" aria-label="Mou IES a un altre quadrimestre"><option value="0" selected data-t="car.col0">Quad. 5</option><option value="1" data-t="car.col1">Quad. 6</option><option value="2" data-t="car.col2">Quad. 7</option></select>
           </li>
           <li class="car-card is-flag" id="b-card-cbde" data-ects="6" data-av="10">
             <div class="car-card-top"><span class="car-grip"><svg class="car-grip-i" viewBox="0 0 12 18" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="3" cy="3" r="1.6"/><circle cx="9" cy="3" r="1.6"/><circle cx="3" cy="9" r="1.6"/><circle cx="9" cy="9" r="1.6"/><circle cx="3" cy="15" r="1.6"/><circle cx="9" cy="15" r="1.6"/></svg></span><span class="car-code">CBDE</span><span class="car-ects"><b>6</b> <span data-t="car.ects">ECTS</span></span></div>
-            <p class="car-name" data-t="car.n_cbde">Cerca i Anàlisi de Dades</p>
+            <p class="car-name" data-t="car.n_cbde">Conceptes per a Bases de Dades Especialitzades</p>
             <div class="car-tags"><span class="car-tag car-tag-compl" data-t="car.t_compl">Compl. menció</span><span class="car-tag car-tag-men" data-t="car.m_comp">Computació</span></div>
             <div class="car-avs" role="group" data-t-aria="car.av_group" aria-label="Disponibilitat per quadrimestre"><span class="car-av is-on" data-t-aria="car.av1_on" aria-label="Q1 disponible">Q1</span><span class="car-av is-off" data-t-aria="car.av2_off" aria-label="Q2 no disponible">Q2</span></div>
             <select class="car-sel" data-t-aria="car.sel_cbde" aria-label="Mou CBDE a un altre quadrimestre"><option value="0" selected data-t="car.col0">Quad. 5</option><option value="1" data-t="car.col1">Quad. 6</option><option value="2" data-t="car.col2">Quad. 7</option></select>
@@ -2147,7 +2154,7 @@ button { cursor: pointer; }
         <ul class="car-list" data-col="2" data-season="1">
           <li class="car-card" id="b-card-prop" data-ects="6" data-av="10">
             <div class="car-card-top"><span class="car-grip"><svg class="car-grip-i" viewBox="0 0 12 18" fill="currentColor" aria-hidden="true" focusable="false"><circle cx="3" cy="3" r="1.6"/><circle cx="9" cy="3" r="1.6"/><circle cx="3" cy="9" r="1.6"/><circle cx="9" cy="9" r="1.6"/><circle cx="3" cy="15" r="1.6"/><circle cx="9" cy="15" r="1.6"/></svg></span><span class="car-code">PROP</span><span class="car-ects"><b>6</b> <span data-t="car.ects">ECTS</span></span></div>
-            <p class="car-name" data-t="car.n_prop">Projecte de Programació</p>
+            <p class="car-name" data-t="car.n_prop">Projectes de Programació</p>
             <div class="car-tags"><span class="car-tag car-tag-oblig" data-t="car.t_oblig">Obligatòria</span><span class="car-tag car-tag-men" data-t="car.m_com">Comuna</span></div>
             <div class="car-avs" role="group" data-t-aria="car.av_group" aria-label="Disponibilitat per quadrimestre"><span class="car-av is-on" data-t-aria="car.av1_on" aria-label="Q1 disponible">Q1</span><span class="car-av is-off" data-t-aria="car.av2_off" aria-label="Q2 no disponible">Q2</span></div>
             <select class="car-sel" data-t-aria="car.sel_prop" aria-label="Mou PROP a un altre quadrimestre"><option value="0" data-t="car.col0">Quad. 5</option><option value="1" data-t="car.col1">Quad. 6</option><option value="2" selected data-t="car.col2">Quad. 7</option></select>
@@ -2165,7 +2172,7 @@ button { cursor: pointer; }
             </div>
           </div>
         </div>
-        <p class="car-hint" data-t="car.hint">Arrossega una tarjeta a un altre quadrimestre o tria-ne un al selector de cada tarjeta.</p>
+        <p class="car-hint" data-t="car.hint">Arrossega una assignatura a un altre quadrimestre o tria el quadrimestre al selector de la targeta.</p>
         <p class="sr-only" id="b-live" role="status" aria-live="polite"></p>
         <div class="car-foot">
         <div class="car-axo" id="b-axo" aria-hidden="true">
@@ -2174,7 +2181,7 @@ button { cursor: pointer; }
         </div>
         <div class="car-alert is-bad" id="b-alert" role="status" aria-live="polite">
           <div class="car-alert-b">
-            <p data-st="bad" data-t="car.alert_bad">No pots cursar CBDE abans de superar DBD.</p>
+            <p data-st="bad" data-t="car.alert_bad">No pots cursar CBDE abans de superar BD.</p>
             <p data-st="ok" hidden data-t="car.alert_ok">Pla viable: prerequisits, disponibilitat i càrrega complerts.</p>
             <button type="button" class="btn btn-ghost car-move" id="b-undo" disabled data-t="car.undo">Desfés</button>
           </div>
@@ -2193,8 +2200,9 @@ button { cursor: pointer; }
       <li class="car-tl-i"><span class="car-tl-dot" aria-hidden="true"></span><p class="car-tl-t" data-t="car.tl2">Q2</p><p class="car-tl-s" data-t="car.tl2s">Primavera 2027</p>
         <span class="car-tl-tag" data-sc="A" data-t="car.tlprac">Pràctiques</span></li>
       <li class="car-tl-i"><span class="car-tl-dot" aria-hidden="true"></span><p class="car-tl-t" data-t="car.tl4">Q1</p><p class="car-tl-s" data-t="car.tl4s">Tardor 2027</p></li>
+      <li class="car-tl-i" data-sc="B" hidden><span class="car-tl-dot" aria-hidden="true"></span><p class="car-tl-t" data-t="car.tl2">Q2</p><p class="car-tl-s" data-t="car.tlSpring28">Primavera 2028</p></li>
       <li class="car-tl-i"><span class="car-tl-dot" aria-hidden="true"></span><p class="car-tl-t" data-t="car.tl5">TFG</p>
-        <p class="car-tl-s" data-sc="A" data-t="car.tl5a">Gener de 2028</p><p class="car-tl-s" data-sc="B" data-t="car.tl5b">Juny de 2028</p></li>
+        <p class="car-tl-s" data-sc="A" data-t="car.tl5a">Gener de 2028</p><p class="car-tl-s" data-sc="B" hidden data-t="car.tl5b">Juny de 2028</p></li>
       <li class="car-tl-i car-tl-end"><span class="car-tl-dot" aria-hidden="true"></span>
         <div class="car-tl-grad"><svg class="axo car-axo-grad" viewBox="0 0 200 200" aria-hidden="true"><use href="#axo-graduated"/></svg></div>
         <p class="car-tl-t" data-t="car.tl6">Graduació</p></li>
@@ -2222,9 +2230,9 @@ button { cursor: pointer; }
             </div>
           </div>
           <ul class="prog-stats">
-            <li class="prog-stat"><span class="sticker sticker--hl" style="--r:-1.5deg"><b>3</b></span><span data-t="prog.s1">quadrimestres per acabar</span></li>
+            <li class="prog-stat"><span class="sticker sticker--hl" style="--r:-1.5deg"><b data-sc="A">3</b><b data-sc="B" hidden>4</b></span><span data-t="prog.s1">quadrimestres per acabar</span></li>
             <li class="prog-stat"><span class="sticker sticker--ok" style="--r:1.5deg"><b>2</b></span><span data-t="prog.s2">complementàries pendents</span></li>
-            <li class="prog-stat"><span class="sticker sticker--rect prog-stat-tfg" style="--r:-1deg;--s:var(--note-lilac);--s-ink:var(--ink)"><svg class="prog-flag" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 42V8M12 10h24l-5 8 5 8H12"/></svg><b data-t="prog.s3">TFG · gener de 2028</b></span></li>
+            <li class="prog-stat"><span class="sticker sticker--rect prog-stat-tfg" style="--r:-1deg;--s:var(--note-lilac);--s-ink:var(--ink)"><svg class="prog-flag" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 42V8M12 10h24l-5 8 5 8H12"/></svg><b data-sc="A" data-t="prog.s3">TFG · gener de 2028</b><b data-sc="B" hidden data-t="prog.s3b">TFG · juny de 2028</b></span></li>
           </ul>
           </div>
           <ul class="prog-rows">
@@ -2239,24 +2247,24 @@ button { cursor: pointer; }
               <div class="prog-track" role="img" data-t-aria="prog.r2_aria" aria-label="Obligatòries: 60 de 72 ECTS"><i class="prog-fill" style="--w:83.3%"></i></div>
             </li>
             <li class="prog-row" style="--r:-.6deg">
-              <span class="prog-lbl" data-t="prog.r3">Optatives</span>
-              <span class="prog-val">24 / 30</span>
-              <div class="prog-track" role="img" data-t-aria="prog.r3_aria" aria-label="Optatives: 24 de 30 ECTS"><i class="prog-fill" style="--w:80.0%"></i></div>
+              <span class="prog-lbl" data-t="prog.r3">Obligatòries d’especialitat</span>
+              <span class="prog-val">24 / 36</span>
+              <div class="prog-track" role="img" data-t-aria="prog.r3_aria" aria-label="Obligatòries d’especialitat: 24 de 36 ECTS"><i class="prog-fill" style="--w:66.7%"></i></div>
             </li>
             <li class="prog-row" style="--r:1.1deg">
-              <span class="prog-lbl" data-t="prog.r4">Complementàries de menció</span>
-              <span class="prog-val">12 / 24</span>
-              <div class="prog-track" role="img" data-t-aria="prog.r4_aria" aria-label="Complementàries de menció: 12 de 24 ECTS"><i class="prog-fill" style="--w:50.0%"></i></div>
+              <span class="prog-lbl" data-t="prog.r4">Complementàries d’especialitat</span>
+              <span class="prog-val">0 / 12</span>
+              <div class="prog-track" role="img" data-t-aria="prog.r4_aria" aria-label="Complementàries d’especialitat: 0 de 12 ECTS"><i class="prog-fill" style="--w:0%"></i></div>
             </li>
             <li class="prog-row" style="--r:-.9deg">
-              <span class="prog-lbl" data-t="prog.r5">Pràctiques</span>
-              <span class="prog-val">0 / 18</span>
-              <div class="prog-track" role="img" data-t-aria="prog.r5_aria" aria-label="Pràctiques: 0 de 18 ECTS"><i class="prog-fill" style="--w:0.0%"></i></div>
+              <span class="prog-lbl" data-t="prog.r5">Optatives</span>
+              <span class="prog-val">12 / 42</span>
+              <div class="prog-track" role="img" data-t-aria="prog.r5_aria" aria-label="Optatives: 12 de 42 ECTS"><i class="prog-fill" style="--w:28.6%"></i></div>
             </li>
             <li class="prog-row" style="--r:.6deg">
               <span class="prog-lbl" data-t="prog.r6">TFG</span>
-              <span class="prog-val">0 / 36</span>
-              <div class="prog-track" role="img" data-t-aria="prog.r6_aria" aria-label="TFG: 0 de 36 ECTS"><i class="prog-fill" style="--w:0.0%"></i></div>
+              <span class="prog-val">0 / 18</span>
+              <div class="prog-track" role="img" data-t-aria="prog.r6_aria" aria-label="TFG: 0 de 18 ECTS"><i class="prog-fill" style="--w:0%"></i></div>
             </li>
           </ul>
         </div>
@@ -2765,16 +2773,18 @@ Object.assign(T.ca, {
     q3ects: "6 ECTS",
     ects6: "6 ECTS",
     bd: "Bases de Dades",
-    prop: "Projecte de Programació",
+    prop: "Projectes de Programació",
+    idi: "Interacció i Disseny d’Interfícies",
+    ac: "Arquitectura de Computadors",
     so: "Sistemes Operatius",
     dbd: "Disseny de Bases de Dades",
-    ies: "Enginyeria del Programari",
+    ies: "Introducció a l’Enginyeria del Software",
     par: "Paral·lelisme",
     xc: "Xarxes de Computadors",
     troncal: "Troncal",
     obligatoria: "Obligatòria",
     compl: "Compl. menció",
-    cbde: "Cerca i Anàlisi de Dades"
+    cbde: "Conceptes per a Bases de Dades Especialitzades"
   },
   ticker: {
     i1: "BD", i2: "PAR", i3: "IES", i4: "XC", i5: "SO", i6: "PROP",
@@ -2821,6 +2831,7 @@ Object.assign(T.ca, {
   "tlprac": "Pràctiques",
   "tl4": "Q1",
   "tl4s": "Tardor 2027",
+  "tlSpring28": "Primavera 2028",
   "tl5": "TFG",
   "tl5a": "Gener de 2028",
   "tl5b": "Juny de 2028",
@@ -2868,10 +2879,10 @@ Object.assign(T.ca, {
   "t_oblig": "Obligatòria",
   "m_comp": "Computació",
   "sel_par": "Mou PAR a un altre quadrimestre",
-  "n_ies": "Enginyeria del Programari",
+  "n_ies": "Introducció a l’Enginyeria del Software",
   "m_ep": "Eng. del Programari",
   "sel_ies": "Mou IES a un altre quadrimestre",
-  "n_cbde": "Cerca i Anàlisi de Dades",
+  "n_cbde": "Conceptes per a Bases de Dades Especialitzades",
   "t_compl": "Compl. menció",
   "sel_cbde": "Mou CBDE a un altre quadrimestre",
   "drop": "Deixa-hi una assignatura",
@@ -2887,14 +2898,15 @@ Object.assign(T.ca, {
   "col2s": "Q1 · tardor",
   "col3": "Quad. 8",
   "col3s": "Q2 · primavera",
-  "n_prop": "Projecte de Programació",
+  "n_prop": "Projectes de Programació",
   "sel_prop": "Mou PROP a un altre quadrimestre",
-  "hint": "Arrossega una tarjeta a un altre quadrimestre o tria-ne un al selector de cada tarjeta.",
-  "alert_bad": "No pots cursar CBDE abans de superar DBD.",
+  "hint": "Arrossega una assignatura a un altre quadrimestre o tria el quadrimestre al selector de la targeta.",
+  "alert_bad": "No pots cursar CBDE abans de superar BD.",
   "alert_ok": "Pla viable: prerequisits, disponibilitat i càrrega complerts.",
   "undo": "Desfés",
   "route_h": "Ruta de graduació",
   "route_sc": "Escenari",
+  "w_prevTerm": "Per cursar {a}, cal haver cursat IES en un quadrimestre anterior.",
   "w_pre": "No pots cursar {a} abans de superar {b}.",
   "w_av": "{a} només s'ofereix al {q}.",
   "w_load": "{c} supera els 30 ECTS.",
@@ -2911,18 +2923,19 @@ Object.assign(T.ca, {
   "s1": "quadrimestres per acabar",
   "s2": "complementàries pendents",
   "s3": "TFG · gener de 2028",
+  "s3b": "TFG · juny de 2028",
   "r1": "Bàsica / troncal",
   "r1_aria": "Bàsica / troncal: 60 de 60 ECTS",
   "r2": "Obligatòries",
   "r2_aria": "Obligatòries: 60 de 72 ECTS",
-  "r3": "Optatives",
-  "r3_aria": "Optatives: 24 de 30 ECTS",
-  "r4": "Complementàries de menció",
-  "r4_aria": "Complementàries de menció: 12 de 24 ECTS",
-  "r5": "Pràctiques",
-  "r5_aria": "Pràctiques: 0 de 18 ECTS",
+  "r3": "Obligatòries d’especialitat",
+  "r3_aria": "Obligatòries d’especialitat: 24 de 36 ECTS",
+  "r4": "Complementàries d’especialitat",
+  "r4_aria": "Complementàries d’especialitat: 0 de 12 ECTS",
+  "r5": "Optatives",
+  "r5_aria": "Optatives: 12 de 42 ECTS",
   "r6": "TFG",
-  "r6_aria": "TFG: 0 de 36 ECTS"
+  "r6_aria": "TFG: 0 de 18 ECTS"
  }
 });
 
@@ -3385,7 +3398,7 @@ Object.assign(T.ca, {
   var host = document.getElementById('funcionalitats');
   function setScenario(s) {
     if (!host) return;
-    Array.prototype.forEach.call(host.querySelectorAll('[data-sc]'), function (n) {
+    Array.prototype.forEach.call(document.querySelectorAll('#funcionalitats [data-sc], #progres [data-sc]'), function (n) {
       n.hidden = n.getAttribute('data-sc') !== s;
     });
     if (typeof renderScenario === 'function' && SCEN) renderScenario(s);
@@ -3397,7 +3410,7 @@ Object.assign(T.ca, {
 
   /* ===== Planner: comptadors, restriccions, drag & drop ===== */
   var MAXE = 30;
-  var PRE = { cbde: 'dbd', dbd: 'bd' }; // prerequisits d'exemple (dependent -> requerit)
+  var DB_REQUIREMENTS = { cbde: true, dbd: true }; // BD com a prerequisit i IES com a precorequisit
   var board = document.getElementById('b-board');
   var alertBox = document.getElementById('b-alert');
   var undoBtn = document.getElementById('b-undo');
@@ -3434,9 +3447,9 @@ Object.assign(T.ca, {
     var byId = {}, list = [];
     cs.forEach(function (c) { byId[c.id] = c; });
     cs.forEach(function (c) {
-      var req = PRE[c.id];
-      if (req && byId[req] && byId[req].col >= c.col) {
-        list.push({ id: c.id, msg: fmt(C.w_pre || '', { a: c.code, b: byId[req].code }) });
+      if (DB_REQUIREMENTS[c.id]) {
+        if (byId.bd && byId.bd.col >= c.col) list.push({ id: c.id, msg: fmt(C.w_pre, { a: c.code, b: 'BD' }) });
+        if (byId.ies && byId.ies.col >= c.col) list.push({ id: c.id, msg: fmt(C.w_prevTerm, { a: c.code }) });
       }
       if (c.av.charAt(c.season - 1) !== '1') {
         list.push({ id: c.id, msg: fmt(C.w_av || '', { a: c.code, q: c.av.charAt(0) === '1' ? 'Q1' : 'Q2' }) });
@@ -3549,12 +3562,21 @@ Object.assign(T.ca, {
   }
 
   var curScen = null;
+  var savedPlans = {};
   function renderScenario(s) {
     var S = SCEN[s];
     if (!S || !board || !lists.length || curScen === s) return;
+    if (curScen) {
+      var positions = {};
+      cardsOf(board).forEach(function (card) { positions[idOf(card)] = colOf(card); });
+      savedPlans[curScen] = { positions: positions, history: history, lastId: lastId, lastCol: lastCol };
+    }
+    var saved = savedPlans[s];
+    var plan = saved ? saved.positions : S.place;
     curScen = s;
-    history.length = 0;
-    lastId = null; lastCol = -1;
+    history = saved ? saved.history : [];
+    lastId = saved ? saved.lastId : null;
+    lastCol = saved ? saved.lastCol : -1;
     var id;
     for (id in cardById) {
       if (cardById[id].parentNode) cardById[id].parentNode.removeChild(cardById[id]);
@@ -3564,10 +3586,10 @@ Object.assign(T.ca, {
     lists.forEach(function (ul, i) { ul.closest('.car-col').hidden = i >= S.cols; });
     var names = [];
     for (var i = 0; i < S.cols; i++) names.push(colName(i));
-    for (id in S.place) {
+    for (id in plan) {
       var card = cardById[id];
       if (!card) continue;
-      var ul = lists[S.place[id]];
+      var ul = lists[plan[id]];
       ul.insertBefore(card, ul.querySelector('.car-drop'));
       var sel = card.querySelector('.car-sel');
       sel.innerHTML = '';
@@ -3576,7 +3598,7 @@ Object.assign(T.ca, {
         o.value = String(k); o.textContent = n;
         sel.appendChild(o);
       });
-      sel.value = String(S.place[id]);
+      sel.value = String(plan[id]);
     }
     recount();
     update();
