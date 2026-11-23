@@ -1203,6 +1203,7 @@ button { cursor: pointer; }
 .ia-hl { background: var(--accent-soft); border-radius: 4px; padding: 0 4px; }
 .ia-src { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
 .ia-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); font: 500 12px var(--font-body); color: var(--fg); }
+a.ia-chip { text-decoration: underline; text-underline-offset: .16em; }
 .ia-chip::before { content: "§"; color: var(--accent); font-weight: 700; }
 .ia-dots { display: inline-flex; gap: 5px; align-items: center; height: 18px; }
 .ia-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--fg-muted); display: block; }
@@ -2375,8 +2376,8 @@ button { cursor: pointer; }
           </div>
           <div class="ia-msg ia-msg--a" id="c-ia-a1">
             <svg class="axo ia-mav" viewBox="0 0 200 200" aria-hidden="true"><use href="#axo-neutral"/></svg>
-            <div class="ia-ab"><p class="ia-who" data-t="ia.axo">Axo</p><p class="ia-bub" data-t="ia.a1">Depèn del tipus de conveni i de la teva menció: la normativa fixa un màxim de crèdits reconeixibles per pràctiques externes. Consulta l'apartat citat per veure el límit vigent.</p>
-              <ul class="ia-src" data-t-aria="ia.sources" aria-label="Fonts:"><li class="ia-chip" data-t="ia.src1a">Normativa FIB · apartat X</li><li class="ia-chip" data-t="ia.src1b">Guia de pràctiques · apartat Y</li></ul></div>
+            <div class="ia-ab"><p class="ia-who" data-t="ia.axo">Axo</p><p class="ia-bub" data-t="ia.a1">Al grau en Enginyeria Informàtica, l’assignatura optativa de Pràctiques Externes et pot aportar entre 6 i 12 ECTS si fas pràctiques curriculars.</p>
+              <ul class="ia-src" data-t-aria="ia.sources" aria-label="Fonts:"><li><a class="ia-chip" href="https://www.fib.upc.edu/ca/empresa/practiques-en-empresa" data-t="ia.src1a">FIB · Pràctiques en empresa</a></li></ul></div>
           </div>
           <div class="ia-msg ia-msg--u" id="c-ia-q2"><p class="ia-who" data-t="ia.you">Tu</p><p class="ia-bub" data-t="ia.q2">Si faig pràctiques a Q2, quan podria acabar?</p></div>
           <div class="ia-msg ia-msg--a" id="c-ia-a2">
@@ -3030,9 +3031,8 @@ Object.assign(T.ca, {
     you: "Tu",
     axo: "Axo",
     q1: "Quants crèdits de pràctiques puc reconèixer?",
-    a1: "Depèn del tipus de conveni i de la teva menció: la normativa fixa un màxim de crèdits reconeixibles per pràctiques externes. Consulta l'apartat citat per veure el límit vigent.",
-    src1a: "Normativa FIB · apartat X",
-    src1b: "Guia de pràctiques · apartat Y",
+    a1: "Al grau en Enginyeria Informàtica, l’assignatura optativa de Pràctiques Externes et pot aportar entre 6 i 12 ECTS si fas pràctiques curriculars.",
+    src1a: "FIB · Pràctiques en empresa",
     q2: "Si faig pràctiques a Q2, quan podria acabar?",
     a2_pre: "Amb el teu pla actual i les pràctiques a Q2, podries acabar el ",
     a2_hl: "gener de 2028",
