@@ -4131,10 +4131,10 @@ Object.assign(T.ca, {
 
   // ---- Validació (pura, testable) ----
   var EMAIL_RE = /^[^\s@]+@[^\s@.][^\s@]*\.[^\s@.]{2,}$/;
-  function validateEmail(v) {
+  function validateEmail(v, typeMismatch) {
     v = String(v == null ? '' : v).trim();
     if (!v) return 'required';
-    if (v.length > 254 || !EMAIL_RE.test(v)) return 'invalid';
+    if (typeMismatch || v.length > 254 || !EMAIL_RE.test(v)) return 'invalid';
     return '';
   }
   function validateConsent(checked) { return checked ? '' : 'required'; }
@@ -4203,7 +4203,7 @@ Object.assign(T.ca, {
       errEl.textContent = msg;
       if (msg) input.setAttribute('aria-invalid', 'true'); else input.removeAttribute('aria-invalid');
     };
-    var checkEmail = function () { var m = msgEmail(validateEmail(email.value)); show(email, emailErr, m); return !m; };
+    var checkEmail = function () { var m = msgEmail(validateEmail(email.value, email.validity.typeMismatch)); show(email, emailErr, m); return !m; };
     var checkConsent = function () {
       var m = validateConsent(consent.checked) ? tt('cta.consentRequired', 'Cal que acceptis la privacitat.') : '';
       show(consent, consentErr, m); return !m;
