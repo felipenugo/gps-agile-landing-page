@@ -553,7 +553,9 @@ button { cursor: pointer; }
   display: inline-flex; align-items: center; min-height: 44px; padding-inline: .9rem;
   color: var(--fg); font-weight: 600; text-decoration: none; border-radius: var(--radius-s);
 }
-.nav-links a:hover { color: var(--hl-ink); background: linear-gradient(transparent 52%, var(--hl) 52% 88%, transparent 88%); }
+.nav-links .hl { line-height: 1.15; }
+.nav-links a:not(:hover) .hl { color: inherit; }
+.nav-links a:not(:hover) .hl::before { opacity: 0; }
 .nav-cta { min-height: 44px; padding-block: .5rem; }
 
 .nav-toggle {
@@ -623,6 +625,7 @@ button { cursor: pointer; }
 }
 .hero-grid { position: relative; z-index: 1; display: grid; gap: var(--gap-6); align-items: center; }
 .hero-copy { position: relative; display: grid; gap: var(--gap-4); justify-items: start; min-width: 0; }
+.hero-title-fib { white-space: nowrap; }
 .hero-eyebrow { --r: -2deg; }
 .hero-eyebrow .stamp { --r: -1deg; background: var(--paper); }
 .hero-title {
@@ -633,20 +636,21 @@ button { cursor: pointer; }
 .hero-sub { margin-top: .7rem; max-width: 50ch; font-size: var(--step-1); color: var(--ink-soft); }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: var(--gap-3) var(--gap-4); margin-top: var(--gap-2); }
 
-.hero-visual { position: relative; display: grid; gap: var(--gap-4); min-width: 0; }
+.hero-visual { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap-4); min-width: 0; }
 
-.hero-bottom { display: grid; gap: var(--gap-4); margin-top: var(--gap-3); }
+.hero-bottom { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--gap-4); margin-top: var(--gap-3); }
 .hero-axo { padding-inline: var(--gap-2); }
-.hero-axo-img { --axo-size: 112px; transform-origin: 50% 90%; animation: hero-sway 5s ease-in-out infinite; }
-.hero-bubble { max-width: 24ch; }
+.hero-axo-img { --axo-size: clamp(76px, 24vw, 112px); transform-origin: 50% 90%; animation: hero-sway 5s ease-in-out infinite; }
+.hero-bubble { max-width: 24ch; min-width: 0; overflow-wrap: anywhere; }
 .hero-tip { justify-self: end; width: min(240px, 100%); margin-right: 8px; --r: 1deg; font-family: "IBM Plex Sans", var(--font-body); font-weight: 500; font-size: .98rem; line-height: 1.3; letter-spacing: 0; }
 @keyframes hero-sway { 0%, 100% { transform: rotate(-2.5deg); } 50% { transform: rotate(2.5deg) translateY(-3px); } }
 
 @media (min-width: 900px) {
   .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: var(--gap-5); }
-  .hero-bottom { grid-template-columns: auto minmax(0, 1fr); align-items: end; gap: var(--gap-3); }
+  .hero-bottom { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--gap-3); }
+  .hero-axo { flex: 1 1 20rem; min-width: 0; }
   .hero-axo-img { --axo-size: 124px; }
-  .hero-tip { margin-right: 0; width: min(210px, 100%); }
+  .hero-tip { flex: none; width: min(12rem, 100%); margin-inline: auto 0; }
 }
 
 /* ---------- Planner (maqueta com a full de llibreta) ---------- */
@@ -1569,9 +1573,9 @@ button { cursor: pointer; }
 .ft-axo { --axo-size: 120px; margin-top: -22px; }
 .ft-hi { align-self: center; color: var(--accent-text); rotate: -2deg; }
 .ft-mark {
-  margin: .1em 0 0; text-align: center; white-space: nowrap; user-select: none; overflow: hidden;
+  display: block; width: 100%; height: 1.08em; margin: .1em 0 0; user-select: none;
   font: 800 min(17vw, 15rem)/1.08 var(--font-display); letter-spacing: -.035em;
-  color: var(--paper-2); -webkit-text-stroke: 4px var(--ink); paint-order: stroke fill;
+  fill: var(--paper-2); stroke: var(--ink); stroke-width: 4px; paint-order: stroke fill;
 }
 .ft-inner { display: grid; gap: var(--gap-3); min-width: 0; margin-top: var(--gap-4); }
 .ft-brand { display: flex; align-items: center; gap: .5rem; }
@@ -1807,9 +1811,9 @@ button { cursor: pointer; }
       </a>
   
       <nav class="nav-links" data-t-aria="nav.aria" aria-label="Navegació principal">
-        <a href="#funcionalitats" data-t="nav.features">Funcionalitats</a>
-        <a href="#com-funciona" data-t="nav.how">Com funciona</a>
-        <a href="#preguntes" data-t="nav.faq">Preguntes</a>
+        <a href="#funcionalitats"><span class="hl" data-t="nav.features">Funcionalitats</span></a>
+        <a href="#com-funciona"><span class="hl" data-t="nav.how">Com funciona</span></a>
+        <a href="#preguntes"><span class="hl" data-t="nav.faq">Preguntes</span></a>
       </nav>
   
       <a class="btn btn-primary nav-cta" href="#llista-espera" data-t="nav.cta">Llista d'espera</a>
@@ -1845,7 +1849,7 @@ button { cursor: pointer; }
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <p class="hero-eyebrow reveal"><span class="stamp stamp--accent" data-t="hero.eyebrow">Per a estudiants de la FIB</span></p>
-      <h1 class="hero-title reveal" id="a-hero-title"><span data-t="hero.h1a">Planifica la teva</span> <span class="hl" data-t="hero.h1b">carrera</span> <span data-t="hero.h1c">a la</span> <span class="circled" data-t="hero.h1d">FIB</span><span data-t="hero.h1e">, de</span> <span data-t="hero.h1f">principi a fi</span><span data-t="hero.h1g">.</span></h1>
+      <h1 class="hero-title reveal" id="a-hero-title"><span data-t="hero.h1a">Planifica la teva</span> <span class="hl" data-t="hero.h1b">carrera</span> <span data-t="hero.h1c">a la</span> <span class="hero-title-fib"><span class="circled" data-t="hero.h1d">FIB</span>,</span> <span data-t="hero.h1e">de</span> <span data-t="hero.h1f">principi a fi</span><span data-t="hero.h1g">.</span></h1>
       <p class="lead hero-sub reveal" data-t="hero.sub">Organitza el teu horari, controla les teves notes i planifica els quadrimestres que et queden en un únic espai.</p>
       <div class="hero-ctas reveal">
         <a class="btn btn-primary" href="#llista-espera" data-t="hero.ctaPrimary">Comença a planificar</a>
@@ -2694,7 +2698,9 @@ button { cursor: pointer; }
       <span class="note ft-hi" data-t="ft.hi">fins aviat!</span>
       <span class="ft-axo-box"><svg class="axo ft-axo" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><use href="#axo-neutral"/></svg></span>
     </div>
-    <div class="ft-mark" aria-hidden="true" data-t="ft.brand">QuadreFIB</div>
+    <svg class="ft-mark" aria-hidden="true" focusable="false">
+      <text x="50%" y="50%" dy=".34em" text-anchor="middle" data-t="ft.brand">QuadreFIB</text>
+    </svg>
     <div class="ft-inner">
       <div class="ft-brand">
         <svg class="axo ft-logo" viewBox="0 0 156 124" aria-hidden="true" focusable="false"><use href="#axo-mini"/></svg>
@@ -2740,7 +2746,7 @@ Object.assign(T.ca, {
     h1b: "carrera",
     h1c: "a la",
     h1d: "FIB",
-    h1e: ", de",
+    h1e: "de",
     h1f: "principi a fi",
     h1g: ".",
     tip: "Consell: reparteix els ECTS entre quadrimestres."
