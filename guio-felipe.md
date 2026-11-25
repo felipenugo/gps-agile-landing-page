@@ -1,27 +1,29 @@
-# QuadreFIB · Primer minut de l’elevator pitch
+# QuadreFIB · Guió de Felipe
 
-## 0:00–0:15 · Portada
+La web acompanya l’explicació com si fossin diapositives. Felipe parla al públic i no manipula cap control. Una altra persona avança amb **→** als canvis d’apartat.
 
-Comença a dalt de tot, amb el títol i la maqueta a la vista. Fes la pregunta al públic i assenyala el tauler quan anomenis QuadreFIB.
+## 0:00–0:15 · Inici de la pàgina
 
-> Si deixo una assignatura per al quadrimestre que ve, em canvia la data de graduació? Amb QuadreFIB ho puc provar abans de fer la matrícula.
+**Pantalla:** hero principal. La persona de suport deixa la portada visible mentre Felipe comença.
+
+**Text oral**
+
+> A la FIB, planificar la carrera vol dir tenir present què curses ara i què et falta per acabar. QuadreFIB neix per reunir aquesta informació en un mateix espai.
 
 ## 0:15–0:30 · El problema
 
-Prem **→**. Recorre les tres notes amb el punter mentre expliques una sola decisió de matrícula. Si el projector és baix i les notes queden tallades, prem **→** per enquadrar-les.
+**Pantalla:** avançar fins a «El problema». Deixar visibles les targetes.
 
-> Ara, per decidir-ho, miro l’horari al Racó, busco els prerequisits a la guia docent i compto els crèdits en un Excel. Si canvio el pla, em toca refer els comptes.
+**Text oral**
 
-## 0:30–1:00 · Planificador, ruta i progrés
+> Sovint, els horaris són en una web, les guies docents en una altra, i el recompte de crèdits acaba en un Excel. Quan canvies el pla, has de tornar a comprovar si és viable i quants crèdits et queden.
 
-**Tauler.** Prem **→** fins que vegis el planificador. Comença amb l’escenari A. Mou DBD del Quad. 6 al Quad. 5 amb el selector de la targeta. Assenyala l’avís i clica «Desfés».
+## 0:30–1:00 · Planificador de carrera i progrés
 
-> Mireu què passa si avanço Disseny de Bases de Dades. Els sis crèdits canvien de columna, però primer he d’aprovar Bases de Dades.
+**Pantalla:** avançar fins a «Funcionalitats». Mostrar el planificador, la comparació d’escenaris, la ruta de graduació i el panell de crèdits. No cal seleccionar ni moure res. La persona de suport pot avançar una parada amb **→** si el contingut no cap sencer a la pantalla.
 
-**Escenaris i ruta.** Assenyala el gener a l’escenari A. En dir «sense pràctiques», selecciona B. Prem **Esc** per sortir del selector d’escenaris i **→** fins a la ruta de graduació. Assenyala el quadrimestre de primavera que s’hi afegeix.
+**Text oral**
 
-> També puc comparar dos plans. Amb pràctiques acabaria al gener del 2028. Sense pràctiques, al juny: un quadrimestre més.
+> Per això, el nucli de QuadreFIB és el planificador de carrera. Reuneix les assignatures per quadrimestre, mostra’n els crèdits i ajuda a detectar restriccions del pla. També permet comparar camins diferents i veure com canvia la data prevista de graduació. El panell resumeix el progrés per tipus de crèdit i mostra què queda pendent.
 
-**Progrés i relleu.** Prem **→** fins al butlletí. Assenyala el total i les barres. Acaba aquí i deixa que en Guillem avanci a «Aquest quadrimestre» quan comenci «Per al dia a dia…».
-
-> Dels 240 crèdits, ja en tinc 156 i aquí veig quins em falten de cada tipus.
+**Relevo:** Felipe acaba amb el panell de crèdits visible. Guillem comença la seva part amb «Per al dia a dia…» mentre la persona de suport avança fins a «Aquest quadrimestre».
