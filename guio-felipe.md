@@ -8,7 +8,7 @@
 
 > *0:15–0:30 · El problema*
 
-### **Sovint, els horaris són en una web, les guies docents en una altra, i el recompte de crèdits acaba en un Excel. Quan canvies el pla, has de tornar a comprovar si és viable i quants crèdits et queden.**
+### **Sovint, els horaris són en una web, les guies docents en una altra, i el recompte de crèdits acaba en un Excel. I entre classes, tampoc és fàcil trobar un lloc tranquil per estudiar.**
 
 > *Pantalla: avança fins a «El problema» i deixa visibles les targetes.*
 
