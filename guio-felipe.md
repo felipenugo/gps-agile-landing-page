@@ -1,29 +1,22 @@
-# QuadreFIB · Guió de Felipe
+> *Guió de Felipe · QuadreFIB*
 
-La web acompanya l’explicació com si fossin diapositives. Felipe parla al públic i no manipula cap control. Una altra persona avança amb **→** als canvis d’apartat.
+> *0:00–0:15 · Inici de la pàgina*
 
-## 0:00–0:15 · Inici de la pàgina
+### **A la FIB, planificar la carrera vol dir tenir present què curses ara i què et falta per acabar. QuadreFIB neix per reunir aquesta informació en un mateix espai.**
 
-**Pantalla:** hero principal. La persona de suport deixa la portada visible mentre Felipe comença.
+> *Pantalla: deixa el hero principal visible.*
 
-**Text oral**
+> *0:15–0:30 · El problema*
 
-> A la FIB, planificar la carrera vol dir tenir present què curses ara i què et falta per acabar. QuadreFIB neix per reunir aquesta informació en un mateix espai.
+### **Sovint, els horaris són en una web, les guies docents en una altra, i el recompte de crèdits acaba en un Excel. Quan canvies el pla, has de tornar a comprovar si és viable i quants crèdits et queden.**
 
-## 0:15–0:30 · El problema
+> *Pantalla: avança fins a «El problema» i deixa visibles les targetes.*
 
-**Pantalla:** avançar fins a «El problema». Deixar visibles les targetes.
+> *0:30–1:00 · Planificador de carrera i progrés*
 
-**Text oral**
+### **Per això, el nucli de QuadreFIB és el planificador de carrera. Reuneix les assignatures per quadrimestre, mostra’n els crèdits i ajuda a detectar restriccions del pla. També permet comparar camins diferents i veure com canvia la data prevista de graduació. El panell resumeix el progrés per tipus de crèdit i mostra què queda pendent.**
 
-> Sovint, els horaris són en una web, les guies docents en una altra, i el recompte de crèdits acaba en un Excel. Quan canvies el pla, has de tornar a comprovar si és viable i quants crèdits et queden.
+> *Pantalla: avança fins a «Funcionalitats». Deixa visibles el planificador, els escenaris, la ruta i el panell de crèdits. No cal tocar cap control. Si el contingut no cap, avança una parada més amb →.*
 
-## 0:30–1:00 · Planificador de carrera i progrés
+> *Relleu: acaba amb el panell de crèdits visible. Guillem comença amb «Per al dia a dia…»; la persona de suport avança fins a «Aquest quadrimestre».*
 
-**Pantalla:** avançar fins a «Funcionalitats». Mostrar el planificador, la comparació d’escenaris, la ruta de graduació i el panell de crèdits. No cal seleccionar ni moure res. La persona de suport pot avançar una parada amb **→** si el contingut no cap sencer a la pantalla.
-
-**Text oral**
-
-> Per això, el nucli de QuadreFIB és el planificador de carrera. Reuneix les assignatures per quadrimestre, mostra’n els crèdits i ajuda a detectar restriccions del pla. També permet comparar camins diferents i veure com canvia la data prevista de graduació. El panell resumeix el progrés per tipus de crèdit i mostra què queda pendent.
-
-**Relevo:** Felipe acaba amb el panell de crèdits visible. Guillem comença la seva part amb «Per al dia a dia…» mentre la persona de suport avança fins a «Aquest quadrimestre».
