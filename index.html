@@ -2009,8 +2009,8 @@ a.ia-chip { text-decoration: underline; text-underline-offset: .16em; }
       <li class="sticky sticky--mint prob-pit reveal" style="--r:-.8deg;--reveal-delay:180ms">
         <svg class="deco deco--pin deco--coral prob-pin" aria-hidden="true" focusable="false"><use href="#a-deco-pin"/></svg>
         <svg class="prob-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M24 43s-13-11-13-21a13 13 0 0 1 26 0c0 10-13 21-13 21z"/><circle cx="24" cy="22" r="4.5"/></svg>
-        <h3 data-t="prob.f3t">No trobo on estudiar</h3>
-        <p data-t="prob.f3d">Endolls, silenci, lloc lliure… trobar un bon racó és prova i error.</p>
+        <h3 data-t="prob.f3t">On puc estudiar entre classes?</h3>
+        <p data-t="prob.f3d">Quan tinc una estona entre classes, em costa saber on trobar un lloc lliure i tranquil a prop de la FIB.</p>
       </li>
     </ul>
 
@@ -2813,8 +2813,8 @@ Object.assign(T.ca, {
   "bubble2": "On era aquella guia docent?",
   "f2t": "No sé quants crèdits em falten",
   "f2d": "Comptar ECTS per tipus i saber si el teu pla és viable acaba sent feina d'Excel i calculadora.",
-  "f3t": "No trobo on estudiar",
-  "f3d": "Endolls, silenci, lloc lliure… trobar un bon racó és prova i error.",
+  "f3t": "On puc estudiar entre classes?",
+  "f3d": "Quan tinc una estona entre classes, em costa saber on trobar un lloc lliure i tranquil a prop de la FIB.",
   "c1": "Horaris FIB",
   "c2": "Guies docents",
   "c3": "Normativa",
@@ -3318,6 +3318,83 @@ Object.assign(T.ca, {
     update();
   }
 
+  /* Fletxes de presentació. Els controls conserven el teclat fins que se'n surt amb Esc. */
+  function initPitchNavigation() {
+    var frames = [
+      ['#top'],
+      ['.prob-head', '.prob-grid'],
+      ['#b-scenarios', '.car-vis', '#b-alert'],
+      ['.car-route'],
+      ['.prog-head', '#b-prog'],
+      ['.qd-grid', '.qd-calc', '.qd-sched-card'],
+      ['.ia-grid', '.ia-chatcol'],
+      ['.map-grid', '.map-card', '.map-sheet'],
+      ['#com-funciona .wrap', '.how-steps'],
+      ['#per-a-qui .wrap', '.who-grid'],
+      ['.faq-layout', '#d-faq-list'],
+      ['#llista-espera .wrap', '#d-form', '#d-ok'],
+      ['#d-footer']
+    ];
+    var nav = document.getElementById('a-nav');
+    var menu = document.getElementById('a-menu');
+    function layoutTop(el) {
+      // offsetTop no depèn de l'animació d'entrada de les targetes.
+      var top = 0;
+      for (; el; el = el.offsetParent) top += el.offsetTop;
+      return top;
+    }
+
+    function stops() {
+      var inset = nav.getBoundingClientRect().height + 12;
+      var space = window.innerHeight - inset - 8;
+      var maxScroll = Math.max(0, document.scrollingElement.scrollHeight - window.innerHeight);
+      var positions = [];
+      frames.forEach(function (selectors) {
+        var bounds = selectors.map(function (selector) {
+          return document.querySelector(selector);
+        }).filter(function (el) {
+          return el && !el.hidden;
+        }).map(function (el) {
+          var top = layoutTop(el);
+          return { top: top, bottom: top + el.offsetHeight };
+        });
+        if (!bounds.length) return;
+        var start = bounds[0].top;
+        var bottom = Math.max.apply(null, bounds.map(function (bound) { return bound.bottom; }));
+        var previous = positions.length ? positions[positions.length - 1] : 0;
+        // Centra el bloc complet quan cap sota la barra de navegacio.
+        var offset = Math.max(0, (space - (bottom - start)) / 2);
+        var position = Math.max(previous, start - inset - offset);
+        if (position <= previous + 3) position = Math.max(previous, start - inset);
+        positions.push(Math.min(maxScroll, position));
+        bounds.slice(1).forEach(function (bound) {
+          if (bound.top <= start + 8 || bound.bottom <= start + space) return;
+          start = bound.top;
+          positions.push(Math.min(maxScroll, Math.max(0, start - inset)));
+        });
+      });
+      return positions;
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.defaultPrevented || e.isComposing || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey || !menu.hidden) return;
+      if (e.target.isContentEditable || e.target.closest('textarea, input:not([type="range"])')) return;
+      var control = e.target.closest('select, input[type="range"], [role="radio"], .car-scroll, .qd-scroll, #c-map-canvas');
+      if (control) {
+        if (e.key === 'Escape') document.activeElement.blur();
+        return;
+      }
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      var forward = e.key === 'ArrowRight';
+      var positions = stops();
+      if (!forward) positions.reverse();
+      var next = positions.find(function (y) { return forward ? y > window.scrollY + 3 : y < window.scrollY - 3; });
+      if (next === undefined || e.repeat) return;
+      e.preventDefault();
+      window.scrollTo({ top: next, behavior: 'instant' });
+    });
+  }
+
   /* Ticker: clona el grup perquè el bucle sigui continu (la còpia és aria-hidden). */
   function initMarquee() {
     document.querySelectorAll('.marquee-track').forEach(function (track) {
@@ -3354,6 +3431,7 @@ Object.assign(T.ca, {
     applyLang();
     initMenu();
     initScrollShadow();
+    initPitchNavigation();
     initMarquee();
     initReveal();
     initPlanner();
