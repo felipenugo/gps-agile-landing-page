@@ -1023,7 +1023,9 @@ button { cursor: pointer; }
   .prog-body { padding: var(--gap-4); }
 }
 @media (min-width: 900px) {
-  .prob-head { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); }
+  .prob-head { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); margin-bottom: var(--gap-3); }
+  .prob-head-text .h2 { max-width: 25ch; }
+  .prob-grid { padding-block: var(--gap-3); }
   .prob-pit:nth-child(2) { margin-top: 1.8rem; }
   .prog-body { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: var(--gap-5); align-items: center; }
   .prog-rows { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-2) var(--gap-3); }
@@ -1037,7 +1039,7 @@ button { cursor: pointer; }
   .car-sc-opts{grid-template-columns:1fr 1fr}
 }
 @media (min-width:900px){
-  .car-block{grid-template-columns:minmax(0,1fr) minmax(0,26rem);grid-template-areas:"intro sc" "vis vis";gap:var(--gap-4) var(--gap-6);align-items:center}
+  .car-block{grid-template-columns:minmax(11rem,1fr) minmax(0,3.5fr);grid-template-areas:"intro intro" "sc vis";gap:var(--gap-4);align-items:start}
   .car-text{display:contents}
   .car-intro{grid-area:intro;min-width:0}
   .car-sc{grid-area:sc;margin-top:0}
@@ -1049,7 +1051,7 @@ button { cursor: pointer; }
   .car-drop{padding:6px}
   .car-h3{margin-bottom:var(--gap-2)}
   .car-cols{min-width:0;grid-template-columns:repeat(var(--n),minmax(0,1fr))}
-  .car-sc-opts{grid-template-columns:1fr 1fr}
+  .car-sc-opts{grid-template-columns:1fr}
   .car-tl{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);padding:var(--gap-5) 0 0;gap:var(--gap-3)}
   .car-tl::before{left:0;right:0;top:calc(var(--gap-5) + 8px);bottom:auto;width:auto;height:2px}
   .car-tl-i{padding-top:var(--gap-4)}
@@ -2008,9 +2010,9 @@ a.ia-chip { text-decoration: underline; text-underline-offset: .16em; }
       </li>
       <li class="sticky sticky--mint prob-pit reveal" style="--r:-.8deg;--reveal-delay:180ms">
         <svg class="deco deco--pin deco--coral prob-pin" aria-hidden="true" focusable="false"><use href="#a-deco-pin"/></svg>
-        <svg class="prob-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M24 43s-13-11-13-21a13 13 0 0 1 26 0c0 10-13 21-13 21z"/><circle cx="24" cy="22" r="4.5"/></svg>
-        <h3 data-t="prob.f3t">No trobo on estudiar</h3>
-        <p data-t="prob.f3d">Endolls, silenci, lloc lliure… trobar un bon racó és prova i error.</p>
+        <svg class="prob-ico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="5" width="16" height="12" rx="2"/><rect x="28" y="30" width="16" height="12" rx="2"/><path d="M12 18v14a4 4 0 0 0 4 4h8m-5-5 5 5-5 5"/></svg>
+        <h3 data-t="prob.f3t">I si moc una assignatura?</h3>
+        <p data-t="prob.f3d">Si la deixo per més endavant, quines altres assignatures hauré d’ajornar?</p>
       </li>
     </ul>
 
@@ -2813,8 +2815,8 @@ Object.assign(T.ca, {
   "bubble2": "On era aquella guia docent?",
   "f2t": "No sé quants crèdits em falten",
   "f2d": "Comptar ECTS per tipus i saber si el teu pla és viable acaba sent feina d'Excel i calculadora.",
-  "f3t": "No trobo on estudiar",
-  "f3d": "Endolls, silenci, lloc lliure… trobar un bon racó és prova i error.",
+  "f3t": "I si moc una assignatura?",
+  "f3d": "Si la deixo per més endavant, quines altres assignatures hauré d’ajornar?",
   "c1": "Horaris FIB",
   "c2": "Guies docents",
   "c3": "Normativa",
