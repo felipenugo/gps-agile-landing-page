@@ -3318,6 +3318,66 @@ Object.assign(T.ca, {
     update();
   }
 
+  /* Fletxes de presentació. Els controls conserven el teclat fins que se'n surt amb Esc. */
+  function initPitchNavigation() {
+    var frames = [
+      ['#top'],
+      ['.prob-head', '.prob-grid'],
+      ['#b-scenarios', '.car-vis', '#b-alert'],
+      ['.car-route'],
+      ['.prog-head', '#b-prog'],
+      ['.qd-grid', '.qd-calc', '.qd-sched-card'],
+      ['.ia-grid', '.ia-chatcol'],
+      ['.map-grid', '.map-card', '.map-sheet']
+    ];
+    var nav = document.getElementById('a-nav');
+    var menu = document.getElementById('a-menu');
+
+    function layoutTop(el) {
+      // offsetTop no depèn de l'animació d'entrada de les targetes.
+      var top = 0;
+      for (; el; el = el.offsetParent) top += el.offsetTop;
+      return top;
+    }
+
+    function stops() {
+      var inset = nav.getBoundingClientRect().height + 12;
+      var space = window.innerHeight - inset - 8;
+      var positions = [];
+      frames.forEach(function (selectors) {
+        var start;
+        selectors.forEach(function (selector, i) {
+          var el = document.querySelector(selector);
+          if (el.hidden) return;
+          var top = layoutTop(el);
+          // Una parada extra només si la demo queda tallada i es troba més avall.
+          if (i && (top <= start + 8 || top + el.offsetHeight <= start + space)) return;
+          start = top;
+          positions.push(Math.max(0, top - inset));
+        });
+      });
+      return positions;
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.defaultPrevented || e.isComposing || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey || !menu.hidden) return;
+      if (e.target.isContentEditable || e.target.closest('textarea, input:not([type="range"])')) return;
+      var control = e.target.closest('select, input[type="range"], [role="radio"], .car-scroll, .qd-scroll, #c-map-canvas');
+      if (control) {
+        if (e.key === 'Escape') document.activeElement.blur();
+        return;
+      }
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      var forward = e.key === 'ArrowRight';
+      var positions = stops();
+      if (!forward) positions.reverse();
+      var next = positions.find(function (y) { return forward ? y > window.scrollY + 3 : y < window.scrollY - 3; });
+      if (next === undefined || e.repeat) return;
+      e.preventDefault();
+      window.scrollTo({ top: next, behavior: 'instant' });
+    });
+  }
+
   /* Ticker: clona el grup perquè el bucle sigui continu (la còpia és aria-hidden). */
   function initMarquee() {
     document.querySelectorAll('.marquee-track').forEach(function (track) {
@@ -3354,6 +3414,7 @@ Object.assign(T.ca, {
     applyLang();
     initMenu();
     initScrollShadow();
+    initPitchNavigation();
     initMarquee();
     initReveal();
     initPlanner();
